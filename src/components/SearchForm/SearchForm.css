@@ -1,0 +1,129 @@
+.search-box {
+    display: flex;
+    flex-wrap: nowrap;
+}
+.check-room {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 40px;
+}
+.select-location {
+    border: 1px solid rgb(220, 218, 218);
+    background-color: white;
+    border-radius: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    width: 310px;
+    margin-right: 10px;
+}
+.select-location div {
+    padding: 10px 18px;
+}
+.select-location .header {
+    margin-top: 5px;
+    font-size: 17px;
+}
+.select-location .location-icon {
+    font-size: 18px;
+    margin-right: 20px;
+}
+.select-location input {
+    border: none;
+    font-size: 17px;
+    outline: none;
+    background-color: white;
+    color: black;
+}
+.select-date {
+    display: flex;
+    flex-direction: column;
+    width: 380px;
+    margin-right: 10px;
+}
+.select-date-box {
+    border: 1px solid rgb(220, 218, 218);
+    background-color: white;
+    border-radius: 0.25rem;
+    padding: 13px 18px;
+}
+.select-date-box input {
+    border: none;
+    outline: none;
+    font-size: 17px;
+    background-color: white;
+    color: black;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    float: right;
+}
+.select-date-box input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    margin-top: 2px;
+    filter: invert(40%);
+}
+.select-num-room-cus {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+}
+.select-num-room-cus-check-room {
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+}
+.input-number {
+    border: 1px solid rgb(220, 218, 218);
+    background-color: white;
+    border-radius: 0.25rem;
+    padding: 13px 18px;
+    height: 24px;
+    margin-right: 10px;
+}
+.input-number .btn-quantity {
+    display: flex;
+    float: right;
+    margin-top: -9px;
+    width: 50%;
+}
+.btn-quantity span {
+    padding: 0 20px;
+    margin-top: 9px;
+    width: 20px;
+    min-width: 5px;
+    text-align: center;
+}
+.btn-quantity button {
+    border: 1px solid rgb(220, 218, 218);
+    background-color: white;
+    color: #368fe8;
+}
+.btn-quantity button:hover {
+    background-color: #368fe8;
+    color: white;
+    transition: 0.2s;
+}
+.btn-submit {
+    color: white;
+    background-color: #156bc1;
+    height: 50px;
+    width: 120px;
+    margin-top: 25px;
+    border-radius: 2500rem;
+    align-items: center;
+}
+.btn-submit-check-room {
+    color: white;
+    background-color: #156bc1;
+    height: 50px;
+    width: 220px;
+    margin-top: 25px;
+    border-radius: 2500rem;
+    align-items: center;
+}
+.btn-submit:hover, .btn-submit-check-room:hover {
+    background-color: #2a78c7;
+}
+.error-message {
+    color: #972020;
+    font-weight: bold;
+    font-size: 18px;
+}

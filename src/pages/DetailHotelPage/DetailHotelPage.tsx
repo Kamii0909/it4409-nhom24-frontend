@@ -1,45 +1,49 @@
-import { Link } from "react-router-dom";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import { NavLink, useLocation } from "react-router-dom";
 import { FiArrowLeft} from "react-icons/fi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBanSmoking, faBed, faBellConcierge, faBorderTopLeft, faBriefcase, faCar, faCheck, faChild, faCity, faDumbbell, faPersonSwimming, faSnowflake, faTicket, faUserGroup, faUtensils, faWheelchair, faWifi } from "@fortawesome/free-solid-svg-icons";
-import { useEffect } from "react";
+import "./DetailHotelPage.css"
+import AppAdvertisement from "../../components/Advertisement/AppAdvertisement";
+import RoomCheckForm from "../../components/SearchForm/RoomCheckForm";
 
 const DetailHotelPage: React.FC = () => {
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const defaultCheckInDate = searchParams.get('checkInDate') || '';
+    const defaultCheckOutDate = searchParams.get('checkOutDate') || '';
+    const defaultNumGuest = parseInt(searchParams.get('guestCount') || '2');
+    const defaultNumRoom = parseInt(searchParams.get('roomCount') || '1')
+
     const stars = [];
     for (let i = 0; i < 4; i++) {
         stars.push(<span key={i} className="star-icon">&#9733;</span>);
     }
 
-    useEffect(() => {
-        window.addEventListener('scroll', function() {
-            const sections = document.querySelectorAll('section');
-            const navbarLinks = document.querySelectorAll('.tab-items');
-          
-            sections.forEach(function(section, index) {
-              const sectionTop = section.offsetTop;
-              const sectionHeight = section.clientHeight;
-          
-              if (window.pageYOffset >= sectionTop - 1 && window.pageYOffset < sectionTop + sectionHeight) {
-                navbarLinks[index].classList.add('tab-selected');
-              } else {
-                navbarLinks[index].classList.remove('tab-selected');
-              }
-            });
-          });
-    }, [])
+    window.addEventListener('scroll', function() {
+        const sections = document.querySelectorAll('section');
+        const navbarLinks = document.querySelectorAll('.tab-items');
+      
+        sections.forEach(function(section, index) {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+      
+          if (window.pageYOffset >= sectionTop - 1 && window.pageYOffset < sectionTop + sectionHeight) {
+            navbarLinks[index].classList.add('tab-selected');
+          } else {
+            navbarLinks[index].classList.remove('tab-selected');
+          }
+        });
+    });
 
     return (
       <>  
-        <Header />
         <main>
             <div className="detail-hotel-page">
                 <section id="overview" className="overview">
                     <div className="back-list-page">
-                        <Link className="link-back-list-page" to="/">
+                        <NavLink className="link-back-list-page" to="/hotel-search">
                             <FiArrowLeft /><span>Xem tất cả nơi lưu trú</span>
-                        </Link>
+                        </NavLink>
                     </div>
                     <div className="images-hotel">
                         <div className="big-img"><img src="/src/assets/images/image1.jpg" /></div>
@@ -87,7 +91,12 @@ const DetailHotelPage: React.FC = () => {
                 </div>
                 <section id="select-room" className="select-room">
                     <h1>Chọn phòng</h1>
-                    {/* < SearchBox /> */}
+                    <RoomCheckForm 
+                        defaultCheckInDate={defaultCheckInDate}
+                        defaultCheckOutDate={defaultCheckOutDate}
+                        defaultNumGuest={defaultNumGuest}
+                        defaultNumRoom={defaultNumRoom}
+                    />
                     <div className="list-room">
                         <div className="room-items">
                             <img src="/src/assets/images/room1.png" alt="roomImg" />
@@ -419,9 +428,9 @@ const DetailHotelPage: React.FC = () => {
                         </div>
                     </div>
                 </section>
+                <AppAdvertisement />
             </div>
         </main>
-        <Footer />
       </>  
     );
 };
