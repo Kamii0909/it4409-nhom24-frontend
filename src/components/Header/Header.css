@@ -1,0 +1,38 @@
+.page-header {
+    border-top: none;
+    box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.12);
+    width: 100%;
+    z-index: 300;
+    position: relative;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: #d32f2f;
+    min-height: 4.5rem;
+    line-height: 1.125rem;
+    background-color: #ffffff;
+}
+.link {
+    color: #d32f2f;
+}
+.link:hover {
+    color: #333333;
+}
+.logo {
+    float: left;
+    padding-left: 170px;
+}
+.logo img {
+    vertical-align: middle;
+    height: 2rem;
+}
+.support-account {
+    float: right;
+    padding-right: 150px;
+    justify-content: space-between;
+    font-size: 15px;
+}
+.support-account .link:first-child {
+    margin-right: 50px;
+} 

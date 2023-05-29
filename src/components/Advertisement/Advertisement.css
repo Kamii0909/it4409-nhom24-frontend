@@ -1,0 +1,75 @@
+/* Web Advertisement */
+.web-advertisement {
+    margin-top: 30px;
+    background-color: white;
+    border-radius: 0.25rem;
+    padding: 15px 25px;
+}
+.web-advertisement h2 {
+    font-size: 28px;
+    margin: 0;
+    margin-bottom: 10px !important;
+}
+.web-adv-container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+.adv-item {
+    display: flex;
+    width: 33%;
+    margin-right: 50px;
+}
+.adv-icon {
+    margin-top: 20px;
+    margin-right: 15px;
+}
+.adv-icon .adv-fontawesome-icon {
+    font-size: 20px;
+    padding: 13px 14px;
+    border-radius: 50%;
+    color: #218242;
+    background-color: #b3eac6;
+}
+.adv-info h4 {
+    line-height: 1.3;
+}
+.adv-info p {
+    font-size: 14px;
+    margin-top: -15px;
+    line-height: 1.3;
+}
+/* App Advertisement */
+.app-advertisement {
+    margin-top: 30px;
+    background-color: white;
+    border-radius: 0.25rem;
+    display: flex;
+}
+.app-adv-image {
+    width: 35%;
+}
+.app-adv-image img {
+    width: 100%;
+    height: 100%;
+}
+.app-adv-container {
+    display: flex;
+    margin-left: 25px;
+}
+.app-adv-container h3 {
+    font-size: 28px;
+    margin-top: 15px;
+}
+.app-adv-container ul {
+    font-size: 14px;
+    line-height: 1.9;
+    margin-top: -20px;
+    margin-left: -23px;
+}
+.app-adv-container h4 {
+    margin-top: 70px;
+}
+.qr-code {
+    margin-top: 20px;
+    margin-right: 20px;
+}

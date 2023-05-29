@@ -1,0 +1,20 @@
+.top-destination h3 {
+    font-size: 17px;
+    padding: 0;
+    margin: 10px 0;
+}
+.top-destination-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    font-size: 14px;
+}
+.top-destination-list div {
+    margin: 3px 0;
+}
+.top-destination-item {
+    color: #156bc1;
+}
+.top-destination-list div:hover {
+    text-decoration: underline;
+}
