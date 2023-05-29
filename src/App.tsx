@@ -3,6 +3,7 @@ import { Route } from 'react-router'
 import HomePage from './pages/HomePage';
 import DetailHotelPage from './pages/DetailHotelPage';
 import './App.css';
+import LoginPage from '/pages/LoginPage'
 
 const App: React.FC = () => {
 
@@ -12,6 +13,7 @@ const App: React.FC = () => {
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/detail/:id" element={<DetailHotelPage />} />
+                    <Route path="/login" element={<LoginPage/>} />
                 </Routes>
             </Router>
         </div>
