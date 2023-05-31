@@ -1,0 +1,46 @@
+.logo-login{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+.btn-back{
+    cursor: pointer;
+    font-size: 30px;
+    padding-left: 20px;
+}
+.content-login-page{
+    display: flex;
+    flex-direction: column;
+    max-width: 450px;
+    margin: 0 auto;
+}
+.content-login-page input{
+    border-radius: 5px;
+    padding: 15px 20px;
+    font-size: 16px;
+    margin-bottom: 25px;
+}
+.btn-login{
+    border-radius: 50px;
+    color: #fff;
+    background-color: #1877f2;
+    margin-bottom: 30px;
+}
+.icon-list{
+    display: flex;
+    justify-content: center;
+
+}
+.icon-list img{
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    margin: 20px 10px 50px;
+}
+
+.bottom-content-login-page{
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-around;
+    text-decoration: underline;
+}
