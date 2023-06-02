@@ -1,0 +1,23 @@
+.images-hotel {
+    display: flex;
+    flex-direction: row;
+}
+.images-hotel .big-img {
+    width: 50%;
+    height: auto;
+    margin-right: 3px;
+}
+.images-hotel .big-img img {
+    width: 100%;
+}
+.images-hotel .small-img {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    height: auto;
+}
+.small-img-col {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}

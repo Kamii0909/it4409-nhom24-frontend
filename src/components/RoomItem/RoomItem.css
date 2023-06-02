@@ -1,0 +1,95 @@
+.room-items img {
+    width: 100%;
+    height: 210px;
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+.info-room {
+    background-color: #ffffff;
+    padding: 0 15px 15px;
+    border-radius: 0 0 0.25rem 0.25rem;
+    margin-top: -7px;
+    border: 1px solid rgb(220, 218, 218);
+}
+.info-room h3 {
+    font-size: 17px;
+}
+.conv-room {
+    list-style: none;
+    margin-left: -40px;
+}
+.service-room-item {
+    padding-bottom: 5px;
+    font-size: 15px;
+    width: 100%;
+}
+.service-room-icon {
+    width: 25px;
+    font-size: 16px !important;
+    margin-right: 5px;
+}
+.moon-icon {
+    margin-bottom: -5px;
+}
+.refund {
+    font-size: 14px;
+    line-height: 0.5rem;
+}
+.refund p:first-child {
+    color: #218242;
+    font-weight: 600;
+    font-size: 15px !important;
+}
+.cost-book {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+}
+.price-room {
+    width: 70%;
+}
+.price-room .discount {
+    font-weight: 500;
+    color: #ffffff;
+    background-color: #d32f2f;
+    font-size: 13px;
+    border-radius: 0.25rem;
+    padding: 5px 8px;
+}
+.price {
+    margin-top: 10px;
+}
+.discounted-price {
+    font-weight: 700;
+    font-size: 23px;
+}
+.origin-price {
+    text-decoration: line-through;
+    font-size: 14px;
+}
+.price-room p {
+    font-size: 14px;
+    width: 60%;
+    line-height: 1.2rem;
+    margin-top: 2px;
+}
+.number-left-rooms {
+    width: 30%;
+    text-align: right;
+    margin-top: 50px;
+    line-height: 0.5;
+}
+.number-left-rooms p {
+    color: #972020;
+    font-size: 13px;
+}
+.number-left-rooms .book-btn {
+    background-color: #156BC1;
+    color: #FFFFFF;
+    border-radius: 2500rem;
+    font-size: 16px;
+    width: 78px;
+    align-items: center;
+}
+.number-left-rooms .book-btn:hover {
+    background-color: #2a78c7;
+}

@@ -86,7 +86,7 @@ const RoomCheckForm: React.FC<RoomCheckFormProps> = ({ defaultCheckInDate, defau
     <>
     <form>
         <div className="check-room">
-            <div className="select-date">
+            <div className="select-date select-date-check-room">
                 <div className="select-date-box">
                     Ngày Check-in:
                     <input 
@@ -111,7 +111,7 @@ const RoomCheckForm: React.FC<RoomCheckFormProps> = ({ defaultCheckInDate, defau
             <div className="select-num-room-cus-check-room">
                 <div className="input-number">
                     Số khách: 
-                    <div className="btn-quantity">
+                    <div className="btn-quantity btn-quantity-check-room">
                         <button type="button" onClick={handleGuestDecrement}>-</button>
                         <span>{numberOfGuests}</span>
                         <button type="button" onClick={handleGuestIncrement}>+</button>
@@ -119,14 +119,14 @@ const RoomCheckForm: React.FC<RoomCheckFormProps> = ({ defaultCheckInDate, defau
                 </div>
                 <div className="input-number">
                     Số phòng: 
-                    <div className="btn-quantity">
+                    <div className="btn-quantity btn-quantity-check-room">
                         <button type="button" onClick={handleRoomDecrement}>-</button>
                         <span>{numberOfRooms}</span>
                         <button type="button" onClick={handleRoomIncrement}>+</button>
                     </div>
                 </div>
             </div>
-            <button className="btn-submit-check-room" type="submit">Kiểm tra phòng trống</button>
+            <div><button className="btn-submit-check-room" type="submit">Kiểm tra phòng trống</button></div>
         </div>
     </form>
     </>
