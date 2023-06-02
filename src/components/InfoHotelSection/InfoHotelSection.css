@@ -1,0 +1,41 @@
+.info-hotel {
+    border-radius: 0.25rem;
+    background-color: #ffffff;
+    margin-top: -7px;
+    margin-bottom: -30px;
+    padding: 10px 30px 25px;
+}
+.name-rate h1 {
+    font-size: 30px;
+}
+.name-rate h2, .service-outstanding h2, .address h2 {
+    font-size: 22px;
+}
+.star-icon {
+    font-size: 20px;
+}
+.star-rate {
+    margin-top: -20px;
+}
+.service-outstanding {
+    width: 100%;
+}
+.list-service {
+    list-style: none;
+    display: grid;
+    grid-template-columns: auto auto;
+}
+.service-item {
+    padding: 10px 0;
+}
+.service-item-icon {
+    font-size: 19px;
+    width: 25px;
+}
+.service-item span {
+    margin-left: 10px;
+    font-size: 15px;
+}
+.address {
+    margin-top: -20px;
+}

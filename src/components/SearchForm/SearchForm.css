@@ -40,6 +40,10 @@
     width: 380px;
     margin-right: 10px;
 }
+.select-date-check-room {
+    width: 345px !important;
+    margin-right: 15px !important;
+}
 .select-date-box {
     border: 1px solid rgb(220, 218, 218);
     background-color: white;
@@ -66,9 +70,10 @@
     flex-direction: column;
 }
 .select-num-room-cus-check-room {
-    width: 450px;
+    width: 354px !important;
     display: flex;
     flex-direction: column;
+    margin-right: 35px;
 }
 .input-number {
     border: 1px solid rgb(220, 218, 218);
@@ -82,7 +87,9 @@
     display: flex;
     float: right;
     margin-top: -9px;
-    width: 50%;
+}
+.input-number .btn-quantity-check-room {
+    margin-right: 5px;
 }
 .btn-quantity span {
     padding: 0 20px;
@@ -114,7 +121,7 @@
     color: white;
     background-color: #156bc1;
     height: 50px;
-    width: 220px;
+    width: 280px;
     margin-top: 25px;
     border-radius: 2500rem;
     align-items: center;

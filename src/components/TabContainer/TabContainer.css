@@ -1,0 +1,36 @@
+.tabs-container {
+    position: sticky;
+    top: 0;
+}
+.tabs-container ul {
+    border-radius: 0.25rem;
+    background-color: #ffffff;
+    border-bottom: 1px solid rgb(220, 218, 218);
+    margin: 0 0 7px;
+    list-style: none;
+    display: inline-block;
+    vertical-align: middle;
+    min-width: 96.2%;
+}
+.tab-items {
+    float: left;
+    font-size: 15px;
+    margin-right: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px 8px;
+}
+.tab-items {
+    color: black;
+}
+.tab-items:hover {
+    border-bottom: 2px solid black;
+    padding-bottom: 10px;
+}
+.tab-items:hover {
+    color: black;
+}
+.tab-selected  {
+    color:#d32f2f !important;
+    border-bottom: 2px solid #d32f2f !important;
+}
