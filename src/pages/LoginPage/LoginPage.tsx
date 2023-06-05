@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import logo from "../assets/images/logo.svg";
+import logo from "../../assets/images/logo.svg";
 import './LoginPage.css'
 import { FiArrowLeft } from "react-icons/fi";
-import appleLogo from "../assets/images/apple_logo.png"
-import facebookLogo from "../assets/images/facebook_logo.png"
-import googleLogo from "../assets/images/google_logo.png"
+import appleLogo from "../../assets/images/apple_logo.png"
+import facebookLogo from "../../assets/images/facebook_logo.png"
+import googleLogo from "../../assets/images/google_logo.png"
 
 const LoginPage: React.FC = () => {
     return (

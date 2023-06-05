@@ -1,18 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./SearchForm.css";
+import { useNavigate, useLocation } from "react-router-dom";
 
-interface RoomCheckFormProps {
-    defaultCheckInDate: string;
-    defaultCheckOutDate: string;
-    defaultNumGuest: number;
-    defaultNumRoom: number;
-}
+const RoomCheckForm: React.FC = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const [checkInDate, setCheckInDate] = useState("");
+    const [checkOutDate, setCheckOutDate] = useState("");
+    const [numberOfGuests, setNumberOfGuests] = useState(2);
+    const [numberOfRooms, setNumberOfRooms] = useState(1);
 
-const RoomCheckForm: React.FC<RoomCheckFormProps> = ({ defaultCheckInDate, defaultCheckOutDate, defaultNumGuest, defaultNumRoom }) => {
-    const [checkInDate, setCheckInDate] = useState(defaultCheckInDate);
-    const [checkOutDate, setCheckOutDate] = useState(defaultCheckOutDate);
-    const [numberOfGuests, setNumberOfGuests] = useState(defaultNumGuest);
-    const [numberOfRooms, setNumberOfRooms] = useState(defaultNumRoom);
+    useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        const newCheckInDate = searchParams.get('checkInDate') || '';
+        const newCheckOutDate = searchParams.get('checkOutDate') || '';
+        const newNumGuest = parseInt(searchParams.get('guestCount') || '2');
+        const newNumRoom = parseInt(searchParams.get('roomCount') || '1');
+
+        setCheckInDate(newCheckInDate);
+        setCheckOutDate(newCheckOutDate);
+        setNumberOfGuests(newNumGuest);
+        setNumberOfRooms(newNumRoom);
+    }, [location.search]);
+
+    const handleSearch = (e: React.FormEvent) => {
+        e.preventDefault();
+        const newSearchParams = new URLSearchParams();
+        newSearchParams.append('checkInDate', checkInDate);  
+        newSearchParams.append('checkOutDate', checkOutDate);
+        newSearchParams.append('guestCount', numberOfGuests.toString());
+        newSearchParams.append('roomCount', numberOfRooms.toString());
+        const url = `/detail/HanoiHotel?${newSearchParams.toString()}`;
+        navigate(url);
+    };
 
     function getToday(): string { 
         const today = new Date();
@@ -84,7 +104,7 @@ const RoomCheckForm: React.FC<RoomCheckFormProps> = ({ defaultCheckInDate, defau
 
     return (
     <>
-    <form>
+    <form onSubmit={handleSearch}>
         <div className="check-room">
             <div className="select-date select-date-check-room">
                 <div className="select-date-box">
