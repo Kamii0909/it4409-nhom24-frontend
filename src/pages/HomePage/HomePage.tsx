@@ -3,6 +3,8 @@ import AppAdvertisement from "../../components/Advertisement/AppAdvertisement";
 import WebAdvertisement from "../../components/Advertisement/WebAdvertisement";
 import "./HomePage.css";
 import HotelSearchForm, { SearchParams } from "../../components/SearchForm/HotelSearchForm";
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 
 const HomePage: React.FC = () => {
     const navigate = useNavigate();
@@ -20,12 +22,14 @@ const HomePage: React.FC = () => {
 
     return (
         <>
+            <Header />
             <div className="content-homepage">
                 <h1>Bạn muốn đi đâu?</h1>
                 <HotelSearchForm onSubmit={handleSearch}/>
                 <WebAdvertisement />
                 <AppAdvertisement />
             </div>
+            <Footer />
         </>
     );
 };
