@@ -4,6 +4,7 @@ import DetailHotelPage from './pages/DetailHotelPage/DetailHotelPage';
 import './App.css';
 import React from 'react';
 import LoginPage from './pages/LoginPage/LoginPage';
+import BookingPage from './pages/BookingPage/BookingPage';
 
 const App: React.FC = () => {
 
@@ -14,6 +15,7 @@ const App: React.FC = () => {
                     <Route path="/" element={<HomePage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/detail/:id" element={<DetailHotelPage />} />
+                    <Route path="/booking" element={<BookingPage />} />
                 </Routes>
             </Router>
         </div>
