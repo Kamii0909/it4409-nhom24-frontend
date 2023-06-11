@@ -1,0 +1,48 @@
+.CRUDTab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .crud-tab {
+    max-width: 600px;
+    padding: 2rem;
+    background-color: #f3f4f6;
+    border-radius: 8px;
+  }
+  
+  .crud-tab h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  .crud-tab input,
+  .crud-tab button {
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+  }
+  
+  .crud-tab button {
+    background-color: #4f46e5;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .crud-tab button:hover {
+    background-color: #4338ca;
+  }
+  
+  .crud-tab h1 {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  
+  .crud-tab p {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
