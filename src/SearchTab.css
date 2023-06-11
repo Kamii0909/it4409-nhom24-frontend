@@ -1,0 +1,65 @@
+.SearchTab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  .SearchTab h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  .SearchTab input,
+  .SearchTab button {
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+  }
+  
+  .SearchTab button {
+    background-color: #4f46e5;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .SearchTab button:hover {
+    background-color: #4338ca;
+  }
+  
+  .SearchTab div > input[type="date"] {
+    width: 100%;
+  }
+  
+  .SearchTab div > input[type="date"]::-webkit-inner-spin-button,
+  .SearchTab div > input[type="date"]::-webkit-clear-button {
+    display: none;
+  }
+  
+  .SearchTab div > input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    right: 0;
+    padding: 0.25rem;
+    background-color: transparent;
+    color: #9ca3af;
+    cursor: pointer;
+  }
+  
+  .SearchTab div > input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    color: #6b7280;
+  }
+  
+  .SearchTab div > h2 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  
+  .SearchTab div > div {
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
