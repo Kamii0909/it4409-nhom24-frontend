@@ -4,8 +4,7 @@ import { IoStar } from "react-icons/io5";
 import Footer from "../../components/Footer/Footer.tsx";
 import Header from "../../components/Header/Header.tsx";
 import "./HotelSearchPage.css";
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, query, getDocs } from "firebase/firestore";
+import { collection, query, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebase-config"
 import ImgHotel1 from "../../assets/images/image_hotel/hotel1.png";
 import ImgHotel2 from "../../assets/images/image_hotel/hotel2.png";
@@ -14,6 +13,7 @@ import ImgHotel3 from "../../assets/images/image_hotel/hotel3.png";
 const HotelSearchPage: React.FC = () => {
   const [value, setValue] = useState([0, 20000000]);
   const [rankValue, setRankValue] = useState(1);
+  const [selectedStar, setSelectedStar] = useState(5);
   const [amenities, setAmenities] = useState({
   ho_boi: false,
   dich_vu_dua_don_san_bay: false,
@@ -60,11 +60,17 @@ const HotelSearchPage: React.FC = () => {
     (rankValue === 2 && hotel.rating >= 9) ||
     (rankValue === 3 && hotel.rating >= 8) ||
     (rankValue === 4 && hotel.rating >= 7);
+const meetsStarFilter =
+    (selectedStar === 1 && hotel.star === 1) ||
+    (selectedStar === 2 && hotel.star === 2) ||
+    (selectedStar === 3 && hotel.star === 3) ||
+    (selectedStar === 4 && hotel.star === 4) ||
+    (selectedStar === 5 && hotel.star === 5);
   const meetsAmenitiesFilter = Object.entries(amenities).every(
     ([key, value]) => !value || (value && hotel[key])
   );
 
-  return meetsPriceFilter && meetsRankFilter && meetsAmenitiesFilter;
+  return meetsPriceFilter && meetsRankFilter && meetsStarFilter && meetsAmenitiesFilter;
 };
 
 
@@ -129,47 +135,61 @@ const HotelSearchPage: React.FC = () => {
         Tốt 7+
       </label>
     </div>
-                    <div className="star-filter">
-                        <h3>Xếp hạng sao</h3>
-                        <input type="checkbox" id="one-star" />
-                        <input type="checkbox" id="two-stars" />
-                        <input type="checkbox" id="three-stars" />
-                        <input type="checkbox" id="four-stars" />
-                        <input type="checkbox" id="five-stars" />
-                        <div style={{ display: "flex", flexWrap: "wrap" }}>
-                            <label
-                                htmlFor="one-star"
-                                className="option-one-star"
-                            >
-                                1<IoStar />
-                            </label>
-                            <label
-                                htmlFor="two-stars"
-                                className="option-two-stars"
-                            >
-                                2<IoStar />
-                            </label>
-                            <label
-                                htmlFor="three-stars"
-                                className="option-three-stars"
-                            >
-                                3<IoStar />
-                            </label>
-                            <label
-                                htmlFor="four-stars"
-                                className="option-four-stars"
-                            >
-                                4<IoStar />
-                            </label>
-                            <label
-                                htmlFor="five-stars"
-                                className="option-five-stars"
-                                style={{ marginTop: "10px" }}
-                            >
-                                5<IoStar />
-                            </label>
-                        </div>
-                    </div>
+    <div className="star-filter">
+        <h3>Xếp hạng sao</h3>
+        <input
+          type="checkbox"
+          id="one-star"
+          checked={selectedStar === 1}
+          onChange={() => setSelectedStar(1)}
+        />
+        <input
+          type="checkbox"
+          id="two-stars"
+          checked={selectedStar === 2}
+          onChange={() => setSelectedStar(2)}
+        />
+        <input
+          type="checkbox"
+          id="three-stars"
+          checked={selectedStar === 3}
+          onChange={() => setSelectedStar(3)}
+        />
+        <input
+          type="checkbox"
+          id="four-stars"
+          checked={selectedStar === 4}
+          onChange={() => setSelectedStar(4)}
+        />
+        <input
+          type="checkbox"
+          id="five-stars"
+          checked={selectedStar === 5}
+          onChange={() => setSelectedStar(5)}
+        />
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+          <label htmlFor="one-star" className="option-one-star">
+            1
+            <IoStar />
+          </label>
+          <label htmlFor="two-stars" className="option-two-stars">
+            2
+            <IoStar />
+          </label>
+          <label htmlFor="three-stars" className="option-three-stars">
+            3
+            <IoStar />
+          </label>
+          <label htmlFor="four-stars" className="option-four-stars">
+            4
+            <IoStar />
+          </label>
+          <label htmlFor="five-stars" className="option-five-stars" style={{ marginTop: "10px" }}>
+            5
+            <IoStar />
+          </label>
+        </div>
+      </div>
                     <div className="service-filter">
                         <h3>Tiện nghi dịch vụ</h3>
                         <label htmlFor="ho_boi">
