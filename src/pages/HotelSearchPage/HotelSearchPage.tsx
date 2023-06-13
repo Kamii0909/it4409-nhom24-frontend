@@ -1,86 +1,134 @@
 import { Slider } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IoStar } from "react-icons/io5";
 import Footer from "../../components/Footer/Footer.tsx";
 import Header from "../../components/Header/Header.tsx";
 import "./HotelSearchPage.css";
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, query, getDocs } from "firebase/firestore";
+import { db } from "../../firebase/firebase-config"
 import ImgHotel1 from "../../assets/images/image_hotel/hotel1.png";
 import ImgHotel2 from "../../assets/images/image_hotel/hotel2.png";
 import ImgHotel3 from "../../assets/images/image_hotel/hotel3.png";
 
 const HotelSearchPage: React.FC = () => {
-    const [value, setValue] = React.useState([0, 20000000]);
-    const [rankValue, setRankValue] = React.useState(1);
+  const [value, setValue] = useState([0, 20000000]);
+  const [rankValue, setRankValue] = useState(1);
+  const [amenities, setAmenities] = useState({
+  ho_boi: false,
+  dich_vu_dua_don_san_bay: false,
+  may_dieu_hoa: false,
+  bon_tam_nuoc_nong: false,
+  spa: false,
+  dau_xe: false,
+  quang_canh_bien: false,
+  gym: false
+});
 
-    const handleChange = (event: any, newValue: any) => {
-        setValue(newValue);
-    };
+  const [hotels, setHotels] = useState<any[]>([]);
 
-    function valuetext(value: any) {
-        return `${value}đ`;
-    }
+  useEffect(() => {
+    fetchHotels();
+  }, []);
+
+  const fetchHotels = async () => {
+    const q = query(collection(db, "hotel"));
+    const querySnapshot = await getDocs(q);
+    const hotelsData = querySnapshot.docs.map((doc) => doc.data());
+    setHotels(hotelsData);
+  };
+
+  const handleChange = (event: any, newValue: any) => {
+    setValue(newValue);
+  };
+
+  function valuetext(value: any) {
+    return `${value}đ`;
+  }
+  const handleAmenitiesChange = (event: any) => {
+  setAmenities((prevAmenities) => ({
+    ...prevAmenities,
+    [event.target.name]: event.target.checked
+  }));
+};
+
+  const filterHotels = (hotel: any) => {
+  const meetsPriceFilter =
+    hotel.price >= value[0] && hotel.price <= value[1];
+  const meetsRankFilter =
+    rankValue === 1 ||
+    (rankValue === 2 && hotel.rating >= 9) ||
+    (rankValue === 3 && hotel.rating >= 8) ||
+    (rankValue === 4 && hotel.rating >= 7);
+  const meetsAmenitiesFilter = Object.entries(amenities).every(
+    ([key, value]) => !value || (value && hotel[key])
+  );
+
+  return meetsPriceFilter && meetsRankFilter && meetsAmenitiesFilter;
+};
+
 
     return (
         <>
             <Header />
-            <div className="hotel-search-content">
-                <div className="sidebar-filter-wrapper">
-                    <div className="price-filter">
-                        <h3>Giá mỗi đêm</h3>
-                        <Slider
-                            getAriaLabel={() => "price range"}
-                            value={value}
-                            min={0}
-                            max={30000000}
-                            step={1000}
-                            onChange={handleChange}
-                            valueLabelDisplay="auto"
-                            getAriaValueText={valuetext}
-                        />
-                    </div>
-                    <div className="rank-filter">
-                        <h3>Xếp hạng của khách</h3>
-                        <label htmlFor="radio1">
-                            <input
-                                type="radio"
-                                name="radio1"
-                                id="radio1"
-                                checked={rankValue === 1}
-                                onChange={() => setRankValue(1)}
-                            />
-                            Bất kỳ
-                        </label>
-                        <label htmlFor="radio2">
-                            <input
-                                type="radio"
-                                name="radio2"
-                                id="radio2"
-                                checked={rankValue === 2}
-                                onChange={() => setRankValue(2)}
-                            />
-                            Tuyệt vời 9+
-                        </label>
-                        <label htmlFor="radio3">
-                            <input
-                                type="radio"
-                                name="radio3"
-                                id="radio3"
-                                checked={rankValue === 3}
-                                onChange={() => setRankValue(3)}
-                            />
-                            Rất tốt 8+
-                        </label>
-                        <label htmlFor="radio4">
-                            <input
-                                type="radio"
-                                name="radio4"
-                                id="radio4"
-                                checked={rankValue === 4}
-                                onChange={() => setRankValue(4)}
-                            />
-                            Tốt 7+
-                        </label>
-                    </div>
+<div className="hotel-search-content">
+  <div className="sidebar-filter-wrapper">
+    <div className="price-filter">
+      <h3>Giá mỗi đêm</h3>
+      <Slider
+        getAriaLabel={() => "price range"}
+        value={value}
+        min={0}
+        max={30000000}
+        step={1000}
+        onChange={handleChange}
+        valueLabelDisplay="auto"
+        getAriaValueText={valuetext}
+      />
+    </div>
+    <div className="rank-filter">
+      <h3>Xếp hạng của khách</h3>
+      <label htmlFor="radio1">
+        <input
+          type="radio"
+          name="radio1"
+          id="radio1"
+          checked={rankValue === 1}
+          onChange={() => setRankValue(1)}
+        />
+        Bất kỳ
+      </label>
+      <label htmlFor="radio2">
+        <input
+          type="radio"
+          name="radio2"
+          id="radio2"
+          checked={rankValue === 2}
+          onChange={() => setRankValue(2)}
+        />
+        Tuyệt vời 9+
+      </label>
+      <label htmlFor="radio3">
+        <input
+          type="radio"
+          name="radio3"
+          id="radio3"
+          checked={rankValue === 3}
+          onChange={() => setRankValue(3)}
+        />
+        Rất tốt 8+
+      </label>
+      <label htmlFor="radio4">
+        <input
+          type="radio"
+          name="radio4"
+          id="radio4"
+          checked={rankValue === 4}
+          onChange={() => setRankValue(4)}
+        />
+        Tốt 7+
+      </label>
+    </div>
                     <div className="star-filter">
                         <h3>Xếp hạng sao</h3>
                         <input type="checkbox" id="one-star" />
@@ -124,67 +172,83 @@ const HotelSearchPage: React.FC = () => {
                     </div>
                     <div className="service-filter">
                         <h3>Tiện nghi dịch vụ</h3>
-                        <label htmlFor="checkbox1">
+                        <label htmlFor="ho_boi">
                             <input
                                 type="checkbox"
-                                name="checkbox1"
-                                id="checkbox1"
+                                name="ho_boi"
+                                id="ho_boi"
+                                checked={amenities.ho_boi}
+                                onChange={handleAmenitiesChange}
                             />
                             Hồ bơi
                         </label>
-                        <label htmlFor="checkbox2">
+                        <label htmlFor="dich_vu_dua_don_san_bay">
                             <input
                                 type="checkbox"
-                                name="checkbox2"
-                                id="checkbox2"
+                                name="dich_vu_dua_don_san_bay"
+                                id="dich_vu_dua_don_san_bay"
+                                checked={amenities.dich_vu_dua_don_san_bay}
+                                onChange={handleAmenitiesChange}
                             />
                             Bao gồm dịch vụ đưa đón sân bay
                         </label>
-                        <label htmlFor="checkbox3">
+                        <label htmlFor="may_dieu_hoa">
                             <input
                                 type="checkbox"
-                                name="checkbox3"
-                                id="checkbox3"
+                                name="may_dieu_hoa"
+                                id="may_dieu_hoa"
+                                checked={amenities.may_dieu_hoa}
+                                onChange={handleAmenitiesChange}
                             />
                             Máy điều hòa
                         </label>
-                        <label htmlFor="checkbox4">
+                        <label htmlFor="bon_tam_nuoc_nong">
                             <input
                                 type="checkbox"
-                                name="checkbox4"
-                                id="checkbox4"
+                                name="bon_tam_nuoc_nong"
+                                id="bon_tam_nuoc_nong"
+                                checked={amenities.bon_tam_nuoc_nong}
+                                onChange={handleAmenitiesChange}
                             />
                             Bồn tắm nước nóng
                         </label>
-                        <label htmlFor="checkbox5">
+                        <label htmlFor="spa">
                             <input
                                 type="checkbox"
-                                name="checkbox5"
-                                id="checkbox5"
+                                name="spa"
+                                id="spa"
+                                checked={amenities.spa}
+                                onChange={handleAmenitiesChange}
                             />
                             Spa
                         </label>
-                        <label htmlFor="checkbox6">
+                        <label htmlFor="dau_xe">
                             <input
                                 type="checkbox"
-                                name="checkbox6"
-                                id="checkbox6"
+                                name="dau_xe"
+                                id="dau_xe"
+                                checked={amenities.dau_xe}
+                                onChange={handleAmenitiesChange}
                             />
                             Đậu xe
                         </label>
-                        <label htmlFor="checkbox7">
+                        <label htmlFor="quang_canh_bien">
                             <input
                                 type="checkbox"
-                                name="checkbox7"
-                                id="checkbox7"
+                                name="quang_canh_bien"
+                                id="quang_canh_bien"
+                                checked={amenities.quang_canh_bien}
+                                onChange={handleAmenitiesChange}
                             />
                             Quang cảnh biển
                         </label>
-                        <label htmlFor="checkbox8">
+                        <label htmlFor="gym">
                             <input
                                 type="checkbox"
-                                name="checkbox8"
-                                id="checkbox8"
+                                name="gym"
+                                id="gym"
+                                checked={amenities.gym}
+                                onChange={handleAmenitiesChange}
                             />
                             Gym
                         </label>
