@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
-import { auth, signInWithEmailAndPassword } from './firebase-config';
+import { auth, signInWithEmailAndPassword } from "./firebase-config"
 import logo from '../../assets/images/logo.svg';
 import appleLogo from '../../assets/images/apple_logo.png';
 import facebookLogo from '../../assets/images/facebook_logo.png';
