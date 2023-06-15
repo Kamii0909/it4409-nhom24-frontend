@@ -275,91 +275,29 @@ const meetsStarFilter =
                     </div>
                 </div>
                 <div className="list-hotel-wrapper">
-                    <div className="sort-hotel">
-                        <span>Sắp xếp theo</span>
-                        <select name="sort-hotel" id="sort-hotel">
-                            <option value="none" selected disabled hidden>
-                                Đề xuất
-                            </option>
-                            <option value="price:low-to-high">
-                                Giá: Thấp đến cao
-                            </option>
-                            <option value="price:high-to-low">
-                                Giá: Cao đến thấp
-                            </option>
-                            <option value="star-rank">Xếp hạng sao</option>
-                        </select>
-                    </div>
-                    <div className="item-hotel">
-                        <div className="img-hotel">
-                            <img src={ImgHotel1} alt="Ảnh khách sạn" />
-                        </div>
-                        <div className="hotel-info">
-                            <div className="hotel-name">Khách sạn Hà Nội</div>
-                            <div className="hotel-address">Quận Ba Đình</div>
-                            <div className="hotel-price">
-                                <div className="sale-percent">Giảm 50%</div>
-                                <div className="price-hotel">
-                                    <div className="price-bricks">3.376.623đ</div>
-                                    <div className="price">1,688,311 đ</div>
-                                </div>
-                                <div className="price-total">
-                                    Tổng 1,950,000 đ
-                                </div>
-                            </div>
-                            <div className="hotel-evaluate">
-                                <strong>7,8</strong>/10 Tốt
-                            </div>
-                        </div>
-                    </div>
+  {hotels.map((hotel) => (
+    <div className="item-hotel" key={hotel.id}>
+      <div className="hotel-info">
+        <div className="hotel-name">{hotel.name}</div>
+        <div className="hotel-address">{hotel.address}</div>
+        <div className="hotel-price">
+          <div className="sale-percent">Giảm 50%</div>
+          <div className="price-hotel">
+            <div className="price-bricks">{hotel.originalPrice}đ</div>
+            <div className="price">{hotel.discountedPrice}đ</div>
+          </div>
+          <div className="price-total">Tổng {hotel.totalPrice}đ</div>
+        </div>
+        <div className="hotel-evaluate">
+          <strong>{hotel.rating}</strong>/10 Tốt
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
 
-                    <div className="item-hotel">
-                        <div className="img-hotel">
-                            <img src={ImgHotel2} alt="Ảnh khách sạn" />
+                
                         </div>
-                        <div className="hotel-info">
-                            <div className="hotel-name">Lotte Hotel Hanoi</div>
-                            <div className="hotel-address">Hà Nội</div>
-                            <div className="hotel-price">
-                                <div className="sale-percent">Giảm 50%</div>
-                                <div className="price-hotel">
-                                    <div className="price-bricks">3.376.623đ</div>
-                                    <div className="price">1,688,311 đ</div>
-                                </div>
-                                <div className="price-total">
-                                    Tổng 1,950,000 đ
-                                </div>
-                            </div>
-                            <div className="hotel-evaluate">
-                                <strong>9,4</strong>/10 Tốt
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="item-hotel">
-                        <div className="img-hotel">
-                            <img src={ImgHotel3} alt="Ảnh khách sạn" />
-                        </div>
-                        <div className="hotel-info">
-                            <div className="hotel-name">My Way Hotel & Residence</div>
-                            <div className="hotel-address">Hà Nội</div>
-                            <div className="hotel-price">
-                                <div className="sale-percent">Giảm 50%</div>
-                                <div className="price-hotel">
-                                    <div className="price-bricks">3.376.623đ</div>
-                                    <div className="price">1,688,311 đ</div>
-                                </div>
-                                <div className="price-total">
-                                    Tổng 1,950,000 đ
-                                </div>
-                            </div>
-                            <div className="hotel-evaluate">
-                                <strong>7,8</strong>/10 Tốt
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <Footer />
         </>
     );
