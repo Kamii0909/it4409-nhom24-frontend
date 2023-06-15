@@ -6,9 +6,6 @@ import Header from "../../components/Header/Header.tsx";
 import "./HotelSearchPage.css";
 import { collection, query, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebase-config"
-import ImgHotel1 from "../../assets/images/image_hotel/hotel1.png";
-import ImgHotel2 from "../../assets/images/image_hotel/hotel2.png";
-import ImgHotel3 from "../../assets/images/image_hotel/hotel3.png";
 
 const HotelSearchPage: React.FC = () => {
   const [value, setValue] = useState([0, 20000000]);
@@ -35,7 +32,8 @@ const HotelSearchPage: React.FC = () => {
     const q = query(collection(db, "hotel"));
     const querySnapshot = await getDocs(q);
     const hotelsData = querySnapshot.docs.map((doc) => doc.data());
-    setHotels(hotelsData);
+    const filteredHotels = hotelsData.filter(filterHotels);
+    setHotels(filteredHotels);
   };
 
   const handleChange = (event: any, newValue: any) => {
