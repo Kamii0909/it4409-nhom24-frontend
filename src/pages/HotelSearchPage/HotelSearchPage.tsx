@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Footer from "../../components/Footer/Footer.tsx";
 import Header from "../../components/Header/Header.tsx";
 import "./HotelSearchPage.css";
-import { collection, query, where, CollectionReference, Query, DocumentData } from "firebase/firestore/lite";
+import { collection, query, where, getDocs, CollectionReference, Query, DocumentData } from "firebase/firestore/lite";
 import { db } from "../../firebase/firebase-config"
 
 const HotelSearchPage: React.FC = () => {
@@ -115,6 +115,55 @@ const getUsers = async () => {
     } else {
       usersQuery = query(usersQuery, where("hotel.may_dieu_hoa", "==", false));
     }
+
+    if (ho_boi) {
+      usersQuery = query(usersQuery, where("hotel.ho_boi", "==", true));
+    } else {
+      usersQuery = query(usersQuery, where("hotel.ho_boi", "==", false));
+    }
+
+    if (dau_xe) {
+      usersQuery = query(usersQuery, where("hotel.dau_xe", "==", true));
+    } else {
+      usersQuery = query(usersQuery, where("hotel.dau_xe", "==", false));
+    }
+
+    if (dich_vu_dua_don_san_bay) {
+      usersQuery = query(usersQuery, where("hotel.dich_vu_dua_don_san_bay", "==", true));
+    } else {
+      usersQuery = query(usersQuery, where("hotel.dich_vu_dua_don_san_bay", "==", false));
+    }
+
+    if (gym) {
+      usersQuery = query(usersQuery, where("hotel.gym", "==", true));
+    } else {
+      usersQuery = query(usersQuery, where("hotel.gym", "==", false));
+    }
+
+    if (spa) {
+      usersQuery = query(usersQuery, where("hotel.spa", "==", true));
+    } else {
+      usersQuery = query(usersQuery, where("hotel.spa", "==", false));
+    }
+
+    if (bon_tam_nuoc_nong) {
+      usersQuery = query(usersQuery, where("hotel.bon_tam_nuoc_nong", "==", true));
+    } else {
+      usersQuery = query(usersQuery, where("hotel.bon_tam_nuoc_nong", "==", false));
+    }
+
+    if (quang_canh_bien) {
+      usersQuery = query(usersQuery, where("hotel.quang_canh_bien", "==", true));
+    } else {
+      usersQuery = query(usersQuery, where("hotel.quang_canh_bien", "==", false));
+    }
+
+    const data = await getDocs(usersQuery);
+    setHotels(data.docs.map((doc: any) => ({ ...doc.data(), id: doc.id })));
+  };
+
+
+
 
     return (
         <>
@@ -285,13 +334,10 @@ const getUsers = async () => {
                           </div>
                         ))}
                       </div>
-
-                
               </div>
             <Footer />
         </>
     );
   };
-};
 
 export default HotelSearchPage;
