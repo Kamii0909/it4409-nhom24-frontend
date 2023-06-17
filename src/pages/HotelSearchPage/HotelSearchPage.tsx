@@ -1,193 +1,185 @@
-import { Slider } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { IoStar } from "react-icons/io5";
 import Footer from "../../components/Footer/Footer.tsx";
 import Header from "../../components/Header/Header.tsx";
 import "./HotelSearchPage.css";
-import { collection, query, getDocs } from "firebase/firestore";
+import { collection, query, where, CollectionReference, Query, DocumentData } from "firebase/firestore/lite";
 import { db } from "../../firebase/firebase-config"
 
 const HotelSearchPage: React.FC = () => {
-  const [value, setValue] = useState([0, 20000000]);
-  const [rankValue, setRankValue] = useState(1);
-  const [selectedStar, setSelectedStar] = useState(5);
-  const [amenities, setAmenities] = useState({
-  ho_boi: false,
-  dich_vu_dua_don_san_bay: false,
-  may_dieu_hoa: false,
-  bon_tam_nuoc_nong: false,
-  spa: false,
-  dau_xe: false,
-  quang_canh_bien: false,
-  gym: false
-});
-
+  const [minPrice, setminPrice] = useState(0);
+  const [maxPrice, setmaxPrice] = useState(30000000);
+  const [minStar, setminStar] = useState(1);
+  const [maxStar, setmaxStar] = useState(5);
+  const [minRank, setminRank] = useState(0);
+  const [maxRank, setmaxRank] = useState(10);
+  const [ho_boi, setHoBoi] = useState(true);
+  const [dich_vu_dua_don_san_bay, setDichVuDuaDon] = useState(true);
+  const [may_dieu_hoa, setMayDieuHoa] = useState(true);
+  const [bon_tam_nuoc_nong, setBonTamNuocNong] = useState(true);
+  const [spa, setSpa] = useState(true);
+  const [gym, setGym] = useState(true);
+  const [dau_xe, setDauxe] = useState(true);
+  const [quang_canh_bien, setQuangCanhBien] = useState(true);
   const [hotels, setHotels] = useState<any[]>([]);
 
   useEffect(() => {
-    fetchHotels();
-  }, []);
+    getUsers();
+  }, []); // Thực hiện getUsers khi component được mount
 
-  const fetchHotels = async () => {
-    const q = query(collection(db, "hotel"));
-    const querySnapshot = await getDocs(q);
-    const hotelsData = querySnapshot.docs.map((doc) => doc.data());
-    const filteredHotels = hotelsData.filter(filterHotels);
-    setHotels(filteredHotels);
+  const handleMinPriceChange = (event: any) => {
+    setminPrice(Number(event.target.value));
   };
 
-  const handleChange = (event: any, newValue: any) => {
-    setValue(newValue);
+  const handleMaxPriceChange = (event: any) => {
+    setmaxPrice(Number(event.target.value));
   };
 
-  function valuetext(value: any) {
-    return `${value}đ`;
-  }
-  const handleAmenitiesChange = (event: any) => {
-  setAmenities((prevAmenities) => ({
-    ...prevAmenities,
-    [event.target.name]: event.target.checked
-  }));
-};
+  const handleMinStarChange = (event: any) => {
+    setminStar(Number(event.target.value));
+  };
 
-  const filterHotels = (hotel: any) => {
-  const meetsPriceFilter =
-    hotel.price >= value[0] && hotel.price <= value[1];
-  const meetsRankFilter =
-    rankValue === 1 ||
-    (rankValue === 2 && hotel.rating >= 9) ||
-    (rankValue === 3 && hotel.rating >= 8) ||
-    (rankValue === 4 && hotel.rating >= 7);
-const meetsStarFilter =
-    (selectedStar === 1 && hotel.star === 1) ||
-    (selectedStar === 2 && hotel.star === 2) ||
-    (selectedStar === 3 && hotel.star === 3) ||
-    (selectedStar === 4 && hotel.star === 4) ||
-    (selectedStar === 5 && hotel.star === 5);
-  const meetsAmenitiesFilter = Object.entries(amenities).every(
-    ([key, value]) => !value || (value && hotel[key])
-  );
+  const handleMaxStarChange = (event: any) => {
+    setmaxStar(Number(event.target.value));
+  };
 
-  return meetsPriceFilter && meetsRankFilter && meetsStarFilter && meetsAmenitiesFilter;
-};
+  const handleMinRankChange = (event: any) => {
+    setminRank(Number(event.target.value));
+  };
 
+  const handleMaxRankChange = (event: any) => {
+    setmaxRank(Number(event.target.value));
+  };
+
+  const handleHoBoiChange = (event: any) => {
+    setHoBoi(event.target.checked);
+  };
+
+  const handleDichVuDuaDonChange = (event: any) => {
+    setDichVuDuaDon(event.target.checked);
+  };
+
+  const handleGymChange = (event: any) => {
+    setGym(event.target.checked);
+  };
+  
+  const handleSpaChange = (event: any) => {
+    setSpa(event.target.checked);
+  };
+
+  const handleMayDieuHoaChange = (event: any) => {
+    setMayDieuHoa(event.target.checked);
+  };
+
+  const handleDauxeChange = (event: any) => {
+    setDauxe(event.target.checked);
+  };
+
+  const handleBomTamNuocNongChange = (event: any) => {
+    setBonTamNuocNong(event.target.checked);
+  };
+
+  const handleQuangCanhBienChange = (event: any) => {
+    setQuangCanhBien(event.target.checked);
+  };
+
+const usersCollectionRef: CollectionReference<DocumentData> = collection(db, "users");
+const getUsers = async () => {
+  let usersQuery: Query<DocumentData> = usersCollectionRef;
+
+    if (minPrice !== 0 && maxPrice !== 30000000) {
+      usersQuery = query(
+        usersQuery,
+        where("discountPrice", ">=", minPrice),
+        where("discountPrice", "<=", maxPrice)
+      );
+    }
+
+    if (minRank !== 0 && maxRank !== 10) {
+      usersQuery = query(
+        usersQuery,
+        where("rating", ">=", minRank),
+        where("rating", "<=", maxRank)
+      );
+    }
+
+    if (minStar !== 1 && maxPrice !== 5) {
+      usersQuery = query(
+        usersQuery,
+        where("stars", ">=", minStar),
+        where("stars", "<=", maxStar)
+      );
+    }
+    
+    if (may_dieu_hoa) {
+      usersQuery = query(usersQuery, where("hotel.may_dieu_hoa", "==", true));
+    } else {
+      usersQuery = query(usersQuery, where("hotel.may_dieu_hoa", "==", false));
+    }
 
     return (
         <>
             <Header />
-<div className="hotel-search-content">
-  <div className="sidebar-filter-wrapper">
-    <div className="price-filter">
-      <h3>Giá mỗi đêm</h3>
-      <Slider
-        getAriaLabel={() => "price range"}
-        value={value}
-        min={0}
-        max={30000000}
-        step={1000}
-        onChange={handleChange}
-        valueLabelDisplay="auto"
-        getAriaValueText={valuetext}
-      />
-    </div>
-    <div className="rank-filter">
-      <h3>Xếp hạng của khách</h3>
-      <label htmlFor="radio1">
-        <input
-          type="radio"
-          name="radio1"
-          id="radio1"
-          checked={rankValue === 1}
-          onChange={() => setRankValue(1)}
-        />
-        Bất kỳ
-      </label>
-      <label htmlFor="radio2">
-        <input
-          type="radio"
-          name="radio2"
-          id="radio2"
-          checked={rankValue === 2}
-          onChange={() => setRankValue(2)}
-        />
-        Tuyệt vời 9+
-      </label>
-      <label htmlFor="radio3">
-        <input
-          type="radio"
-          name="radio3"
-          id="radio3"
-          checked={rankValue === 3}
-          onChange={() => setRankValue(3)}
-        />
-        Rất tốt 8+
-      </label>
-      <label htmlFor="radio4">
-        <input
-          type="radio"
-          name="radio4"
-          id="radio4"
-          checked={rankValue === 4}
-          onChange={() => setRankValue(4)}
-        />
-        Tốt 7+
-      </label>
-    </div>
-    <div className="star-filter">
-        <h3>Xếp hạng sao</h3>
-        <input
-          type="checkbox"
-          id="one-star"
-          checked={selectedStar === 1}
-          onChange={() => setSelectedStar(1)}
-        />
-        <input
-          type="checkbox"
-          id="two-stars"
-          checked={selectedStar === 2}
-          onChange={() => setSelectedStar(2)}
-        />
-        <input
-          type="checkbox"
-          id="three-stars"
-          checked={selectedStar === 3}
-          onChange={() => setSelectedStar(3)}
-        />
-        <input
-          type="checkbox"
-          id="four-stars"
-          checked={selectedStar === 4}
-          onChange={() => setSelectedStar(4)}
-        />
-        <input
-          type="checkbox"
-          id="five-stars"
-          checked={selectedStar === 5}
-          onChange={() => setSelectedStar(5)}
-        />
-        <div style={{ display: "flex", flexWrap: "wrap" }}>
-          <label htmlFor="one-star" className="option-one-star">
-            1
-            <IoStar />
-          </label>
-          <label htmlFor="two-stars" className="option-two-stars">
-            2
-            <IoStar />
-          </label>
-          <label htmlFor="three-stars" className="option-three-stars">
-            3
-            <IoStar />
-          </label>
-          <label htmlFor="four-stars" className="option-four-stars">
-            4
-            <IoStar />
-          </label>
-          <label htmlFor="five-stars" className="option-five-stars" style={{ marginTop: "10px" }}>
-            5
-            <IoStar />
-          </label>
-        </div>
-      </div>
+                <div className="hotel-search-content">
+                  <div className="sidebar-filter-wrapper">
+                  <div className="price-filter">
+                    <h3>Giá mỗi đêm</h3>
+                    <div>
+                      <label htmlFor="minPrice">Giá tối thiểu:</label>
+                      <input
+                        type="number"
+                        id="minPrice"
+                        value={minPrice}
+                        onChange={handleMinPriceChange}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="maxPrice">Giá tối đa:</label>
+                      <input
+                        type="number"
+                        id="maxPrice"
+                        value={maxPrice}
+                        onChange={handleMaxPriceChange}
+                      />
+                    </div>
+                    <h3>Danh gia khach san:</h3>
+                    <div>
+                      <label htmlFor="minRank">Đánh giá tối thiểu:</label>
+                      <input
+                        type="number"
+                        id="minRank"
+                        value={minRank}
+                        onChange={handleMinRankChange}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="maxPrice">Đánh giá tối đa:</label>
+                      <input
+                        type="number"
+                        id="maxRank"
+                        value={maxRank}
+                        onChange={handleMaxRankChange}
+                      />
+                    </div>
+                    <h3>Tìm khách sạn theo sao:</h3>
+                    <div>
+                      <label htmlFor="minStar">Từ:</label>
+                      <input
+                        type="number"
+                        id="minStar"
+                        value={minStar}
+                        onChange={handleMinStarChange}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="maxPrice">Đến:</label>
+                      <input
+                        type="number"
+                        id="maxStar"
+                        value={maxStar}
+                        onChange={handleMaxStarChange}
+                      />
+                    </div>
+                  </div>
                     <div className="service-filter">
                         <h3>Tiện nghi dịch vụ</h3>
                         <label htmlFor="ho_boi">
@@ -195,8 +187,8 @@ const meetsStarFilter =
                                 type="checkbox"
                                 name="ho_boi"
                                 id="ho_boi"
-                                checked={amenities.ho_boi}
-                                onChange={handleAmenitiesChange}
+                                checked={ho_boi}
+                                onChange={handleHoBoiChange}
                             />
                             Hồ bơi
                         </label>
@@ -205,8 +197,8 @@ const meetsStarFilter =
                                 type="checkbox"
                                 name="dich_vu_dua_don_san_bay"
                                 id="dich_vu_dua_don_san_bay"
-                                checked={amenities.dich_vu_dua_don_san_bay}
-                                onChange={handleAmenitiesChange}
+                                checked={dich_vu_dua_don_san_bay}
+                                onChange={handleDichVuDuaDonChange}
                             />
                             Bao gồm dịch vụ đưa đón sân bay
                         </label>
@@ -215,8 +207,8 @@ const meetsStarFilter =
                                 type="checkbox"
                                 name="may_dieu_hoa"
                                 id="may_dieu_hoa"
-                                checked={amenities.may_dieu_hoa}
-                                onChange={handleAmenitiesChange}
+                                checked={may_dieu_hoa}
+                                onChange={handleMayDieuHoaChange}
                             />
                             Máy điều hòa
                         </label>
@@ -225,8 +217,8 @@ const meetsStarFilter =
                                 type="checkbox"
                                 name="bon_tam_nuoc_nong"
                                 id="bon_tam_nuoc_nong"
-                                checked={amenities.bon_tam_nuoc_nong}
-                                onChange={handleAmenitiesChange}
+                                checked={bon_tam_nuoc_nong}
+                                onChange={handleBomTamNuocNongChange}
                             />
                             Bồn tắm nước nóng
                         </label>
@@ -235,8 +227,8 @@ const meetsStarFilter =
                                 type="checkbox"
                                 name="spa"
                                 id="spa"
-                                checked={amenities.spa}
-                                onChange={handleAmenitiesChange}
+                                checked={spa}
+                                onChange={handleSpaChange}
                             />
                             Spa
                         </label>
@@ -245,8 +237,8 @@ const meetsStarFilter =
                                 type="checkbox"
                                 name="dau_xe"
                                 id="dau_xe"
-                                checked={amenities.dau_xe}
-                                onChange={handleAmenitiesChange}
+                                checked={dau_xe}
+                                onChange={handleDauxeChange}
                             />
                             Đậu xe
                         </label>
@@ -255,8 +247,8 @@ const meetsStarFilter =
                                 type="checkbox"
                                 name="quang_canh_bien"
                                 id="quang_canh_bien"
-                                checked={amenities.quang_canh_bien}
-                                onChange={handleAmenitiesChange}
+                                checked={quang_canh_bien}
+                                onChange={handleQuangCanhBienChange}
                             />
                             Quang cảnh biển
                         </label>
@@ -265,40 +257,41 @@ const meetsStarFilter =
                                 type="checkbox"
                                 name="gym"
                                 id="gym"
-                                checked={amenities.gym}
-                                onChange={handleAmenitiesChange}
+                                checked={gym}
+                                onChange={handleGymChange}
                             />
                             Gym
                         </label>
                     </div>
                 </div>
                 <div className="list-hotel-wrapper">
-  {hotels.map((hotel) => (
-    <div className="item-hotel" key={hotel.id}>
-      <div className="hotel-info">
-        <div className="hotel-name">{hotel.name}</div>
-        <div className="hotel-address">{hotel.address}</div>
-        <div className="hotel-price">
-          <div className="sale-percent">Giảm 50%</div>
-          <div className="price-hotel">
-            <div className="price-bricks">{hotel.originalPrice}đ</div>
-            <div className="price">{hotel.discountedPrice}đ</div>
-          </div>
-          <div className="price-total">Tổng {hotel.totalPrice}đ</div>
-        </div>
-        <div className="hotel-evaluate">
-          <strong>{hotel.rating}</strong>/10 Tốt
-        </div>
-      </div>
-    </div>
-  ))}
-</div>
+                        {hotels.map((hotel) => (
+                          <div className="item-hotel" key={hotel.id}>
+                            <div className="hotel-info">
+                              <div className="hotel-name">{hotel.name}</div>
+                              <div className="hotel-address">{hotel.address}</div>
+                              <div className="hotel-price">
+                                <div className="sale-percent">Giảm 50%</div>
+                                <div className="price-hotel">
+                                  <div className="price-bricks">{hotel.originalPrice}đ</div>
+                                  <div className="price">{hotel.discountedPrice}đ</div>
+                                </div>
+                                <div className="price-total">Tổng {hotel.totalPrice}đ</div>
+                              </div>
+                              <div className="hotel-evaluate">
+                                <strong>{hotel.rating}</strong>/10 Tốt
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
 
                 
-                        </div>
+              </div>
             <Footer />
         </>
     );
+  };
 };
 
 export default HotelSearchPage;
