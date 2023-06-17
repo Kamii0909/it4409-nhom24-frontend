@@ -162,7 +162,22 @@ const getUsers = async () => {
     setHotels(data.docs.map((doc: any) => ({ ...doc.data(), id: doc.id })));
   };
 
-
+  const resetSearch = () => {
+    setminPrice(0);
+    setmaxPrice(30000000);
+    setminRank(0);
+    setmaxRank(10);
+    setminStar(1);
+    setmaxStar(5);
+    setHoBoi(true);
+    setBonTamNuocNong(true);
+    setDauxe(true);
+    setMayDieuHoa(true);
+    setGym(true);
+    setSpa(true);
+    setQuangCanhBien(true);
+    setDichVuDuaDon(true);
+  }
 
 
     return (
@@ -311,6 +326,8 @@ const getUsers = async () => {
                             />
                             Gym
                         </label>
+                        <button onClick={getUsers}>Search</button>
+                        <button onClick={resetSearch}>Reset</button>
                     </div>
                 </div>
                 <div className="list-hotel-wrapper">
