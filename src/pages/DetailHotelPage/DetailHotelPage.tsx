@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { FiArrowLeft} from "react-icons/fi";
+import { FiArrowLeft } from "react-icons/fi";
 import "./DetailHotelPage.css"
 import AppAdvertisement from "../../components/Advertisement/AppAdvertisement";
 import RoomCheckForm from "../../components/SearchForm/RoomCheckForm";

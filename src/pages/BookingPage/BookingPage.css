@@ -1,0 +1,391 @@
+.booking-page {
+    margin: 1vw 10vw 0 11vw;
+}
+.hotel-name {
+    font-size: 26px;
+    margin-top: 18px;
+}
+.booking-page-content {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-top: 20px;
+}
+.main-col {
+    width: 70%;
+    margin-right: 15px;
+}
+.aside-col {
+    width: 30%;
+    background-color: white;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    padding: 10px;
+    height: fit-content;
+}
+.contact-details {
+    background-color: white;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+.contact-details-header {
+    padding: 15px 23px 20px;
+    border-bottom: 1px solid #cccccc;
+}
+.contact-details-header .icon {
+    margin-right: 17px;
+    font-size: 19px;
+}
+.contact-details-header span {
+    font-size: 22px;
+    font-weight: bold;
+}
+.contact-details-body {
+    padding: 0 23px 20px;
+}
+.identification-warning {
+    font-size: 14px;
+    line-height: 1.3;
+}
+.required-field-label {
+    margin-top: -15px;
+}
+.span-require {
+    color: #d32f2f;
+    font-size: 14px;
+    font-weight: bold;
+}
+.required-field-label .span-require {
+    margin-right: 5px;
+    margin-left: 0 !important;
+}
+.required-field-label .span-note {
+    color: #7e7e7e;
+    font-size: 14px;
+}
+.field-container {
+    margin-top: 20px;
+}
+.field-container .field-name {
+    font-weight: bold;
+    font-size: 16px;
+}
+.field-container .note {
+    color: #7e7e7e;
+    margin-top: -10px;
+}
+.field-container .error-message {
+    font-size: 15px;
+    width: 280px;
+    line-height: 1.3;
+    color: #d32f2f;
+    margin-top: -10px;
+}
+.contact-details input {
+    height: 40px;
+    width: 280px;
+    font-size: 17px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-shadow: 0 1px #f5f4f0;
+    padding: 5px 10px 4px 7px;
+    margin: 3px 0 0;
+    box-sizing: border-box;
+}
+.payment-details {
+    background-color: white;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+.payment-details-header {
+    padding: 15px 23px 20px;
+    border-bottom: 1px solid #cccccc;
+}
+.payment-details-header .icon {
+    margin-right: 17px;
+    font-size: 19px;
+}
+.payment-details-header span {
+    font-size: 22px;
+    font-weight: bold;
+}
+.payment-details-header .secure-payment-message {
+    float: right;
+    font-size: 17px;
+    color: #7e7e7e;
+    font-weight: normal;
+    margin-top: 5px;
+}
+.payment-details-body {
+    padding: 20px 23px;
+}
+.using-card-message {
+    margin-bottom: 20px;
+}
+.using-card-message .tick-icon {
+    background-color: green;
+    color: white;
+    font-size: 13px;
+    padding: 2px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.payment-details-panel {
+    display: flex;
+}
+.payment-details-info {
+    width: 60%;
+    margin-right: 20px;
+}
+.payment-details input[type="text"], .payment-details select, .card-number-field, .expire-day input, .security-code-field {
+    height: 40px;
+    width: 280px;
+    font-size: 17px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-shadow: 0 1px #f5f4f0;
+    padding: 5px 10px 4px 7px;
+    margin: 3px 0;
+    box-sizing: border-box;
+}
+.card-number-field {
+    padding: 5px 10px 4px 35px !important;
+}
+.card-number {
+    position: relative;
+    box-sizing: border-box;
+}
+.icon-padlock {
+    position: absolute;
+    top: 22%;
+    left: 2%;
+}
+.expire-day input {
+    width: 50px !important;
+    padding: 5px 0 4px 10px !important;
+}
+.security-code-field {
+    width: 70px !important;
+}
+.payment-details-method h3 {
+    line-height: 1.3;
+    font-size: 17px;
+}
+.payment-method-list {
+    list-style: none;
+    display: flex;
+    margin-left: -40px;
+}
+.payment-method-list li {
+    margin-right: 15px;
+}
+.payment-method-list img {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0 10px;
+}
+.payment-method-list .visa {
+    padding: 11px 10px;
+}
+.payment-details-security-assurance {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 15px 15px 0;
+}
+.payment-details-security-assurance h3 {
+    margin: 0;
+}
+.payment-details-security-assurance ul {
+    list-style: none;
+    margin-left: -30px;
+}
+.payment-details-security-assurance ul li {
+    display: flex;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+.payment-details-security-assurance .icon {
+    color: green;
+    font-size: 19px;
+    margin-top: 2px;
+    margin-right: 8px;
+}
+.final-review-section {
+    background-color: white;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    margin-top: 20px;
+    padding: 20px 23px 30px;
+}
+.booking-details-travel {
+    float: right;
+    margin-bottom: 15px;
+}
+.booking-details-travel .num {
+    padding: 4px 8px;
+    border: 1px solid #458f00;
+    border-radius: 4px;
+}
+.terms-of-booking {
+    clear: right;
+    margin-bottom: 40px;
+}
+.terms-of-booking h2 {
+    font-size: 20px;
+}
+.terms-of-booking p {
+    line-height: 1.3;
+}
+.book-button-area {
+    text-align: right;
+}
+.book-button-area button {
+    padding: 6px 35px;
+    border-radius: 16px;
+    font-size: 22px;
+    background-color: #156bc1;
+    border: 1px solid #156bc1;
+    box-shadow: inset 0 -2px 0 #063665;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    vertical-align: middle;
+    width: auto;
+}
+.book-button-area button:hover {
+    background-color: #063665;
+}
+.booking-details {
+    background-color: #f5f4f1;
+    padding: 10px;
+}
+.name-address {
+    line-height: 0.6;
+}
+.rating-score {
+    display: flex;
+    margin: 25px 0;
+}
+.rating-score .rating-score-icon {
+    color: #fff;
+    background-color: #218242;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 4px 8px;
+    margin-right: 10px;
+    font-size: 27px;
+}
+.rating-score .rating-score-word {
+    font-weight: bold;
+    font-size: 25px;
+    margin-top: 5px;
+}
+.travel-details {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+}
+.travel-details td {
+    line-height: 1.2;
+    vertical-align: top;
+}
+.travel-details .num {
+    padding: 4px 8px;
+    border: 1px solid #458f00;
+    border-radius: 4px;
+}
+.finance-details {
+    padding: 0 10px;
+    margin-top: 30px;
+}
+.room-type-name {
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 30px;
+}
+.price-breakdown {
+    padding: 10px 0 5px;
+}
+.price-breakdown tr {
+    height: 45px;
+}
+.price-breakdown td {
+    line-height: 1.2;
+}
+.total-price {
+    background-color: #eae8e0;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px 4px 0 0;
+}
+.promotion {
+    display: flex;
+    padding: 10px 0;
+}
+.promotion .tag-icon {
+    margin-right: 10px;
+    color: white;
+    background-color: #d32f2f;
+    padding: 3px 3px 3px 4px;
+    border-radius: 50%;
+}
+.promotion b {
+    color: #d32f2f;
+}
+.details-total-price {
+    width: 100%;
+}
+.details-total-price td {
+    padding: 10px 0;
+}
+.details-total-price .price {
+    text-align: right;
+    font-size: 23px;
+}
+.price-increase-container {
+    background-color: #fffe99;
+    padding: 15px 15px 8px;
+    border: 1px solid #ccc;
+    border-top: none;
+    display: flex;
+    justify-content: center;
+}
+.price-increase-container .tag-icon {
+    margin-right: 5px;
+    font-size: 24px;    
+}
+.pre-pay-notice {
+    background-color: #f3f2ed;
+    padding: 2px 15px;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+}
+.pre-pay-notice P {
+    line-height: 1.2;
+    font-size: 14px;
+    color: #707070;
+    text-align: center;
+}
+.error-message-form {
+    position: fixed;
+    top: 80px;
+    right: -300px; /* Điểm bắt đầu ngoài màn hình */
+    background-color: #d32f2f;
+    color: white;
+    padding: 20px 40px;
+    border-radius: 26px 0 0 26px;
+    font-weight: bold;
+    font-size: 18px;
+    animation: slide-in 0.5s forwards;
+    z-index: 100;
+}
+@keyframes slide-in {
+    0% {
+      right: -300px;
+    }
+    100% {
+      right: 20px; /* Vị trí cuối cùng trước khi dừng lại */
+    }
+}

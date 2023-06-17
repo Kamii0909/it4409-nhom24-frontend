@@ -11,8 +11,8 @@ const ImageSlider: React.FC = () => {
         { src: '/src/assets/images/image1.jpg', alt: 'Image 1' },
         { src: '/src/assets/images/image2.jpg', alt: 'Image 2' },
         { src: '/src/assets/images/image3.jpg', alt: 'Image 3' },
-        { src: '/src/assets/images/image4.jpg', alt: 'Image 3' },
-        { src: '/src/assets/images/image5.jpg', alt: 'Image 3' },
+        { src: '/src/assets/images/image4.jpg', alt: 'Image 4' },
+        { src: '/src/assets/images/image5.jpg', alt: 'Image 5' },
     ];
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
