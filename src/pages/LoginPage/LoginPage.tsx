@@ -5,6 +5,49 @@ import { FiArrowLeft } from "react-icons/fi";
 import appleLogo from "../../assets/images/apple_logo.png"
 import facebookLogo from "../../assets/images/facebook_logo.png"
 import googleLogo from "../../assets/images/google_logo.png"
+import { auth } from "../../firebase/firebase-config";
+import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, OAuthProvider } from 'firebase/auth';
+
+
+const handleSignInWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            // Xử lý đăng nhập thành công
+            console.log(result.user);
+        })
+        .catch((error) => {
+            // Xử lý lỗi đăng nhập
+            console.error(error);
+        });
+};
+
+const handleSignInWithFacebook = () => {
+    const provider = new FacebookAuthProvider();
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            // Xử lý đăng nhập thành công
+            console.log(result.user);
+        })
+        .catch((error) => {
+            // Xử lý lỗi đăng nhập
+            console.error(error);
+        });
+};
+
+const handleSignInWithApple = () => {
+    const provider = new OAuthProvider('apple.com');
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            // Xử lý đăng nhập thành công
+            console.log(result.user);
+        })
+        .catch((error) => {
+            // Xử lý lỗi đăng nhập
+            console.error(error);
+        });
+};
+
 
 const LoginPage: React.FC = () => {
     return (
@@ -23,9 +66,9 @@ const LoginPage: React.FC = () => {
                 <button className="btn-login">Tiếp tục</button>
                 <span style={{textAlign: "center"}}>hoặc tiếp tục bằng</span>
                 <div className="icon-list">
-                    <img src={appleLogo} alt="" />
-                    <img src={facebookLogo} alt="" />
-                    <img src={googleLogo} alt="" />
+                    <img src={appleLogo} alt="" onClick={handleSignInWithApple} />
+                    <img src={facebookLogo} alt="" onClick={handleSignInWithFacebook} />
+                    <img src={googleLogo} alt="" onClick={handleSignInWithGoogle} />
                 </div>
                 <span>Bằng việc tiếp tục, bạn đã đọc và đồng ý với {" "} 
                     <a href="#">Điều khoản & Điều kiện</a> và {" "} 
