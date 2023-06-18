@@ -6,12 +6,12 @@ import { collection, query, where, getDocs, CollectionReference, Query, Document
 import { db } from "../../firebase/firebase-config"
 
 const HotelSearchPage: React.FC = () => {
-  const [minPrice, setminPrice] = useState(0);
-  const [maxPrice, setmaxPrice] = useState(30000000);
-  const [minStar, setminStar] = useState(1);
-  const [maxStar, setmaxStar] = useState(5);
-  const [minRank, setminRank] = useState(0);
-  const [maxRank, setmaxRank] = useState(10);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(30000000);
+  const [minStar, setMinStar] = useState(1);
+  const [maxStar, setMaxStar] = useState(5);
+  const [minRank, setMinRank] = useState(0);
+  const [maxRank, setMaxRank] = useState(10);
   const [ho_boi, setHoBoi] = useState(true);
   const [dich_vu_dua_don_san_bay, setDichVuDuaDon] = useState(true);
   const [may_dieu_hoa, setMayDieuHoa] = useState(true);
@@ -27,27 +27,27 @@ const HotelSearchPage: React.FC = () => {
   }, []); // Thực hiện getUsers khi component được mount
 
   const handleMinPriceChange = (event: any) => {
-    setminPrice(Number(event.target.value));
+    setMinPrice(Number(event.target.value));
   };
 
   const handleMaxPriceChange = (event: any) => {
-    setmaxPrice(Number(event.target.value));
+    setMaxPrice(Number(event.target.value));
   };
 
   const handleMinStarChange = (event: any) => {
-    setminStar(Number(event.target.value));
+    setMinStar(Number(event.target.value));
   };
 
   const handleMaxStarChange = (event: any) => {
-    setmaxStar(Number(event.target.value));
+    setMaxStar(Number(event.target.value));
   };
 
   const handleMinRankChange = (event: any) => {
-    setminRank(Number(event.target.value));
+    setMinRank(Number(event.target.value));
   };
 
   const handleMaxRankChange = (event: any) => {
-    setmaxRank(Number(event.target.value));
+    setMaxRank(Number(event.target.value));
   };
 
   const handleHoBoiChange = (event: any) => {
@@ -163,12 +163,12 @@ const getUsers = async () => {
   };
 
   const resetSearch = () => {
-    setminPrice(0);
-    setmaxPrice(30000000);
-    setminRank(0);
-    setmaxRank(10);
-    setminStar(1);
-    setmaxStar(5);
+    setMinPrice(0);
+    setMaxPrice(30000000);
+    setMinRank(0);
+    setMaxRank(10);
+    setMinStar(1);
+    setMaxStar(5);
     setHoBoi(true);
     setBonTamNuocNong(true);
     setDauxe(true);
