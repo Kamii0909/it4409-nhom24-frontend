@@ -4,7 +4,7 @@ import DetailHotelPage from './pages/DetailHotelPage/DetailHotelPage';
 import './App.css';
 import React from 'react';
 import LoginPage from './pages/LoginPage/LoginPage';
-import HotelSearchPage from './pages/HotelSearchPage/HotelSearchPage';
+import HotelSearchPage from './pages/HotelSearchPage/HotelSearchPage.tsx';
 import BookingPage from './pages/BookingPage/BookingPage';
 
 const App: React.FC = () => {
