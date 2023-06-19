@@ -6,7 +6,7 @@ import React from 'react';
 import LoginPage from './pages/LoginPage/LoginPage';
 import HotelSearchPage from './pages/HotelSearchPage/HotelSearchPage';
 import BookingPage from './pages/BookingPage/BookingPage';
-
+import CityHotelsPage from './pages/CityHotelsPage/CityHotelsPage';
 const App: React.FC = () => {
 
     return (
@@ -18,6 +18,7 @@ const App: React.FC = () => {
                     <Route path="/hotel-search" element={<HotelSearchPage/>} />
                     <Route path="/detail/:id" element={<DetailHotelPage />} />
                     <Route path="/booking" element={<BookingPage />} />
+                    <Route path="khach-san-thanh-pho-ho-chi-minh-viet-nam" element={<CityHotelsPage/>} />
                 </Routes>
             </Router>
         </div>
