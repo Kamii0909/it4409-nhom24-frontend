@@ -1,6 +1,6 @@
 import Footer from "../../components/Footer/Footer.tsx";
 import Header from "../../components/Header/Header.tsx";
-import loyalty_hotels from "../../assets/images/loyalty_hotels.svg";
+import loyalty_hotels from "../../assets/images/loyalty.svg";
 import mod from "../../assets/images/mod.svg";
 import cancel from "../../assets/images/cancel.png";
 import "./CityHotelsPage.css";
@@ -15,6 +15,9 @@ import {
 import hotel1 from "../../assets/images/image_hotel/hotel1.png";
 import quan1 from "../../assets/images/quan1.png";
 import tthcm from "../../assets/images/tthcm.webp";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { db } from "../../firebase/firebase-config.tsx";
 
 const CityHotelsPage: React.FC = () => {
     const carousel = document.querySelector("#city-hotel");
@@ -23,6 +26,23 @@ const CityHotelsPage: React.FC = () => {
     const arrowIconsFeaturedArea = document.querySelectorAll(
         ".navigation-featured-area"
     );
+
+    const [_hotelList, setHotels] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const hotelsRef = collection(db, "hotels");
+      const q = query(hotelsRef, where("city", "==", "Hồ Chí Minh"));
+      const querySnapshot = await getDocs(q);
+      const hotelList: any = [];
+      querySnapshot.forEach((doc) => {
+        hotelList.push(doc.data());
+      });
+      setHotels(hotelList);
+    };
+
+    fetchData();
+  }, []);
 
     arrowIcons.forEach((icon) => {
         icon.addEventListener("click", () => {
@@ -38,6 +58,8 @@ const CityHotelsPage: React.FC = () => {
                 icon.id == "featured-area-left" ? -scrollWidth : scrollWidth;
         });
     });
+
+    
     return (
         <>
             <Header />
