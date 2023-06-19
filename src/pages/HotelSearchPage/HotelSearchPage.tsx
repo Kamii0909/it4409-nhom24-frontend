@@ -84,13 +84,13 @@ const filterHotels = async (checkboxValues: any, value: any) => {
 
   // Add the price range filter
   if (rankValue === 1) {
-  hotelsQuery = query(hotelsQuery, where("rating", ">=", 0) && where("discountPrice", ">=", value[0]) && where("discountprice", "<=", value[1]));
+  hotelsQuery = query(hotelsQuery, where("rating", ">=", 0));
 } else if (rankValue === 2) {
-  hotelsQuery = query(hotelsQuery, where("rating", ">=", 9) && where("discountPrice", ">=", value[0]) && where("discountprice", "<=", value[1]));
+  hotelsQuery = query(hotelsQuery, where("rating", ">=", 9));
 } else if (rankValue === 3) {
-  hotelsQuery = query(hotelsQuery, where("rating", ">=", 8) && where("discountPrice", ">=", value[0]) && where("discountprice", "<=", value[1]));
+  hotelsQuery = query(hotelsQuery, where("rating", ">=", 8));
 } else if (rankValue === 4) {
-  hotelsQuery = query(hotelsQuery, where("rating", ">=", 7) && where("discountPrice", ">=", value[0]) && where("discountprice", "<=", value[1]));
+  hotelsQuery = query(hotelsQuery, where("rating", ">=", 7));
 }
 
 
