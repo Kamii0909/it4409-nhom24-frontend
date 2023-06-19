@@ -1,0 +1,235 @@
+.CityHotelsPage {
+    background-color: #fff;
+}
+.CityHotelsPage .text-hover:hover {
+    text-decoration: underline;
+}
+.CityHotelsPage .page-content {
+    margin: 0 auto;
+    width: 90%;
+    padding: 0 auto;
+}
+.page-content .title-page-content {
+    margin-bottom: 30px;
+    font-size: 32px;
+    font-weight: 700;
+}
+.CityHotelsPage .info-item-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.CityHotelsPage .info-item {
+    margin-bottom: 30px;
+    list-style: none;
+    max-width: 400px;
+    min-width: 300px;
+    display: flex;
+}
+
+.CityHotelsPage .info-item img {
+    height: 50px;
+    width: 50px;
+    margin-right: 15px;
+}
+
+.CityHotelsPage .info-item h4 {
+    margin: 0 0 10px;
+}
+
+.CityHotelsPage .city-hotel-wrapper,
+.CityHotelsPage .featured-area-wrapper {
+    position: relative;
+}
+.CityHotelsPage .city-hotel-wrapper:hover .navigation-event,
+.CityHotelsPage .featured-area-wrapper:hover .navigation-featured-area {
+    visibility: visible;
+}
+
+.CityHotelsPage .city-hotel,
+.CityHotelsPage .featured-area {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    overflow: hidden;
+    scroll-behavior: smooth;
+}
+.CityHotelsPage .navigation-event,
+.CityHotelsPage .navigation-featured-area {
+    visibility: hidden;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1000;
+    color: rgb(11, 138, 218);
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transition: all 0.3s ease;
+}
+#navigation-left:hover,
+#navigation-right:hover,
+#featured-area-left:hover,
+#featured-area-right:hover {
+    background-color: rgb(233, 233, 233);
+}
+#navigation-left {
+    top: 50%;
+    left: -20px;
+}
+#navigation-right {
+    top: 50%;
+    right: -20px;
+}
+#featured-area-left {
+    top: 50%;
+    left: -20px;
+}
+#featured-area-right {
+    top: 50%;
+    right: -20px;
+}
+
+.CityHotelsPage span {
+    cursor: pointer;
+    font-size: 17px;
+    margin-left: 10px;
+}
+.SlideText1,
+.SlideText2,
+.SlideText3,
+.SlideText4,
+.SlideText5,
+.SlideText6 {
+    clear: both;
+    height: 0px;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 28px;
+    margin-left: 2rem;
+    overflow: hidden;
+    text-align: start;
+    transition: all 0.5s ease;
+}
+.ArrowDown1,
+.ArrowUp1,
+.ArrowDown2,
+.ArrowUp2 .ArrowDown3,
+.ArrowUp3,
+.ArrowDown4,
+.ArrowUp4,
+.ArrowDown5,
+.ArrowUp5,
+.ArrowDown6,
+.ArrowUp6 {
+    cursor: pointer;
+    color: #000;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+}
+
+#LabelDrop1,
+#LabelDrop2,
+#LabelDrop3,
+#LabelDrop4,
+#LabelDrop5,
+#LabelDrop6 {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    border-radius: 12px;
+    transition: all 0.5s ease;
+}
+.ArrowUp1,
+.ArrowUp2,
+.ArrowUp3,
+.ArrowUp4,
+.ArrowUp5,
+.ArrowUp6 {
+    display: none;
+}
+
+#touch1,
+#touch2,
+#touch3,
+#touch4,
+#touch5,
+#touch6 {
+    position: absolute;
+    opacity: 0;
+    height: 0px;
+}
+
+#touch1:checked ~ .SlideText1 {
+    height: 30px;
+}
+#touch1:checked ~ #LabelDrop1 {
+    .ArrowDown1 {
+        display: none;
+    }
+    .ArrowUp1 {
+        display: block;
+    }
+}
+#touch2:checked ~ .SlideText2 {
+    height: 60px;
+}
+#touch2:checked ~ #LabelDrop2 {
+    .ArrowDown2 {
+        display: none;
+    }
+    .ArrowUp2 {
+        display: block;
+    }
+}
+#touch3:checked ~ .SlideText3 {
+    height: 30px;
+}
+#touch3:checked ~ #LabelDrop3 {
+    .ArrowDown3 {
+        display: none;
+    }
+    .ArrowUp3 {
+        display: block;
+    }
+}
+#touch4:checked ~ .SlideText4 {
+    height: 30px;
+}
+#touch4:checked ~ #LabelDrop4 {
+    .ArrowDown4 {
+        display: none;
+    }
+    .ArrowUp4 {
+        display: block;
+    }
+}
+#touch5:checked ~ .SlideText5 {
+    height: 30px;
+}
+#touch5:checked ~ #LabelDrop5 {
+    .ArrowDown5 {
+        display: none;
+    }
+    .ArrowUp5 {
+        display: block;
+    }
+}
+#touch6:checked ~ .SlideText6 {
+    height: 30px;
+}
+#touch6:checked ~ #LabelDrop6 {
+    .ArrowDown6 {
+        display: none;
+    }
+    .ArrowUp6 {
+        display: block;
+    }
+}
