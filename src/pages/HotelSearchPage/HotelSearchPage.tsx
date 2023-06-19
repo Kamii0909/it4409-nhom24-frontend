@@ -26,7 +26,7 @@ const HotelSearchPage: React.FC = () => {
 
     const handleChange = (_event: any, newValue: any) => {
         setValue(newValue);
-    }
+    };
 
     const handleCheckboxChange = (event: any) => {
       const { name, checked } = event.target;
@@ -39,6 +39,9 @@ const HotelSearchPage: React.FC = () => {
 const filterHotels = async (checkboxValues: any, value: any) => {
   const hotelsRef = collection(db, "hotel");
   let hotelsQuery = query(hotelsRef);
+  const [min, max] = value;
+  console.log(typeof min)
+  console.log(typeof max)
 
   // Check the checkbox values and add the appropriate filter
   if (checkboxValues.checkbox1) {
@@ -91,14 +94,18 @@ const filterHotels = async (checkboxValues: any, value: any) => {
   hotelsQuery = query(hotelsQuery, where("rating", ">=", 8));
 } else if (rankValue === 4) {
   hotelsQuery = query(hotelsQuery, where("rating", ">=", 7));
-}
+}   
 
+ 
 
-
-
-  // Execute the query and retrieve the filtered hotels
+// Execute the query and retrieve the hotels
   const querySnapshot = await getDocs(hotelsQuery);
-  const filteredHotels = querySnapshot.docs.map((doc) => doc.data());
+  const hotels = querySnapshot.docs.map((doc) => doc.data());
+
+  // Filter the hotels based on discountPrice range
+  const filteredHotels = hotels.filter((hotel) => {
+    return hotel.discountPrice >= min && hotel.discountPrice <= max;
+  });
 
   // Return the filtered hotels
   return filteredHotels;
@@ -213,7 +220,6 @@ const filterHotels = async (checkboxValues: any, value: any) => {
                             <label
                                 htmlFor="five-stars"
                                 className="option-five-stars"
-                                style={{ marginTop: "10px" }}
                             >
                                 5<IoStar />
                             </label>
