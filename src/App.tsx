@@ -6,7 +6,7 @@ import React from 'react';
 import LoginPage from './pages/LoginPage/LoginPage';
 import HotelSearchPage from './pages/HotelSearchPage/HotelSearchPage.tsx';
 import BookingPage from './pages/BookingPage/BookingPage';
-import CityHotelsPage from './pages/CityHotelsPage/CityHotelsPage.tsx';
+import CityHotelsPage from './pages/CityHotelsPage/CityHotelsPage';
 
 const App: React.FC = () => {
 
