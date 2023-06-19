@@ -27,7 +27,7 @@ const CityHotelsPage: React.FC = () => {
         ".navigation-featured-area"
     );
 
-    const [_hotelList, setHotels] = useState([]);
+    const [hotels, setHotels] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -126,67 +126,19 @@ const CityHotelsPage: React.FC = () => {
                             <IoChevronForwardOutline />
                         </div>
                         <div className="city-hotel" id="city-hotel">
-                            <HotelItem
-                                linkTo="/khach-san-thanh-pho-ho-chi-minh-viet-nam"
+                            {hotels.map((hotel: any) => (
+                                <HotelItem
+                                key={hotel.id}
+                                linkTo={`/khach-san-thanh-pho-ho-chi-minh-viet-nam/${hotel.id}`}
                                 image={hotel1}
-                                title="Hotel Nikko Saigon"
-                                star={5}
-                                desc="Quận 1 _ Cách trung tâm thành phố 2,64km"
+                                title={hotel.name}
+                                star={hotel.stars}
+                                desc={hotel.desc}
                                 comment={true}
-                                point={9.2}
-                                numberOfComments={1000}
-                            />
-
-                            <HotelItem
-                                linkTo="/khach-san-thanh-pho-ho-chi-minh-viet-nam"
-                                image={hotel1}
-                                title="Hotel Nikko Saigon"
-                                star={5}
-                                desc="Quận 1 _ Cách trung tâm thành phố 2,64km"
-                                comment={true}
-                                point={9.2}
-                                numberOfComments={1000}
-                            />
-                            <HotelItem
-                                linkTo="/khach-san-thanh-pho-ho-chi-minh-viet-nam"
-                                image={hotel1}
-                                title="Hotel Nikko Saigon"
-                                star={5}
-                                desc="Quận 1 _ Cách trung tâm thành phố 2,64km"
-                                comment={true}
-                                point={9.2}
-                                numberOfComments={1000}
-                            />
-                            <HotelItem
-                                linkTo="/khach-san-thanh-pho-ho-chi-minh-viet-nam"
-                                image={hotel1}
-                                title="Hotel Nikko Saigon"
-                                star={5}
-                                desc="Quận 1 _ Cách trung tâm thành phố 2,64km"
-                                comment={true}
-                                point={9.2}
-                                numberOfComments={1000}
-                            />
-                            <HotelItem
-                                linkTo="/khach-san-thanh-pho-ho-chi-minh-viet-nam"
-                                image={hotel1}
-                                title="Hotel Nikko Saigon"
-                                star={5}
-                                desc="Quận 1 _ Cách trung tâm thành phố 2,64km"
-                                comment={true}
-                                point={9.2}
-                                numberOfComments={1000}
-                            />
-                            <HotelItem
-                                linkTo="/khach-san-thanh-pho-ho-chi-minh-viet-nam"
-                                image={hotel1}
-                                title="Hotel Nikko Saigon"
-                                star={5}
-                                desc="Quận 1 _ Cách trung tâm thành phố 2,64km"
-                                comment={true}
-                                point={9.2}
-                                numberOfComments={1000}
-                            />
+                                point={hotel.rating}
+                                numberOfComments={100}
+                                />
+                            ))}
                         </div>
                     </div>
                     <div
