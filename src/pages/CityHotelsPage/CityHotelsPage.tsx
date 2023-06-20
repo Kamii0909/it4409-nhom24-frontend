@@ -32,7 +32,7 @@ const CityHotelsPage: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       const hotelsRef = collection(db, "hotels");
-      const q = query(hotelsRef, where("city", "==", "Hồ Chí Minh"));
+      const q = query(hotelsRef, where("location", "==", "Hồ Chí Minh"));
       const querySnapshot = await getDocs(q);
       const hotelList: any = [];
       querySnapshot.forEach((doc) => {
@@ -133,7 +133,7 @@ const CityHotelsPage: React.FC = () => {
                                 image={hotel1}
                                 title={hotel.name}
                                 star={hotel.stars}
-                                desc={hotel.desc}
+                                desc={"Cách 1km"}
                                 comment={true}
                                 point={hotel.rating}
                                 numberOfComments={100}
