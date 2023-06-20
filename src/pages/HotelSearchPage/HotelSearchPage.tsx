@@ -1,12 +1,10 @@
 import { Slider } from "@mui/material";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { IoStar } from "react-icons/io5";
 import Footer from "../../components/Footer/Footer.tsx";
 import Header from "../../components/Header/Header.tsx";
 import "./HotelSearchPage.css";
 import ImgHotel1 from "../../assets/images/image_hotel/hotel1.png";
-import ImgHotel2 from "../../assets/images/image_hotel/hotel2.png";
-import ImgHotel3 from "../../assets/images/image_hotel/hotel3.png";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebase-config.tsx"
 
@@ -23,7 +21,7 @@ const HotelSearchPage: React.FC = () => {
       checkbox7: true,
       checkbox8: true,
     });
-
+    const [filteredHotels, setFilteredHotels] = useState<any[]>([]);
     const handleChange = (_event: any, newValue: any) => {
         setValue(newValue);
     };
@@ -116,8 +114,19 @@ const filterHotels = async (checkboxValues: any, value: any) => {
 
     // Log the filtered hotels to the console
     console.log(filteredHotels);
+
+    return filteredHotels;
   };
-    
+
+    useEffect(() => {
+        const fetchFilteredHotels = async () => {
+        const filteredHotels = await filterHotels(checkboxValues, value);
+        setFilteredHotels(filteredHotels);
+        };
+
+        fetchFilteredHotels();
+    }, [checkboxValues, value]);
+        
 
 
     function valuetext(value: any) {
@@ -326,74 +335,28 @@ const filterHotels = async (checkboxValues: any, value: any) => {
                             <option value="star-rank">Xếp hạng sao</option>
                         </select>
                     </div>
-                    <div className="item-hotel">
+                    {filteredHotels.map((hotel: any, index: any) => (
+                        <div className="item-hotel" key={index}>
                         <div className="img-hotel">
                             <img src={ImgHotel1} alt="Ảnh khách sạn" />
                         </div>
                         <div className="hotel-info">
-                            <div className="hotel-name">Khách sạn Hà Nội</div>
-                            <div className="hotel-address">Quận Ba Đình</div>
+                            <div className="hotel-name">{hotel.name}</div>
+                            <div className="hotel-address">{hotel.address}</div>
                             <div className="hotel-price">
-                                <div className="sale-percent">Giảm 50%</div>
-                                <div className="price-hotel">
-                                    <div className="price-bricks">3.376.623đ</div>
-                                    <div className="price">1,688,311 đ</div>
-                                </div>
-                                <div className="price-total">
-                                    Tổng 1,950,000 đ
-                                </div>
+                            <div className="sale-percent">Giảm 50%</div>
+                            <div className="price-hotel">
+                                <div className="price-bricks">{hotel.originalPrice}đ</div>
+                                <div className="price">{hotel.discountPrice}đ</div>
+                            </div>
+                            <div className="price-total">Tổng {hotel.totalPrice}đ</div>
                             </div>
                             <div className="hotel-evaluate">
-                                <strong>7,8</strong>/10 Tốt
+                            <strong>{hotel.rating}</strong>/10 Tốt
                             </div>
                         </div>
-                    </div>
-
-                    <div className="item-hotel">
-                        <div className="img-hotel">
-                            <img src={ImgHotel2} alt="Ảnh khách sạn" />
                         </div>
-                        <div className="hotel-info">
-                            <div className="hotel-name">Lotte Hotel Hanoi</div>
-                            <div className="hotel-address">Hà Nội</div>
-                            <div className="hotel-price">
-                                <div className="sale-percent">Giảm 50%</div>
-                                <div className="price-hotel">
-                                    <div className="price-bricks">3.376.623đ</div>
-                                    <div className="price">1,688,311 đ</div>
-                                </div>
-                                <div className="price-total">
-                                    Tổng 1,950,000 đ
-                                </div>
-                            </div>
-                            <div className="hotel-evaluate">
-                                <strong>9,4</strong>/10 Tốt
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="item-hotel">
-                        <div className="img-hotel">
-                            <img src={ImgHotel3} alt="Ảnh khách sạn" />
-                        </div>
-                        <div className="hotel-info">
-                            <div className="hotel-name">My Way Hotel & Residence</div>
-                            <div className="hotel-address">Hà Nội</div>
-                            <div className="hotel-price">
-                                <div className="sale-percent">Giảm 50%</div>
-                                <div className="price-hotel">
-                                    <div className="price-bricks">3.376.623đ</div>
-                                    <div className="price">1,688,311 đ</div>
-                                </div>
-                                <div className="price-total">
-                                    Tổng 1,950,000 đ
-                                </div>
-                            </div>
-                            <div className="hotel-evaluate">
-                                <strong>7,8</strong>/10 Tốt
-                            </div>
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </div>
             <Footer />
