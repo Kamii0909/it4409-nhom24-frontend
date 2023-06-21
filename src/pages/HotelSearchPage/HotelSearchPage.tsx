@@ -25,6 +25,10 @@ const HotelSearchPage: React.FC = () => {
     const handleChange = (_event: any, newValue: any) => {
         setValue(newValue);
     };
+    const urlParams = new URLSearchParams(window.location.search);
+    const location = urlParams.get('location');
+    console.log(location); // Kết quả: Giá trị của location trong URL hiện tại
+
 
     const handleCheckboxChange = (event: any) => {
       const { name, checked } = event.target;
@@ -35,11 +39,11 @@ const HotelSearchPage: React.FC = () => {
     };
 
 const filterHotels = async (checkboxValues: any, value: any) => {
-  const hotelsRef = collection(db, "hotel");
+  const hotelsRef = collection(db, "hotel")
   let hotelsQuery = query(hotelsRef);
   const [min, max] = value;
-  console.log(typeof min)
-  console.log(typeof max)
+  hotelsQuery = query(hotelsQuery, where("location", "==", location));
+
 
   // Check the checkbox values and add the appropriate filter
   if (checkboxValues.checkbox1) {
