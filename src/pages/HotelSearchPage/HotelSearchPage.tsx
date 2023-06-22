@@ -7,6 +7,8 @@ import "./HotelSearchPage.css";
 import ImgHotel1 from "../../assets/images/image_hotel/hotel1.png";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebase-config.tsx"
+import { NavLink } from "react-router-dom";
+
 
 const HotelSearchPage: React.FC = () => {
     const [value, setValue] = React.useState([0, 20000000]);
@@ -345,7 +347,7 @@ const filterHotels = async (checkboxValues: any, value: any) => {
                             <img src={ImgHotel1} alt="Ảnh khách sạn" />
                         </div>
                         <div className="hotel-info">
-                            <div className="hotel-name">{hotel.name}</div>
+                            <NavLink to={`/hotel-detail/${hotel.name}`} className="hotel-name">{hotel.name}</NavLink>
                             <div className="hotel-address">{hotel.address}</div>
                             <div className="hotel-price">
                             <div className="sale-percent">Giảm 50%</div>
