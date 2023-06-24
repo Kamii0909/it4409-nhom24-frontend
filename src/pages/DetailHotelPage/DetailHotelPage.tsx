@@ -12,8 +12,12 @@ import LocationOverview from "../../components/LocationDetail/LocationOverview";
 import ServiceHotelInfo from "../../components/ServiceDetail/ServiceHotelInfo";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
+import { useParams } from 'react-router-dom';
 
 const DetailHotelPage: React.FC = () => {
+
+    const { id } = useParams();
+    console.log(id)
 
     return (
       <>

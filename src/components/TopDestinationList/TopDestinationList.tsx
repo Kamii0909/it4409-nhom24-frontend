@@ -8,7 +8,7 @@ const TopDestinationList: React.FC = () => {
             <NavLink to="https://www.expediagroup.com/home/default.aspx" target="blank"><img src={expedia} alt="Expedia Group Logo" /></NavLink>
             <h3>Điểm đến hàng đầu</h3>
             <div className="top-destination-list">
-                <div><NavLink className="top-destination-item" to="/" target="blank">Khách sạn tại Thành phố Hồ Chí Minh</NavLink></div>
+                <div><NavLink className="top-destination-item" to="/city-page" target="blank">Khách sạn tại Thành phố Hồ Chí Minh</NavLink></div>
                 <div><NavLink className="top-destination-item" to="/" target="blank">Khách sạn tại Hà Nội</NavLink></div>
                 <div><NavLink className="top-destination-item" to="/" target="blank">Khách sạn tại Đà Nẵng</NavLink></div>
                 <div><NavLink className="top-destination-item" to="/" target="blank">Khách sạn tại Đà Lạt</NavLink></div>
