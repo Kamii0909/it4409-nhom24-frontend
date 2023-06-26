@@ -46,14 +46,14 @@ const CityHotelsPage: React.FC = () => {
 
     arrowIcons.forEach((icon) => {
         icon.addEventListener("click", () => {
-            let scrollWidth = window.innerWidth / 4 + 8;
+            const scrollWidth = window.innerWidth / 4 + 8;
             carousel!.scrollLeft +=
                 icon.id == "navigation-left" ? -scrollWidth : scrollWidth;
         });
     });
     arrowIconsFeaturedArea.forEach((icon) => {
         icon.addEventListener("click", () => {
-            let scrollWidth = window.innerWidth / 4 + 8;
+            const scrollWidth = window.innerWidth / 4 + 8;
             carousel1!.scrollLeft +=
                 icon.id == "featured-area-left" ? -scrollWidth : scrollWidth;
         });
