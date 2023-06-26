@@ -1,11 +1,5 @@
-import Footer from "../../components/Footer/Footer.tsx";
-import Header from "../../components/Header/Header.tsx";
-import loyalty_hotels from "../../assets/images/loyalty.svg";
-import mod from "../../assets/images/mod.svg";
-import cancel from "../../assets/images/cancel.png";
-import "./CityHotelsPage.css";
-import { Link } from "react-router-dom";
-import HotelItem from "./HotelItem/HotelItem";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import {
     IoChevronBackOutline,
     IoChevronDown,
@@ -15,34 +9,44 @@ import {
 import hotel1 from "../../assets/images/image_hotel/hotel1.png";
 import quan1 from "../../assets/images/quan1.png";
 import tthcm from "../../assets/images/tthcm.webp";
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import chobenthanh from "../../assets/images/chobenthanh.png";
+import phobuivien from "../../assets/images/phobuivien.png";
+import thaocamvien from "../../assets/images/thaocamvien.png";
+import WebAdvertisement from "../../components/Advertisement/WebAdvertisement.tsx";
+import Footer from "../../components/Footer/Footer.tsx";
+import Header from "../../components/Header/Header.tsx";
 import { db } from "../../firebase/firebase-config.tsx";
+import "./CityHotelsPage.css";
+import HotelItem from "./HotelItem/HotelItem";
 
 const CityHotelsPage: React.FC = () => {
     const carousel = document.querySelector("#city-hotel");
     const carousel1 = document.querySelector("#featured-area");
+    const carousel2 = document.querySelector("#top-area");
     const arrowIcons = document.querySelectorAll(".navigation-event");
     const arrowIconsFeaturedArea = document.querySelectorAll(
         ".navigation-featured-area"
     );
+    const arrowIconsTopArea = document.querySelectorAll(
+        ".navigation-top-area"
+    );
 
     const [hotels, setHotels] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const hotelsRef = collection(db, "hotels");
-      const q = query(hotelsRef, where("location", "==", "Hồ Chí Minh"));
-      const querySnapshot = await getDocs(q);
-      const hotelList: any = [];
-      querySnapshot.forEach((doc) => {
-        hotelList.push(doc.data());
-      });
-      setHotels(hotelList);
-    };
+    useEffect(() => {
+        const fetchData = async () => {
+            const hotelsRef = collection(db, "hotels");
+            const q = query(hotelsRef, where("location", "==", "Hồ Chí Minh"));
+            const querySnapshot = await getDocs(q);
+            const hotelList: any = [];
+            querySnapshot.forEach((doc) => {
+                hotelList.push(doc.data());
+            });
+            setHotels(hotelList);
+        };
 
-    fetchData();
-  }, []);
+        fetchData();
+    }, []);
 
     arrowIcons.forEach((icon) => {
         icon.addEventListener("click", () => {
@@ -58,85 +62,52 @@ const CityHotelsPage: React.FC = () => {
                 icon.id == "featured-area-left" ? -scrollWidth : scrollWidth;
         });
     });
+    arrowIconsTopArea.forEach((icon) => {
+        icon.addEventListener("click", () => {
+            let scrollWidth = window.innerWidth / 4 + 8;
+            carousel2!.scrollLeft +=
+                icon.id == "top-area-left" ? -scrollWidth : scrollWidth;
+        });
+    });
 
-    
     return (
         <>
             <Header />
             <div className="CityHotelsPage">
                 <div className="page-content">
-                    <div className="title-page-content">
-                        Hotels.com cung cấp trải nghiệm dễ dàng và nhiều lợi
-                        ích, mọi lúc, mọi nơi
-                    </div>
-                    <ul className="info-item-list">
-                        <li className="info-item">
-                            <img src={loyalty_hotels} alt="loyalty_hotels" />
-                            <div className="info-wrapper">
-                                <h4>Nhận thưởng theo cách của bạn</h4>
-                                <div style={{ marginBottom: "10px" }}>
-                                    Lưu trú bất cứ nơi đâu, bất cứ khi nào bạn
-                                    muốn và nhận thưởng
-                                </div>
-                                <Link className="text-hover" to="/">
-                                    Tìm hiểu về Hotels.com Rewards
-                                </Link>
-                            </div>
-                        </li>
-                        <li className="info-item">
-                            <img src={mod} alt="loyalty_hotels" />
-                            <div className="info-wrapper">
-                                <h4>Nhận ưu đãi ngay</h4>
-                                <div style={{ marginBottom: "10px" }}>
-                                    Tiết kiệm trung bình % tại hàng ngàn khách
-                                    sạn với Giá thành viên
-                                </div>
-                                <div>
-                                    <Link
-                                        className="text-hover"
-                                        to="/"
-                                        style={{ marginRight: "25px" }}
-                                    >
-                                        Đăng ký miễn phí
-                                    </Link>
-                                    <Link className="text-hover" to="/">
-                                        Đăng nhập{" "}
-                                    </Link>
-                                </div>
-                            </div>
-                        </li>
-                        <li className="info-item">
-                            <img src={cancel} alt="cancel" />
-                            <div className="info-wrapper">
-                                <h4>Hủy miễn phí</h4>
-                                <div style={{ marginBottom: "10px" }}>
-                                    Đặt phòng linh động ở hầu hết khách sạn
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                    <WebAdvertisement />
                     <div className="title-page-content">
                         Nơi bạn sẽ ở tại Thành phố Hồ Chí Minh?
                     </div>
                     <div className="city-hotel-wrapper">
-                        <div className="navigation-event" id="navigation-left">
-                            <IoChevronBackOutline />
-                        </div>
-                        <div className="navigation-event" id="navigation-right">
-                            <IoChevronForwardOutline />
-                        </div>
+                        {hotels?.length > 3 && (
+                            <div
+                                className="navigation-event"
+                                id="navigation-left"
+                            >
+                                <IoChevronBackOutline />
+                            </div>
+                        )}
+                        {hotels?.length > 3 && (
+                            <div
+                                className="navigation-event"
+                                id="navigation-right"
+                            >
+                                <IoChevronForwardOutline />
+                            </div>
+                        )}
                         <div className="city-hotel" id="city-hotel">
                             {hotels.map((hotel: any) => (
                                 <HotelItem
-                                key={hotel.id}
-                                linkTo={`/khach-san-thanh-pho-ho-chi-minh-viet-nam/${hotel.id}`}
-                                image={hotel1}
-                                title={hotel.name}
-                                star={hotel.stars}
-                                desc={"Cách 1km"}
-                                comment={true}
-                                point={hotel.rating}
-                                numberOfComments={100}
+                                    key={hotel.id}
+                                    linkTo={`/khach-san-thanh-pho-ho-chi-minh-viet-nam/${hotel.id}`}
+                                    image={hotel1}
+                                    title={hotel.name}
+                                    star={hotel.stars}
+                                    desc={"Cách 1km"}
+                                    comment={true}
+                                    point={hotel.rating}
+                                    numberOfComments={100}
                                 />
                             ))}
                         </div>
@@ -245,9 +216,121 @@ const CityHotelsPage: React.FC = () => {
                     </div>
                     <div
                         className="title-page-content"
+                        style={{ marginTop: "40px" }}
+                    >
+                        Danh thắng hàng đầu ở Thành phố Hồ Chí Minh
+                    </div>
+                    <div className="top-area-wrapper">
+                        <div
+                            className="navigation-top-area"
+                            id="top-area-left"
+                        >
+                            <IoChevronBackOutline />
+                        </div>
+                        <div
+                            className="navigation-top-area"
+                            id="top-area-right"
+                        >
+                            <IoChevronForwardOutline />
+                        </div>
+                        <div className="city-hotel" id="top-area">
+                            <HotelItem
+                                linkTo="/khach-san-thanh-pho-ho-chi-minh-viet-nam"
+                                image={chobenthanh}
+                                title="Chợ Bến Thành"
+                                star={0}
+                                desc="Bạn có thể tìm được những món quà lưu niệm độc đáo khi đến Chợ Bến Thành, điểm mua sắm được mọi người yêu thích tại Thành phố Hồ Chí Minh. Hãy dành thời gian khám phá nhiều lựa chọn ẩm thực và những bảo tàng hàng đầu tại điểm đến đô thị này. "
+                                comment={false}
+                                point={0}
+                                numberOfComments={0}
+                            />
+                            <HotelItem
+                                linkTo="/khach-san-thanh-pho-ho-chi-minh-viet-nam"
+                                image={phobuivien}
+                                title="Phố đi bộ Bùi Viện"
+                                star={0}
+                                desc="Khi dừng chân ở Phố đi bộ Bùi Viện, nơi mua sắm nổi tiếng tại Thành phố Hồ Chí Minh, bạn sẽ tìm được những món quà địa phương độc đáo. Đừng quên tận hưởng hoạt động giải trí về đêm tuyệt vời hoặc nhiều lựa chọn ẩm thực tại điểm đến phù hợp để dạo bộ này."
+                                comment={false}
+                                point={0}
+                                numberOfComments={0}
+                            />
+                            <HotelItem
+                                linkTo="/khach-san-thanh-pho-ho-chi-minh-viet-nam"
+                                image={thaocamvien}
+                                title="Thảo cầm viên Sài Gòn"
+                                star={0}
+                                desc="Hãy tham quan, khám phá đời sống động vật hoang dã tại Thảo cầm viên Sài Gòn trong hành trình đến Thành phố Hồ Chí Minh. Tham quan, khám phá nhiều lựa chọn ẩm thực và trải nghiệm những bảo tàng hàng đầu là một trong nhiều hoạt động không thể bỏ qua tại khu vực này."
+                                comment={false}
+                                point={0}
+                                numberOfComments={0}
+                            />
+                            <HotelItem
+                                linkTo="/khach-san-thanh-pho-ho-chi-minh-viet-nam"
+                                image={chobenthanh}
+                                title="Chợ Bến Thành"
+                                star={0}
+                                desc="Bạn có thể tìm được những món quà lưu niệm độc đáo khi đến Chợ Bến Thành, điểm mua sắm được mọi người yêu thích tại Thành phố Hồ Chí Minh. Hãy dành thời gian khám phá nhiều lựa chọn ẩm thực và những bảo tàng hàng đầu tại điểm đến đô thị này. "
+                                comment={false}
+                                point={0}
+                                numberOfComments={0}
+                            />
+                            <HotelItem
+                                linkTo="/khach-san-thanh-pho-ho-chi-minh-viet-nam"
+                                image={phobuivien}
+                                title="Phố đi bộ Bùi Viện"
+                                star={0}
+                                desc="Khi dừng chân ở Phố đi bộ Bùi Viện, nơi mua sắm nổi tiếng tại Thành phố Hồ Chí Minh, bạn sẽ tìm được những món quà địa phương độc đáo. Đừng quên tận hưởng hoạt động giải trí về đêm tuyệt vời hoặc nhiều lựa chọn ẩm thực tại điểm đến phù hợp để dạo bộ này."
+                                comment={false}
+                                point={0}
+                                numberOfComments={0}
+                            />
+                            <HotelItem
+                                linkTo="/khach-san-thanh-pho-ho-chi-minh-viet-nam"
+                                image={thaocamvien}
+                                title="Thảo cầm viên Sài Gòn"
+                                star={0}
+                                desc="Hãy tham quan, khám phá đời sống động vật hoang dã tại Thảo cầm viên Sài Gòn trong hành trình đến Thành phố Hồ Chí Minh. Tham quan, khám phá nhiều lựa chọn ẩm thực và trải nghiệm những bảo tàng hàng đầu là một trong nhiều hoạt động không thể bỏ qua tại khu vực này."
+                                comment={false}
+                                point={0}
+                                numberOfComments={0}
+                            />
+                            <HotelItem
+                                linkTo="/khach-san-thanh-pho-ho-chi-minh-viet-nam"
+                                image={chobenthanh}
+                                title="Chợ Bến Thành"
+                                star={0}
+                                desc="Bạn có thể tìm được những món quà lưu niệm độc đáo khi đến Chợ Bến Thành, điểm mua sắm được mọi người yêu thích tại Thành phố Hồ Chí Minh. Hãy dành thời gian khám phá nhiều lựa chọn ẩm thực và những bảo tàng hàng đầu tại điểm đến đô thị này. "
+                                comment={false}
+                                point={0}
+                                numberOfComments={0}
+                            />
+                            <HotelItem
+                                linkTo="/khach-san-thanh-pho-ho-chi-minh-viet-nam"
+                                image={phobuivien}
+                                title="Phố đi bộ Bùi Viện"
+                                star={0}
+                                desc="Khi dừng chân ở Phố đi bộ Bùi Viện, nơi mua sắm nổi tiếng tại Thành phố Hồ Chí Minh, bạn sẽ tìm được những món quà địa phương độc đáo. Đừng quên tận hưởng hoạt động giải trí về đêm tuyệt vời hoặc nhiều lựa chọn ẩm thực tại điểm đến phù hợp để dạo bộ này."
+                                comment={false}
+                                point={0}
+                                numberOfComments={0}
+                            />
+                            <HotelItem
+                                linkTo="/khach-san-thanh-pho-ho-chi-minh-viet-nam"
+                                image={thaocamvien}
+                                title="Thảo cầm viên Sài Gòn"
+                                star={0}
+                                desc="Hãy tham quan, khám phá đời sống động vật hoang dã tại Thảo cầm viên Sài Gòn trong hành trình đến Thành phố Hồ Chí Minh. Tham quan, khám phá nhiều lựa chọn ẩm thực và trải nghiệm những bảo tàng hàng đầu là một trong nhiều hoạt động không thể bỏ qua tại khu vực này."
+                                comment={false}
+                                point={0}
+                                numberOfComments={0}
+                            />
+                        </div>
+                    </div>
+                    <div
+                        className="title-page-content"
                         style={{ marginTop: "40px", marginBottom: "10px" }}
                     >
-                        Khu vực nổi bật ở Thành phố Hồ Chí Minh
+                        Thông tin cần biết về Thành phố Hồ Chí Minh
                     </div>
                     <div>
                         Những quán cà phê độc đáo và bảo tàng hấp dẫn là những

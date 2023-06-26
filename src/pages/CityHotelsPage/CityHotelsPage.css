@@ -1,15 +1,15 @@
 .CityHotelsPage {
-    background-color: #fff;
+    background-color: transparent;
 }
 .CityHotelsPage .text-hover:hover {
     text-decoration: underline;
 }
 .CityHotelsPage .page-content {
-    margin: 0 auto;
-    width: 90%;
+    margin: 2vw 11vw 0 11vw;
     padding: 0 auto;
 }
 .page-content .title-page-content {
+    margin-top: 30px;
     margin-bottom: 30px;
     font-size: 32px;
     font-weight: 700;
@@ -38,16 +38,19 @@
 }
 
 .CityHotelsPage .city-hotel-wrapper,
-.CityHotelsPage .featured-area-wrapper {
+.CityHotelsPage .featured-area-wrapper,
+.CityHotelsPage .top-area-wrapper {
     position: relative;
 }
 .CityHotelsPage .city-hotel-wrapper:hover .navigation-event,
-.CityHotelsPage .featured-area-wrapper:hover .navigation-featured-area {
+.CityHotelsPage .featured-area-wrapper:hover .navigation-featured-area,
+.CityHotelsPage .top-area-wrapper:hover .navigation-top-area {
     visibility: visible;
 }
 
 .CityHotelsPage .city-hotel,
-.CityHotelsPage .featured-area {
+.CityHotelsPage .featured-area,
+.CityHotelsPage .top-area {
     margin-top: 10px;
     display: flex;
     flex-wrap: nowrap;
@@ -56,7 +59,8 @@
     scroll-behavior: smooth;
 }
 .CityHotelsPage .navigation-event,
-.CityHotelsPage .navigation-featured-area {
+.CityHotelsPage .navigation-featured-area,
+.CityHotelsPage .navigation-top-area {
     visibility: hidden;
     position: absolute;
     cursor: pointer;
@@ -76,22 +80,20 @@
 #navigation-left:hover,
 #navigation-right:hover,
 #featured-area-left:hover,
-#featured-area-right:hover {
+#featured-area-right:hover,
+#top-area-left:hover,
+#top-area-right:hover {
     background-color: rgb(233, 233, 233);
 }
-#navigation-left {
+#navigation-left,
+#featured-area-left,
+#top-area-left {
     top: 50%;
     left: -20px;
 }
-#navigation-right {
-    top: 50%;
-    right: -20px;
-}
-#featured-area-left {
-    top: 50%;
-    left: -20px;
-}
-#featured-area-right {
+#navigation-right,
+#featured-area-right,
+#top-area-right {
     top: 50%;
     right: -20px;
 }
