@@ -7,7 +7,7 @@ import "./HotelSearchPage.css";
 import ImgHotel1 from "../../assets/images/image_hotel/hotel1.png";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebase-config.tsx"
-import { NavLink } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 
 const HotelSearchPage: React.FC = () => {
@@ -31,6 +31,9 @@ const HotelSearchPage: React.FC = () => {
     const location = urlParams.get('location');
     console.log(location); // Kết quả: Giá trị của location trong URL hiện tại
 
+    const navigate = useNavigate();
+    const locations = useLocation();
+
 
     const handleCheckboxChange = (event: any) => {
       const { name, checked } = event.target;
@@ -39,6 +42,18 @@ const HotelSearchPage: React.FC = () => {
         [name]: checked,
       }));
     };
+
+    const handleLinktoHotelDetailPage = (hotelName: string) => {
+        const searchParams = new URLSearchParams(locations.search);
+        const checkInDate = searchParams.get('checkInDate') || '';
+        const checkOutDate = searchParams.get('checkOutDate') || '';
+        const numGuest = parseInt(searchParams.get('guestCount') || '2');
+        const numRoom = parseInt(searchParams.get('roomCount') || '1');
+
+        const url = `/hotel-detail/${hotelName}?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&guestCount=${numGuest}&roomCount=${numRoom}`;
+        navigate(url);
+
+    }
 
 const filterHotels = async (checkboxValues: any, value: any) => {
   const hotelsRef = collection(db, "hotel")
@@ -346,8 +361,8 @@ const filterHotels = async (checkboxValues: any, value: any) => {
                         <div className="img-hotel">
                             <img src={ImgHotel1} alt="Ảnh khách sạn" />
                         </div>
-                        <div className="hotel-info">
-                            <NavLink to={`/hotel-detail/${hotel.name}`} className="hotel-name">{hotel.name}</NavLink>
+                        <div onClick={() => handleLinktoHotelDetailPage(hotel.name)} className="hotel-info">
+                            <div className="hotel-name">{hotel.name}</div>
                             <div className="hotel-address">{hotel.address}</div>
                             <div className="hotel-price">
                             <div className="sale-percent">Giảm 50%</div>
