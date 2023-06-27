@@ -1,8 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBed, faBorderTopLeft, faCar, faCheck, faCity, faUserGroup, faWifi } from "@fortawesome/free-solid-svg-icons";
-import "./RoomItem.css"
+import "./RoomItem.css";
+import { useNavigate } from "react-router-dom";
 
 const RoomItem: React.FC = () => {
+
+    const navigate = useNavigate();
+
     return (
         <div className="room-items">
             <img src="/src/assets/images/room1.png" alt="roomImg" />
@@ -30,7 +34,7 @@ const RoomItem: React.FC = () => {
                     </div>
                     <div className="number-left-rooms">
                         <p>Còn 5 phòng</p>
-                        <button className="book-btn">Đặt</button>
+                        <button onClick={() => navigate('/booking')} className="book-btn">Đặt</button>
                     </div>
                 </div>
             </div>

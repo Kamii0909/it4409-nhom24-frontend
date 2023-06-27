@@ -50,21 +50,21 @@ const CityHotelsPage: React.FC = () => {
 
     arrowIcons.forEach((icon) => {
         icon.addEventListener("click", () => {
-            let scrollWidth = window.innerWidth / 4 + 8;
+            const scrollWidth = window.innerWidth / 4 + 8;
             carousel!.scrollLeft +=
                 icon.id == "navigation-left" ? -scrollWidth : scrollWidth;
         });
     });
     arrowIconsFeaturedArea.forEach((icon) => {
         icon.addEventListener("click", () => {
-            let scrollWidth = window.innerWidth / 4 + 8;
+            const scrollWidth = window.innerWidth / 4 + 8;
             carousel1!.scrollLeft +=
                 icon.id == "featured-area-left" ? -scrollWidth : scrollWidth;
         });
     });
     arrowIconsTopArea.forEach((icon) => {
         icon.addEventListener("click", () => {
-            let scrollWidth = window.innerWidth / 4 + 8;
+            const scrollWidth = window.innerWidth / 4 + 8;
             carousel2!.scrollLeft +=
                 icon.id == "top-area-left" ? -scrollWidth : scrollWidth;
         });
@@ -100,7 +100,7 @@ const CityHotelsPage: React.FC = () => {
                             {hotels.map((hotel: any) => (
                                 <HotelItem
                                     key={hotel.id}
-                                    linkTo={`/khach-san-thanh-pho-ho-chi-minh-viet-nam/${hotel.id}`}
+                                    linkTo={`/hotel-detail/${hotel.name}`}
                                     image={hotel1}
                                     title={hotel.name}
                                     star={hotel.stars}

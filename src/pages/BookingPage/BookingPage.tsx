@@ -518,8 +518,8 @@ const BookingPage: React.FC = () => {
                         </div>
                         <div className="final-review-section">
                             <table className="booking-details-travel">
-                                <tr><td style={{width: "100px", textAlign: "left"}}>Nhận phòng</td><td style={{textAlign: "right"}}><b>Thứ sáu, ngày 16 tháng 06 năm 2023</b> (14:00)</td></tr>
-                                <tr><td style={{width: "100px", textAlign: "left"}}>Trả phòng</td><td style={{textAlign: "right"}}><b>Thứ bảy, ngày 17 tháng 06 năm 2023</b> (12:00)</td></tr>
+                                <tr><td style={{width: "100px", textAlign: "left"}}>Nhận phòng</td><td style={{textAlign: "right"}}><b>Thứ ba, ngày 27 tháng 06 năm 2023</b> (14:00)</td></tr>
+                                <tr><td style={{width: "100px", textAlign: "left"}}>Trả phòng</td><td style={{textAlign: "right"}}><b>Thứ tư, ngày 28 tháng 06 năm 2023</b> (12:00)</td></tr>
                                 <tr style={{height: "40px", textAlign: "right"}}><td colSpan={2}><span className="num">1 đêm, 1 phòng</span></td></tr>
                             </table>
                             <hr style={{clear: "right"}}/>
@@ -556,8 +556,8 @@ const BookingPage: React.FC = () => {
                                 </div>
                             </div>
                             <table className="travel-details">
-                                <tr><td style={{textAlign: "left", height: "60px"}}>Nhận phòng</td><td style={{textAlign: "right"}}><b>Thứ sáu, ngày 16 tháng 06 năm 2023</b> (14:00)</td></tr>
-                                <tr><td style={{textAlign: "left", height: "60px"}}>Trả phòng</td><td style={{textAlign: "right"}}><b>Thứ bảy, ngày 17 tháng 06 năm 2023</b> (12:00)</td></tr>
+                                <tr><td style={{textAlign: "left", height: "60px"}}>Nhận phòng</td><td style={{textAlign: "right"}}><b>Thứ ba, ngày 27 tháng 06 năm 2023</b> (14:00)</td></tr>
+                                <tr><td style={{textAlign: "left", height: "60px"}}>Trả phòng</td><td style={{textAlign: "right"}}><b>Thứ tư, ngày 28 tháng 06 năm 2023</b> (12:00)</td></tr>
                                 <tr style={{textAlign: "right", height: "30px"}}><td colSpan={2}><span className="num">1 đêm, 1 phòng</span></td></tr>
                             </table>
                         </div>
@@ -566,7 +566,7 @@ const BookingPage: React.FC = () => {
                             <hr />
                             <table className="price-breakdown">
                                 <tr>
-                                    <td style={{textAlign: "left", width: "70%"}}>Thứ sáu, ngày 16 tháng 06 năm 2023</td>
+                                    <td style={{textAlign: "left", width: "70%"}}>Thứ ba, ngày 27 tháng 06 năm 2023</td>
                                     <td style={{textAlign: "right"}}>1.547.164 ₫</td>
                                 </tr>
                                 <tr>

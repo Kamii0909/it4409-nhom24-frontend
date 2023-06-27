@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import "./SearchForm.css";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 const RoomCheckForm: React.FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
+    const { id } = useParams();
     const [checkInDate, setCheckInDate] = useState("");
     const [checkOutDate, setCheckOutDate] = useState("");
     const [numberOfGuests, setNumberOfGuests] = useState(2);
@@ -30,7 +32,7 @@ const RoomCheckForm: React.FC = () => {
         newSearchParams.append('checkOutDate', checkOutDate);
         newSearchParams.append('guestCount', numberOfGuests.toString());
         newSearchParams.append('roomCount', numberOfRooms.toString());
-        const url = `/detail/HanoiHotel?${newSearchParams.toString()}`;
+        const url = `/hotel-detail/${id}?${newSearchParams.toString()}`;
         navigate(url);
     };
 
