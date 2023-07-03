@@ -161,7 +161,7 @@ const HotelSearchForm: React.FC<SearchFormProps> = ({ onSubmit }) => {
                 </div>
                 <div className="select-num-room-cus">
                     <div className="input-number">
-                        Number of travellers: 
+                        Number of guests: 
                         <div className="btn-quantity">
                             <button type="button" onClick={handleGuestDecrement}>-</button>
                             <span>{numberOfGuests}</span>
