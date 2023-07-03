@@ -4,7 +4,7 @@ import DetailHotelPage from './pages/DetailHotelPage/DetailHotelPage';
 import './App.css';
 import React from 'react';
 import LoginPage from './pages/LoginPage/LoginPage';
-import HotelSearchPage from './pages/HotelSearchPage/HotelSearchPage.tsx';
+import HotelSearchPage from './pages/HotelSearchPage/HotelSearchPage';
 import BookingPage from './pages/BookingPage/BookingPage';
 import CityHotelsPage from './pages/CityHotelsPage/CityHotelsPage';
 

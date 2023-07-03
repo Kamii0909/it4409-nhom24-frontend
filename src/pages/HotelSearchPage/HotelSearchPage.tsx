@@ -1,31 +1,42 @@
 import { Slider } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { IoStar } from "react-icons/io5";
-import Footer from "../../components/Footer/Footer.tsx";
-import Header from "../../components/Header/Header.tsx";
-import "./HotelSearchPage.css";
+import { useLocation, useNavigate } from "react-router-dom";
 import ImgHotel1 from "../../assets/images/image_hotel/hotel1.png";
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../../firebase/firebase-config.tsx"
-import { useNavigate, useLocation } from "react-router-dom";
+import Footer from "../../components/Footer/Footer";
+import Header from "../../components/Header/Header";
+import { BackendQueryFilter, FilterableAmenity, HotelSummary, filterHotels } from "../../http/BackendHotelApi";
+import "./HotelSearchPage.css";
 
 
+type HotelAmenityCheckboxes = {
+    pool: boolean,
+    breakfast: boolean,
+    internet: boolean,
+    checkbox4: boolean,
+    checkbox5: boolean,
+    parking: boolean,
+    checkbox7: boolean,
+    checkbox8: boolean,
+}
+
+type PriceRange = [number, number];
 const HotelSearchPage: React.FC = () => {
-    const [value, setValue] = React.useState([0, 20000000]);
-    const [rankValue, setRankValue] = React.useState(1);
-    const [checkboxValues, setCheckboxValues] = React.useState({
-      checkbox1: true,
-      checkbox2: true,
-      checkbox3: true,
-      checkbox4: true,
-      checkbox5: true,
-      checkbox6: true,
-      checkbox7: true,
-      checkbox8: true,
+    const [price, setPriceRange] = useState<PriceRange>([0, 20_000_000]);
+    const [rating, setRatingValue] = useState(1);
+    const [amenities, setAmenitiesCheckboxes] = useState<HotelAmenityCheckboxes>({
+        pool: false,
+        breakfast: true,
+        internet: true,
+        checkbox4: true,
+        checkbox5: true,
+        parking: false,
+        checkbox7: true,
+        checkbox8: true,
     });
-    const [filteredHotels, setFilteredHotels] = useState<any[]>([]);
-    const handleChange = (_event: any, newValue: any) => {
-        setValue(newValue);
+    const [filteredHotels, setFilteredHotels] = useState<HotelSummary[]>([]);
+    const onPriceChange = (_event: any, newValue: any) => {
+        setPriceRange(newValue);
     };
     const urlParams = new URLSearchParams(window.location.search);
     const location = urlParams.get('location');
@@ -36,11 +47,11 @@ const HotelSearchPage: React.FC = () => {
 
 
     const handleCheckboxChange = (event: any) => {
-      const { name, checked } = event.target;
-      setCheckboxValues((prevValues) => ({
-        ...prevValues,
-        [name]: checked,
-      }));
+        const { name, checked } = event.target;
+        setAmenitiesCheckboxes((prevValues) => ({
+            ...prevValues,
+            [name]: checked,
+        }));
     };
 
     const handleLinktoHotelDetailPage = (hotelName: string) => {
@@ -52,102 +63,81 @@ const HotelSearchPage: React.FC = () => {
 
         const url = `/hotel-detail/${hotelName}?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&guestCount=${numGuest}&roomCount=${numRoom}`;
         navigate(url);
-
     }
 
-const filterHotels = async (checkboxValues: any, value: any) => {
-  const hotelsRef = collection(db, "hotel")
-  let hotelsQuery = query(hotelsRef);
-  const [min, max] = value;
-  hotelsQuery = query(hotelsQuery, where("location", "==", location));
+    const filterHotels0 = async (checkboxValues: HotelAmenityCheckboxes, price: PriceRange) => {
+        const filter: BackendQueryFilter = { amenities: [], minPrice: price[0], maxPrice: price[1] };
 
+        // Check the checkbox values and add the appropriate filter
+        /**
+         * TODO:
+         * 1. Dich vu dua don san bay
+         * 2. Dieu hoa
+         * 3. Bon tam nuoc nong
+         * 4. Gym
+         * 5. Spa
+         */
+        if (checkboxValues.pool) {
+            filter.amenities?.push(FilterableAmenity.POOL);
+        }
+        if (checkboxValues.breakfast) {
+            filter.amenities?.push(FilterableAmenity.BREAKFAST);
+        }
+        if (checkboxValues.internet) {
+            filter.amenities?.push(FilterableAmenity.INTERNET);
+        }
+        if (checkboxValues.checkbox4) {
+            // TODO Bon tam nuoc nong
+        }
+        if (checkboxValues.checkbox8) {
+            // TODO Gym
+        }
+        if (checkboxValues.checkbox5) {
+            // TODO Spa
+        }
+        if (checkboxValues.parking) {
+            filter.amenities?.push(FilterableAmenity.PARKING);
+        }
+        if (checkboxValues.checkbox7) {
+            // TODO Ocean view
+        }
 
-  // Check the checkbox values and add the appropriate filter
-  if (checkboxValues.checkbox1) {
-    hotelsQuery = query(hotelsQuery, where("ho_boi", "==", true));
-  } else {
-    hotelsQuery = query(hotelsQuery, where("ho_boi", "==", false));
-  }
-  if (checkboxValues.checkbox2) {
-    hotelsQuery = query(hotelsQuery, where("dich_vu_dua_don_san_bay", "==", true));
-  } else {
-    hotelsQuery = query(hotelsQuery, where("dich_vu_dua_don_san_bay", "==", false));
-  }
-  if (checkboxValues.checkbox3) {
-    hotelsQuery = query(hotelsQuery, where("may_dieu_hoa", "==", true));
-  } else {
-    hotelsQuery = query(hotelsQuery, where("may_dieu_hoa", "==", false));
-  }
-  if (checkboxValues.checkbox4) {
-    hotelsQuery = query(hotelsQuery, where("bon_tam_nuoc_nong", "==", true));
-  } else {
-    hotelsQuery = query(hotelsQuery, where("bon_tam_nuoc_nong", "==", false));
-  }
-  if (checkboxValues.checkbox8) {
-    hotelsQuery = query(hotelsQuery, where("gym", "==", true));
-  } else {
-    hotelsQuery = query(hotelsQuery, where("gym", "==", false));
-  }
-  if (checkboxValues.checkbox5) {
-    hotelsQuery = query(hotelsQuery, where("spa", "==", true));
-  } else {
-    hotelsQuery = query(hotelsQuery, where("spa", "==", false));
-  }
-  if (checkboxValues.checkbox6) {
-    hotelsQuery = query(hotelsQuery, where("dau_xe", "==", true));
-  } else {
-    hotelsQuery = query(hotelsQuery, where("dau_xe", "==", false));
-  }
-  if (checkboxValues.checkbox7) {
-    hotelsQuery = query(hotelsQuery, where("quang_canh_bien", "==", true));
-  } else {
-    hotelsQuery = query(hotelsQuery, where("quang_canh_bien", "==", false));
-  }
+        // Add the price range filter
+        // TODO Backend does not support rating yet, random if you like
+        if (rating === 1) {
+            // No rating requirement
+        } else if (rating === 2) {
+            // Rating >= 9
+        } else if (rating === 3) {
+            // Rating >= 8.5
+        } else if (rating === 4) {
+            // Rating >= 7
+        }
 
-  // Add the price range filter
-  if (rankValue === 1) {
-  hotelsQuery = query(hotelsQuery, where("rating", ">=", 0));
-} else if (rankValue === 2) {
-  hotelsQuery = query(hotelsQuery, where("rating", ">=", 9));
-} else if (rankValue === 3) {
-  hotelsQuery = query(hotelsQuery, where("rating", ">=", 8));
-} else if (rankValue === 4) {
-  hotelsQuery = query(hotelsQuery, where("rating", ">=", 7));
-}   
+        // TODO support discount price
 
- 
-
-// Execute the query and retrieve the hotels
-  const querySnapshot = await getDocs(hotelsQuery);
-  const hotels = querySnapshot.docs.map((doc) => doc.data());
-
-  // Filter the hotels based on discountPrice range
-  const filteredHotels = hotels.filter((hotel) => {
-    return hotel.discountPrice >= min && hotel.discountPrice <= max;
-  });
-
-  // Return the filtered hotels
-  return filteredHotels;
-};
+        // Return the filtered hotels
+        return filterHotels(filter);
+    };
     const handleFilterHotels = async () => {
-    // Call the filterHotels function with the current checkbox and value states
-    const filteredHotels = await filterHotels(checkboxValues, value);
+        // Call the filterHotels function with the current checkbox and value states
+        const filteredHotels = await filterHotels0(amenities, price);
 
-    // Log the filtered hotels to the console
-    console.log(filteredHotels);
+        // Log the filtered hotels to the console
+        console.log(filteredHotels);
 
-    return filteredHotels;
-  };
+        return filteredHotels;
+    };
 
     useEffect(() => {
         const fetchFilteredHotels = async () => {
-        const filteredHotels = await filterHotels(checkboxValues, value);
-        setFilteredHotels(filteredHotels);
+            const filteredHotels = await filterHotels({});
+            setFilteredHotels(filteredHotels);
         };
 
         fetchFilteredHotels();
-    }, [checkboxValues, value]);
-        
+    }, [amenities, price]);
+
 
 
     function valuetext(value: any) {
@@ -163,11 +153,11 @@ const filterHotels = async (checkboxValues: any, value: any) => {
                         <h3>Giá mỗi đêm</h3>
                         <Slider
                             getAriaLabel={() => "price range"}
-                            value={value}
+                            value={price}
                             min={0}
                             max={30000000}
                             step={1000}
-                            onChange={handleChange}
+                            onChange={onPriceChange}
                             valueLabelDisplay="auto"
                             getAriaValueText={valuetext}
                         />
@@ -179,8 +169,8 @@ const filterHotels = async (checkboxValues: any, value: any) => {
                                 type="radio"
                                 name="radio1"
                                 id="radio1"
-                                checked={rankValue === 1}
-                                onChange={() => setRankValue(1)}
+                                checked={rating === 1}
+                                onChange={() => setRatingValue(1)}
                             />
                             Bất kỳ
                         </label>
@@ -189,8 +179,8 @@ const filterHotels = async (checkboxValues: any, value: any) => {
                                 type="radio"
                                 name="radio2"
                                 id="radio2"
-                                checked={rankValue === 2}
-                                onChange={() => setRankValue(2)}
+                                checked={rating === 2}
+                                onChange={() => setRatingValue(2)}
                             />
                             Tuyệt vời 9+
                         </label>
@@ -199,8 +189,8 @@ const filterHotels = async (checkboxValues: any, value: any) => {
                                 type="radio"
                                 name="radio3"
                                 id="radio3"
-                                checked={rankValue === 3}
-                                onChange={() => setRankValue(3)}
+                                checked={rating === 3}
+                                onChange={() => setRatingValue(3)}
                             />
                             Rất tốt 8+
                         </label>
@@ -209,8 +199,8 @@ const filterHotels = async (checkboxValues: any, value: any) => {
                                 type="radio"
                                 name="radio4"
                                 id="radio4"
-                                checked={rankValue === 4}
-                                onChange={() => setRankValue(4)}
+                                checked={rating === 4}
+                                onChange={() => setRatingValue(4)}
                             />
                             Tốt 7+
                         </label>
@@ -262,7 +252,7 @@ const filterHotels = async (checkboxValues: any, value: any) => {
                                 type="checkbox"
                                 name="checkbox1"
                                 id="checkbox1"
-                                checked={checkboxValues.checkbox1}
+                                checked={amenities.pool}
                                 onChange={handleCheckboxChange}
                             />
                             Hồ bơi
@@ -272,7 +262,7 @@ const filterHotels = async (checkboxValues: any, value: any) => {
                                 type="checkbox"
                                 name="checkbox2"
                                 id="checkbox2"
-                                checked={checkboxValues.checkbox2}
+                                checked={amenities.breakfast}
                                 onChange={handleCheckboxChange}
                             />
                             Bao gồm dịch vụ đưa đón sân bay
@@ -282,7 +272,7 @@ const filterHotels = async (checkboxValues: any, value: any) => {
                                 type="checkbox"
                                 name="checkbox3"
                                 id="checkbox3"
-                                checked={checkboxValues.checkbox3}
+                                checked={amenities.internet}
                                 onChange={handleCheckboxChange}
                             />
                             Máy điều hòa
@@ -292,7 +282,7 @@ const filterHotels = async (checkboxValues: any, value: any) => {
                                 type="checkbox"
                                 name="checkbox4"
                                 id="checkbox4"
-                                checked={checkboxValues.checkbox4}
+                                checked={amenities.checkbox4}
                                 onChange={handleCheckboxChange}
                             />
                             Bồn tắm nước nóng
@@ -302,7 +292,7 @@ const filterHotels = async (checkboxValues: any, value: any) => {
                                 type="checkbox"
                                 name="checkbox5"
                                 id="checkbox5"
-                                checked={checkboxValues.checkbox5}
+                                checked={amenities.checkbox5}
                                 onChange={handleCheckboxChange}
                             />
                             Spa
@@ -312,7 +302,7 @@ const filterHotels = async (checkboxValues: any, value: any) => {
                                 type="checkbox"
                                 name="checkbox6"
                                 id="checkbox6"
-                                checked={checkboxValues.checkbox6}
+                                checked={amenities.parking}
                                 onChange={handleCheckboxChange}
                             />
                             Đậu xe
@@ -322,7 +312,7 @@ const filterHotels = async (checkboxValues: any, value: any) => {
                                 type="checkbox"
                                 name="checkbox7"
                                 id="checkbox7"
-                                checked={checkboxValues.checkbox7}
+                                checked={amenities.checkbox7}
                                 onChange={handleCheckboxChange}
                             />
                             Quang cảnh biển
@@ -332,7 +322,7 @@ const filterHotels = async (checkboxValues: any, value: any) => {
                                 type="checkbox"
                                 name="checkbox8"
                                 id="checkbox8"
-                                checked={checkboxValues.checkbox8}
+                                checked={amenities.checkbox8}
                                 onChange={handleCheckboxChange}
                             />
                             Gym
@@ -356,26 +346,26 @@ const filterHotels = async (checkboxValues: any, value: any) => {
                             <option value="star-rank">Xếp hạng sao</option>
                         </select>
                     </div>
-                    {filteredHotels.map((hotel: any, index: any) => (
+                    {filteredHotels.map((hotel: HotelSummary, index: any) => (
                         <div className="item-hotel" key={index}>
-                        <div className="img-hotel">
-                            <img src={ImgHotel1} alt="Ảnh khách sạn" />
-                        </div>
-                        <div onClick={() => handleLinktoHotelDetailPage(hotel.name)} className="hotel-info">
-                            <div className="hotel-name">{hotel.name}</div>
-                            <div className="hotel-address">{hotel.address}</div>
-                            <div className="hotel-price">
-                            <div className="sale-percent">Giảm 50%</div>
-                            <div className="price-hotel">
-                                <div className="price-bricks">{hotel.originalPrice}đ</div>
-                                <div className="price">{hotel.discountPrice}đ</div>
+                            <div className="img-hotel">
+                                <img src={ImgHotel1} alt="Ảnh khách sạn" />
                             </div>
-                            <div className="price-total">Tổng {hotel.totalPrice}đ</div>
+                            <div onClick={() => handleLinktoHotelDetailPage(hotel.name)} className="hotel-info">
+                                <div className="hotel-name">{hotel.name}</div>
+                                <div className="hotel-address">{hotel.description}</div>
+                                <div className="hotel-price">
+                                    <div className="sale-percent">Giảm 50%</div>
+                                    <div className="price-hotel">
+                                        <div className="price-bricks">{hotel.minimalCost.amount} đ</div>
+                                        <div className="price">{hotel.minimalCost.amount} đ</div>
+                                    </div>
+                                    <div className="price-total">Tổng {hotel.minimalCost.amount} đ</div>
+                                </div>
+                                <div className="hotel-evaluate">
+                                    <strong>{Math.random() * 5 + 5}</strong>/10 Tốt
+                                </div>
                             </div>
-                            <div className="hotel-evaluate">
-                            <strong>{hotel.rating}</strong>/10 Tốt
-                            </div>
-                        </div>
                         </div>
                     ))}
                 </div>
