@@ -77,7 +77,7 @@ const CityHotelsPage: React.FC = () => {
                 <div className="page-content">
                     <WebAdvertisement />
                     <div className="title-page-content">
-                        Nơi bạn sẽ ở tại Thành phố Hồ Chí Minh?
+                        Where to stay in Ho Chi Minh City?
                     </div>
                     <div className="city-hotel-wrapper">
                         {hotels?.length > 3 && (
@@ -218,7 +218,7 @@ const CityHotelsPage: React.FC = () => {
                         className="title-page-content"
                         style={{ marginTop: "40px" }}
                     >
-                        Danh thắng hàng đầu ở Thành phố Hồ Chí Minh
+                        Top landmarks in Ho Chi Minh City
                     </div>
                     <div className="top-area-wrapper">
                         <div
@@ -330,154 +330,15 @@ const CityHotelsPage: React.FC = () => {
                         className="title-page-content"
                         style={{ marginTop: "40px", marginBottom: "10px" }}
                     >
-                        Thông tin cần biết về Thành phố Hồ Chí Minh
+                        Find out more about Ho Chi Minh City
                     </div>
                     <div>
-                        Những quán cà phê độc đáo và bảo tàng hấp dẫn là những
-                        điều luôn thu hút du khách ở Thành phố Hồ Chí Minh. Bạn
-                        có thể tận hưởng những món ăn địa phương thú vị như ẩm
-                        thực và bar hoặc đặt hoạt động giải trí như tham gia các
-                        tour tham quan trong suốt thời gian lưu trú tại đây. Du
-                        khách có thể tìm thấy món quà lưu niệm độc đáo cho người
-                        thân của mình ở Chợ Bến Thành và Phố đi bộ Bùi Viện. Có
-                        nhiều danh thắng chờ bạn khám phá quanh vùng, như Đồng
-                        Khởi và Nhà hát Lớn.
-                    </div>
-                    <div
-                        className="title-page-content"
-                        style={{ marginTop: "40px", marginBottom: "10px" }}
-                    >
-                        Câu hỏi thường gặp
-                    </div>
-                    <div>
-                        <div style={{ marginBottom: "5px" }}>
-                            <input type="checkbox" id="touch1" />
-                            <label id="LabelDrop1" htmlFor="touch1">
-                                <div className="ArrowUp1">
-                                    <IoChevronUp />
-                                </div>
-                                <div className="ArrowDown1">
-                                    <IoChevronDown />
-                                </div>
-                                <span>
-                                    Du khách yêu thích những nơi lưu trú nào ở
-                                    Thành phố Hồ Chí Minh?
-                                </span>
-                            </label>
-                            <div className="SlideText1">
-                                YaYa Hotel, Nhà nghỉ Vy Khanh và The Reverie
-                                Saigon là những nơi lưu trú được du khách đánh
-                                giá cao.
-                            </div>
-                        </div>
-                        <div style={{ marginBottom: "5px" }}>
-                            <input type="checkbox" id="touch2" />
-                            <label id="LabelDrop2" htmlFor="touch2">
-                                <div className="ArrowUp2">
-                                    <IoChevronUp />
-                                </div>
-                                <div className="ArrowDown2">
-                                    <IoChevronDown />
-                                </div>
-                                <span>
-                                    Tại Thành phố Hồ Chí Minh có khách sạn nào
-                                    có chỗ đậu xe miễn phí?
-                                </span>
-                            </label>
-                            <div className="SlideText2">
-                                Những khách sạn sau có chỗ đậu xe miễn phí:
-                                Khách sạn Huy Hoàng 2, Khách sạn Hòa Thịnh và
-                                Khách sạn An Bình 2. Bạn cũng có thể tìm hiểu
-                                thông tin tất cả 276 lựa chọn trên trang web của
-                                chúng tôi.
-                            </div>
-                        </div>
-                        <div style={{ marginBottom: "5px" }}>
-                            <input type="checkbox" id="touch3" />
-                            <label id="LabelDrop3" htmlFor="touch3">
-                                <div className="ArrowUp3">
-                                    <IoChevronUp />
-                                </div>
-                                <div className="ArrowDown3">
-                                    <IoChevronDown />
-                                </div>
-                                <span>
-                                    Du khách yêu thích những nơi lưu trú nào ở
-                                    Thành phố Hồ Chí Minh?
-                                </span>
-                            </label>
-                            <div className="SlideText3">
-                                YaYa Hotel, Nhà nghỉ Vy Khanh và The Reverie
-                                Saigon là những nơi lưu trú được du khách đánh
-                                giá cao.
-                            </div>
-                        </div>
-                        <div style={{ marginBottom: "5px" }}>
-                            <input type="checkbox" id="touch4" />
-                            <label id="LabelDrop4" htmlFor="touch4">
-                                <div className="ArrowUp4">
-                                    <IoChevronUp />
-                                </div>
-                                <div className="ArrowDown4">
-                                    <IoChevronDown />
-                                </div>
-                                <span>
-                                    Tôi có thể đặt phòng khách sạn với giá có
-                                    thể hoàn tiền ở Thành phố Hồ Chí Minh hay
-                                    không?
-                                </span>
-                            </label>
-                            <div className="SlideText4">
-                                Nếu bạn muốn linh động thay đổi kế hoạch kỳ nghỉ
-                                tại Thành phố Hồ Chí Minh, hầu hết khách sạn đều
-                                cung cấp giá có thể hoàn tiền*. Bạn có thể tìm
-                                các nơi lưu trú này trên trang web bằng cách áp
-                                dụng tiêu chí “hoàn tiền đầy đủ” để thu hẹp phạm
-                                vi tìm kiếm.
-                            </div>
-                        </div>
-                        <div style={{ marginBottom: "5px" }}>
-                            <input type="checkbox" id="touch5" />
-                            <label id="LabelDrop5" htmlFor="touch5">
-                                <div className="ArrowUp5">
-                                    <IoChevronUp />
-                                </div>
-                                <div className="ArrowDown5">
-                                    <IoChevronDown />
-                                </div>
-                                <span>
-                                    Tôi có thể nghỉ ở đâu tại Thành phố Hồ Chí
-                                    Minh nếu mang theo vật nuôi?
-                                </span>
-                            </label>
-                            <div className="SlideText5">
-                                Khách của chúng tôi đánh giá cao vị trí của Au
-                                Lac Charner Hotel, Caravelle Saigon và Khách sạn
-                                Lotte Sài Gòn.
-                            </div>
-                        </div>
-                        <div style={{ marginBottom: "5px" }}>
-                            <input type="checkbox" id="touch6" />
-                            <label id="LabelDrop6" htmlFor="touch6">
-                                <div className="ArrowUp6">
-                                    <IoChevronUp />
-                                </div>
-                                <div className="ArrowDown6">
-                                    <IoChevronDown />
-                                </div>
-                                <span>
-                                    Tại Thành phố Hồ Chí Minh có những lựa chọn
-                                    nào nếu tôi muốn nghỉ tại nhà riêng hoặc căn
-                                    hộ thay vì khách sạn?
-                                </span>
-                            </label>
-                            <div className="SlideText6">
-                                Nếu đang tìm nơi lưu trú thay thế cho một khách
-                                sạn truyền thống, hãy tham khảo 180 ngôi nhà và
-                                căn hộ của chúng tôi. Ngoài ra còn có 1119 căn
-                                hộ và 54 condo.
-                            </div>
-                        </div>
+                        There's a lot visitors like about Ho Chi Minh City, 
+                        especially its cafes and museums. Enjoy the restaurants 
+                        and bars or perhaps you'll want to book a local 
+                        tour during your stay. Travellers seeking the perfect souvenir 
+                        may want to head to Ben Thanh Market and Bui Vien Walking Street. 
+                        There's plenty more to see, including sights like Dong Khoi Shopping Street and Opera House.
                     </div>
                 </div>
             </div>

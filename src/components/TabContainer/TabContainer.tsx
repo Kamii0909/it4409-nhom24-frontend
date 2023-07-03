@@ -24,16 +24,16 @@ const TabContainer: React.FC = () => {
         <div className="tabs-container">
             <ul>
                 <NavLink to="#" className="tab-items tab-selected">
-                  <Link to="overview" smooth={true} duration={30}>Tổng quan</Link>
+                  <Link to="overview" smooth={true} duration={30}>Overview</Link>
                 </NavLink>
                 <NavLink to="#" className="tab-items">
-                  <Link to="select-room" smooth={true} duration={30}>Phòng</Link>
+                  <Link to="select-room" smooth={true} duration={30}>Rooms</Link>
                 </NavLink>
                 <NavLink to="#" className="tab-items">
-                  <Link to="location" smooth={true} duration={30}>Địa điểm</Link>
+                  <Link to="location" smooth={true} duration={30}>Location</Link>
                 </NavLink>
                 <NavLink to="#" className="tab-items">
-                  <Link to="service" smooth={true} duration={30}>Tiện nghi, dịch vụ</Link>
+                  <Link to="service" smooth={true} duration={30}>Amenities</Link>
                 </NavLink>
             </ul>
         </div>

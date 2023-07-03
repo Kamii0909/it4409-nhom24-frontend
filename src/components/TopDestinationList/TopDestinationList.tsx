@@ -6,25 +6,25 @@ const TopDestinationList: React.FC = () => {
     return (
         <div className="top-destination">
             <NavLink to="https://www.expediagroup.com/home/default.aspx" target="blank"><img src={expedia} alt="Expedia Group Logo" /></NavLink>
-            <h3>Điểm đến hàng đầu</h3>
+            <h3>Top destinations</h3>
             <div className="top-destination-list">
-                <div><NavLink className="top-destination-item" to="/city-page" target="blank">Khách sạn tại Thành phố Hồ Chí Minh</NavLink></div>
-                <div><NavLink className="top-destination-item" to="/" target="blank">Khách sạn tại Hà Nội</NavLink></div>
-                <div><NavLink className="top-destination-item" to="/" target="blank">Khách sạn tại Đà Nẵng</NavLink></div>
-                <div><NavLink className="top-destination-item" to="/" target="blank">Khách sạn tại Đà Lạt</NavLink></div>
-                <div><NavLink className="top-destination-item" to="/" target="blank">Khách sạn tại Phú Quốc</NavLink></div>
-                <div><NavLink className="top-destination-item" to="/" target="blank">Khách sạn tại Singapore</NavLink></div>
-                <div><NavLink className="top-destination-item" to="/" target="blank">Khách sạn tại Bangkok</NavLink></div>
-                <div><NavLink className="top-destination-item" to="/" target="blank">Khách sạn tại Hạ Long</NavLink></div>
-                <div><NavLink className="top-destination-item" to="/" target="blank">Khách sạn tại Sa Pa</NavLink></div>
-                <div><NavLink className="top-destination-item" to="/" target="blank">Khách sạn tại Xuyên Mộc</NavLink></div>
-                <div><NavLink className="top-destination-item" to="/" target="blank">Khách sạn tại Seoul</NavLink></div>
-                <div><NavLink className="top-destination-item" to="/" target="blank">Khách sạn tại Sầm Sơn</NavLink></div>
-                <div><NavLink className="top-destination-item" to="/" target="blank">Khách sạn tại Cần Thơ</NavLink></div>
-                <div><NavLink className="top-destination-item" to="/" target="blank">Khách sạn tại Hải Phòng</NavLink></div>
-                <div><NavLink className="top-destination-item" to="/" target="blank">Khách sạn tại Tam Đảo</NavLink></div>
-                <div><NavLink className="top-destination-item" to="/" target="blank">Khách sạn tại Côn sơn</NavLink></div>
-                <div><NavLink className="top-destination-item" to="/" target="blank">Khách sạn tại Kuala Lumpur</NavLink></div>
+                <div><NavLink className="top-destination-item" to="/city-page" target="blank">Hotels in Ho Chi Minh City</NavLink></div>
+                <div><NavLink className="top-destination-item" to="/" target="blank">Hotels in Hanoi</NavLink></div>
+                <div><NavLink className="top-destination-item" to="/" target="blank">Hotels in Da Nang</NavLink></div>
+                <div><NavLink className="top-destination-item" to="/" target="blank">Hotels in Da Lat</NavLink></div>
+                <div><NavLink className="top-destination-item" to="/" target="blank">Hotels in Phu Quoc</NavLink></div>
+                <div><NavLink className="top-destination-item" to="/" target="blank">Hotels in Singapore</NavLink></div>
+                <div><NavLink className="top-destination-item" to="/" target="blank">Hotels in Bangkok</NavLink></div>
+                <div><NavLink className="top-destination-item" to="/" target="blank">Hotels in Ha Long</NavLink></div>
+                <div><NavLink className="top-destination-item" to="/" target="blank">Hotels in Sa Pa</NavLink></div>
+                <div><NavLink className="top-destination-item" to="/" target="blank">Hotels in Xuyen Moc</NavLink></div>
+                <div><NavLink className="top-destination-item" to="/" target="blank">Hotels in Seoul</NavLink></div>
+                <div><NavLink className="top-destination-item" to="/" target="blank">Hotels in Sam Son</NavLink></div>
+                <div><NavLink className="top-destination-item" to="/" target="blank">Hotels in Can Tho</NavLink></div>
+                <div><NavLink className="top-destination-item" to="/" target="blank">Hotels in Hai Phong</NavLink></div>
+                <div><NavLink className="top-destination-item" to="/" target="blank">Hotels in Tam Dao</NavLink></div>
+                <div><NavLink className="top-destination-item" to="/" target="blank">Hotels in Con Son</NavLink></div>
+                <div><NavLink className="top-destination-item" to="/" target="blank">Hotels in Kuala Lumpur</NavLink></div>
             </div>
         </div>
     );

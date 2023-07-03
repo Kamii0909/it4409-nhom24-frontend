@@ -173,7 +173,7 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
             <div className="hotel-search-content">
                 <div className="sidebar-filter-wrapper">
                     <div className="price-filter">
-                        <h3>Giá mỗi đêm</h3>
+                        <h3>Price per night</h3>
                         <Slider
                             getAriaLabel={() => "price range"}
                             value={price}
@@ -186,7 +186,7 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
                         />
                     </div>
                     <div className="rank-filter">
-                        <h3>Xếp hạng của khách</h3>
+                        <h3>Guest rating</h3>
                         <label htmlFor="radio1">
                             <input
                                 type="radio"
@@ -195,7 +195,7 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
                                 checked={rating === 1}
                                 onChange={() => setRatingValue(1)}
                             />
-                            Bất kỳ
+                            Any
                         </label>
                         <label htmlFor="radio2">
                             <input
@@ -205,7 +205,7 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
                                 checked={rating === 2}
                                 onChange={() => setRatingValue(2)}
                             />
-                            Tuyệt vời 9+
+                            Wonderful 9+
                         </label>
                         <label htmlFor="radio3">
                             <input
@@ -215,7 +215,7 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
                                 checked={rating === 3}
                                 onChange={() => setRatingValue(3)}
                             />
-                            Rất tốt 8+
+                            Very good 8+
                         </label>
                         <label htmlFor="radio4">
                             <input
@@ -225,11 +225,11 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
                                 checked={rating === 4}
                                 onChange={() => setRatingValue(4)}
                             />
-                            Tốt 7+
+                            Good 7+
                         </label>
                     </div>
                     <div className="star-filter">
-                        <h3>Xếp hạng sao</h3>
+                        <h3>Property class</h3>
                         <div style={
                             {
                                 display: "flex",
@@ -245,7 +245,7 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
                         </div>
                     </div>
                     <div className="service-filter">
-                        <h3>Tiện nghi dịch vụ</h3>
+                        <h3>Amenities</h3>
                         <label htmlFor="checkbox1">
                             <input
                                 type="checkbox"
@@ -254,7 +254,7 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
                                 checked={amenities.pool}
                                 onChange={handleCheckboxChange}
                             />
-                            Hồ bơi
+                            Pool
                         </label>
                         <label htmlFor="checkbox2">
                             <input
@@ -264,7 +264,7 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
                                 checked={amenities.breakfast}
                                 onChange={handleCheckboxChange}
                             />
-                            Cung cấp bữa sáng
+                            Breakfast included
                         </label>
                         <label htmlFor="checkbox3">
                             <input
@@ -274,7 +274,7 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
                                 checked={amenities.internet}
                                 onChange={handleCheckboxChange}
                             />
-                            Internet miễn phí
+                            Free Internet
                         </label>
                         <label htmlFor="checkbox4">
                             <input
@@ -284,7 +284,7 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
                                 checked={amenities.checkbox4}
                                 onChange={handleCheckboxChange}
                             />
-                            Bồn tắm nước nóng
+                            Hot tub
                         </label>
                         <label htmlFor="checkbox5">
                             <input
@@ -304,7 +304,7 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
                                 checked={amenities.parking}
                                 onChange={handleCheckboxChange}
                             />
-                            Đậu xe
+                            Parking
                         </label>
                         <label htmlFor="checkbox7">
                             <input
@@ -314,7 +314,7 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
                                 checked={amenities.checkbox7}
                                 onChange={handleCheckboxChange}
                             />
-                            Quang cảnh biển
+                            Sea view
                         </label>
                         <label htmlFor="checkbox8">
                             <input
@@ -331,30 +331,30 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
                 </div>
                 <div className="list-hotel-wrapper">
                     <div className="sort-hotel">
-                        <span>Sắp xếp theo</span>
+                        <span>Sort by</span>
                         <select name="sort-hotel" id="sort-hotel">
                             <option value="none" selected disabled hidden>
-                                Đề xuất
+                                Recommended
                             </option>
                             <option value="price:low-to-high">
-                                Giá: Thấp đến cao
+                                Price: low to high
                             </option>
                             <option value="price:high-to-low">
-                                Giá: Cao đến thấp
+                                Price: high to low
                             </option>
-                            <option value="star-rank">Xếp hạng sao</option>
+                            <option value="star-rank">Property class</option>
                         </select>
                     </div>
                     {filteredHotels.map((hotel: HotelSummary, index: any) => (
                         <div className="item-hotel" key={index}>
                             <div className="img-hotel">
-                                <img src={ImgHotel1} alt="Ảnh khách sạn" />
+                                <img src={ImgHotel1} alt="hotel image" />
                             </div>
                             <div onClick={() => handleLinktoHotelDetailPage(hotel.name)} className="hotel-info">
                                 <div className="hotel-name">{hotel.name}</div>
                                 <div className="hotel-address">{hotel.description}</div>
                                 <div className="hotel-price">
-                                    <div className="sale-percent">Giảm 50%</div>
+                                    <div className="sale-percent">50% off</div>
                                     <div className="price-hotel">
                                         <div className="price-bricks">{hotel.minimalCost.amount} đ</div>
                                         <div className="price">{hotel.minimalCost.amount} đ</div>
@@ -362,7 +362,7 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
                                     <div className="price-total">Tổng {hotel.minimalCost.amount} đ</div>
                                 </div>
                                 <div className="hotel-evaluate">
-                                    <strong>{(Math.random() * 5 + 5).toFixed(1)}</strong>/10 Tốt
+                                    <strong>{(Math.random() * 5 + 5).toFixed(1)}</strong>/10
                                 </div>
                             </div>
                         </div>

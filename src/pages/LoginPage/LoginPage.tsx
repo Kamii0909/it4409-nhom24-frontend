@@ -61,22 +61,22 @@ const LoginPage: React.FC = () => {
                 </div>
             </div>
             <div className="content-login-page">
-                <h2>Đăng nhập hoặc tạo tài khoản</h2>
+                <h2>Login or Create account</h2>
                 <input type="text" placeholder="Email"/>
-                <button className="btn-login">Tiếp tục</button>
-                <span style={{textAlign: "center"}}>hoặc tiếp tục bằng</span>
+                <button className="btn-login">Continue</button>
+                <span style={{textAlign: "center"}}>Other ways to sign in</span>
                 <div className="icon-list">
                     <img src={appleLogo} alt="" onClick={handleSignInWithApple} />
                     <img src={facebookLogo} alt="" onClick={handleSignInWithFacebook} />
                     <img src={googleLogo} alt="" onClick={handleSignInWithGoogle} />
                 </div>
-                <span>Bằng việc tiếp tục, bạn đã đọc và đồng ý với {" "} 
-                    <a href="#">Điều khoản & Điều kiện</a> và {" "} 
-                    <a href="#">Tuyên bố bảo mật</a> của chúng tôi.</span>
+                <span>By continuing, you have read and agree to our {" "} 
+                    <a href="#">Terms and Conditions</a> and {" "} 
+                    <a href="#">Privacy Statement</a>.</span>
                 <div className="bottom-content-login-page">    
-                    <a href="#">Liên hệ với chúng tôi</a>
+                    <a href="#">Contact us</a>
                     <a href="#">Hotels.com</a>
-                    <a href="#">Xóa dữ liệu</a>
+                    <a href="#">Delete data</a>
                 </div>
             </div>
 

@@ -27,7 +27,7 @@ const DetailHotelPage: React.FC = () => {
                 <section id="overview" className="overview">
                     <div className="back-list-page">
                         <NavLink className="link-back-list-page" to="/hotel-search">
-                            <FiArrowLeft /><span>Xem tất cả nơi lưu trú</span>
+                            <FiArrowLeft /><span>See all properties</span>
                         </NavLink>
                     </div>
                     <HotelImages />

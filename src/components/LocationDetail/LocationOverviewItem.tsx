@@ -7,10 +7,10 @@ const LocationOverviewItem: React.FC = () => {
         <div className="location-overview-item">
             <div><FontAwesomeIcon className="location-overview-icon" icon={faCheck} /></div>
             <div>
-                <h3>Quy mô khách sạn</h3>
+                <h3>Hotel size</h3>
                 <ul>
-                    <li>140 phòng</li>
-                    <li>Gồm 7 tầng</li>
+                    <li>140 rooms</li>
+                    <li>Arranged over 7 floors</li>
                 </ul>
             </div>
         </div>

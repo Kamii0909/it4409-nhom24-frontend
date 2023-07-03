@@ -24,7 +24,7 @@ const HomePage: React.FC = () => {
         <>
             <Header />
             <div className="content-homepage">
-                <h1>Bạn muốn đi đâu?</h1>
+                <h1>Where to?</h1>
                 <HotelSearchForm onSubmit={handleSearch}/>
                 <WebAdvertisement />
                 <AppAdvertisement />
