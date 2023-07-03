@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { IoStar } from "react-icons/io5";
-import "./StarRating.css";
+import "./StarRatingCheckbox.css";
 
 interface StarRatingProps {
     star: number;
@@ -8,9 +8,7 @@ interface StarRatingProps {
     onClickHandler: (star: number) => void;
 }
 
-
-
-export function StarRating(props: StarRatingProps) {
+export function StarRatingCheckbox(props: StarRatingProps){
     const [isClicked, setClicked] = useState<boolean>(false);
 
     return (

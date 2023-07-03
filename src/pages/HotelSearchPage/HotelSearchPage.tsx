@@ -1,12 +1,14 @@
 import { Slider } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ImgHotel1 from "../../assets/images/image_hotel/hotel1.png";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import { BackendQueryFilter, FilterableAmenity, HotelSummary, filterHotels } from "../../http/BackendHotelApi";
+import { AmenityCheckbox } from "./nested/AmenityCheckbox";
 import "./HotelSearchPage.css";
-import { StarRating } from "./StarRating";
+import { GuestReviewToggle } from "./nested/GuestReviewToggle";
+import { StarRatingCheckbox } from "./nested/StarRatingCheckbox";
 
 
 type HotelAmenityCheckboxes = {
@@ -29,21 +31,29 @@ type HotelSearchPageProps = {
     checkOutDate?: Date
 }
 
-
 const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
-    const allPossibleStarRatings = [1, 2, 3, 4, 5];
     const [price, setPriceRange] = useState<PriceRange>([0, 20_000_000]);
-    const [rating, setRatingValue] = useState(1);
+    const ratingKeys: { [id: string]: number } = {
+        'Any': 0.0,
+        'Wonderful (9.0)': 9.0,
+        'Very good (8.0)': 8.0,
+        'Good (7.0)': 7.0
+    }
+    const [selectedMinRating, setMinRating] = useState<number>(0);
     const [clickedStars, setClickedStars] = useState<StarRatings>([]);
+    const amenityKeys: { [id: string]: string } = {
+        pool: 'Pool',
+        breakfast: 'Breakfast provided',
+        internet: 'Free internet',
+        checkbox4: 'Spa',
+        checkbox5: 'Gym',
+        parking: 'Parking available',
+        checkbox7: 'Concierge service',
+        checkbox8: 'PLACEHOLDER TODO',
+    }
     const [amenities, setAmenitiesCheckboxes] = useState<HotelAmenityCheckboxes>({
-        pool: false,
-        breakfast: false,
-        internet: false,
-        checkbox4: false,
-        checkbox5: false,
-        parking: false,
-        checkbox7: false,
-        checkbox8: false,
+        pool: false, breakfast: false, internet: false, checkbox4: false,
+        checkbox5: false, parking: false, checkbox7: false, checkbox8: false
     });
     const [filteredHotels, setFilteredHotels] = useState<HotelSummary[]>([]);
     const onPriceChange = (_event: any, newValue: any) => {
@@ -52,14 +62,6 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
 
     const navigate = useNavigate();
     const locations = useLocation();
-
-    const handleCheckboxChange = (event: any) => {
-        const { name, checked } = event.target;
-        setAmenitiesCheckboxes((prevValues) => ({
-            ...prevValues,
-            [name]: checked,
-        }));
-    };
 
     const handleLinktoHotelDetailPage = (hotelName: string) => {
         const searchParams = new URLSearchParams(locations.search);
@@ -72,7 +74,7 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
         navigate(url);
     }
 
-    const filterHotels0 = async (checkboxValues: HotelAmenityCheckboxes, price: PriceRange) => {
+    const fetchFromDatasource = async (checkboxValues: HotelAmenityCheckboxes, price: PriceRange, clickedStars: StarRatings) => {
         const filter: BackendQueryFilter = { amenities: [], minPrice: price[0], maxPrice: price[1] };
 
         // Check the checkbox values and add the appropriate filter
@@ -111,13 +113,13 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
 
         // Add the price range filter
         // TODO Backend does not support rating yet, random if you like
-        if (rating === 1) {
+        if (selectedMinRating === 1) {
             // No rating requirement
-        } else if (rating === 2) {
+        } else if (selectedMinRating === 2) {
             // Rating >= 9
-        } else if (rating === 3) {
+        } else if (selectedMinRating === 3) {
             // Rating >= 8.5
-        } else if (rating === 4) {
+        } else if (selectedMinRating === 4) {
             // Rating >= 7
         }
 
@@ -132,15 +134,6 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
         // Return the filtered hotels
         return filterHotels(filter);
     };
-    const handleFilterHotels = async () => {
-        // Call the filterHotels function with the current checkbox and value states
-        const filteredHotels = await filterHotels0(amenities, price);
-
-        // Log the filtered hotels to the console
-        console.log(filteredHotels);
-
-        return filteredHotels;
-    };
 
     const starClicked = (star: number) => {
         const pos = clickedStars.indexOf(star);
@@ -152,20 +145,30 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
         }
     }
 
+    const amenityClicked = (event: ChangeEvent<HTMLInputElement>, amenityName: string) => {
+        setAmenitiesCheckboxes(prev => ({
+            ...prev,
+            [amenityName]: event.target.checked
+        }))
+    };
+
+    const updateUIBasedOnFilter = async () => {
+        const filteredHotels = await fetchFromDatasource(amenities, price, clickedStars);
+        setFilteredHotels(filteredHotels);
+    };
+
     useEffect(() => {
-        const fetchFilteredHotels = async () => {
-            const filteredHotels = await filterHotels({});
-            setFilteredHotels(filteredHotels);
-        };
-
-        fetchFilteredHotels();
-    }, [amenities, price]);
+        updateUIBasedOnFilter();
+    }, [amenities, price, clickedStars]);
 
 
-
-    function valuetext(value: any) {
-        return `${value}đ`;
+    const priceSliderLabel = (value: number) => {
+        if (value === 20_000_000) {
+            return '20.000.000+';
+        }
+        return value.toLocaleString('vi-VN');
     }
+
 
     return (
         <>
@@ -175,70 +178,33 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
                     <div className="price-filter">
                         <h3>Price per night</h3>
                         <Slider
-                            getAriaLabel={() => "price range"}
                             value={price}
                             min={0}
-                            max={30000000}
+                            max={20_000_000}
                             step={1000}
                             onChange={onPriceChange}
                             valueLabelDisplay="auto"
-                            getAriaValueText={valuetext}
+                            valueLabelFormat={priceSliderLabel}
+
                         />
                     </div>
                     <div className="rank-filter">
-                        <h3>Guest rating</h3>
-                        <label htmlFor="radio1">
-                            <input
-                                type="radio"
-                                name="radio1"
-                                id="radio1"
-                                checked={rating === 1}
-                                onChange={() => setRatingValue(1)}
-                            />
-                            Any
-                        </label>
-                        <label htmlFor="radio2">
-                            <input
-                                type="radio"
-                                name="radio2"
-                                id="radio2"
-                                checked={rating === 2}
-                                onChange={() => setRatingValue(2)}
-                            />
-                            Wonderful 9+
-                        </label>
-                        <label htmlFor="radio3">
-                            <input
-                                type="radio"
-                                name="radio3"
-                                id="radio3"
-                                checked={rating === 3}
-                                onChange={() => setRatingValue(3)}
-                            />
-                            Very good 8+
-                        </label>
-                        <label htmlFor="radio4">
-                            <input
-                                type="radio"
-                                name="radio4"
-                                id="radio4"
-                                checked={rating === 4}
-                                onChange={() => setRatingValue(4)}
-                            />
-                            Good 7+
-                        </label>
+                        <h3>Users' rating</h3>
+                        {Object.keys(ratingKeys)
+                            .map((description) =>
+                                <GuestReviewToggle
+                                    isChecked={() => selectedMinRating === ratingKeys[description]}
+                                    setCurrentRatingCallback={setMinRating}
+                                    componentRating={ratingKeys[description]}
+                                    description={description} />
+
+                            )}
                     </div>
                     <div className="star-filter">
-                        <h3>Property class</h3>
-                        <div style={
-                            {
-                                display: "flex",
-                                flexWrap: "wrap",
-                                gap: "6px 6px"
-                            }
-                        }>
-                            {allPossibleStarRatings.map(star =>
-                                <StarRating
+                        <h3>Star rating</h3>
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 6px" }}>
+                            {[1, 2, 3, 4, 5].map(star =>
+                                <StarRatingCheckbox
                                     inputId={star + '-star'}
                                     star={star}
                                     onClickHandler={(star: number) => starClicked(star)} />)}
@@ -246,87 +212,12 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
                     </div>
                     <div className="service-filter">
                         <h3>Amenities</h3>
-                        <label htmlFor="checkbox1">
-                            <input
-                                type="checkbox"
-                                name="checkbox1"
-                                id="checkbox1"
-                                checked={amenities.pool}
-                                onChange={handleCheckboxChange}
-                            />
-                            Pool
-                        </label>
-                        <label htmlFor="checkbox2">
-                            <input
-                                type="checkbox"
-                                name="checkbox2"
-                                id="checkbox2"
-                                checked={amenities.breakfast}
-                                onChange={handleCheckboxChange}
-                            />
-                            Breakfast included
-                        </label>
-                        <label htmlFor="checkbox3">
-                            <input
-                                type="checkbox"
-                                name="checkbox3"
-                                id="checkbox3"
-                                checked={amenities.internet}
-                                onChange={handleCheckboxChange}
-                            />
-                            Free Internet
-                        </label>
-                        <label htmlFor="checkbox4">
-                            <input
-                                type="checkbox"
-                                name="checkbox4"
-                                id="checkbox4"
-                                checked={amenities.checkbox4}
-                                onChange={handleCheckboxChange}
-                            />
-                            Hot tub
-                        </label>
-                        <label htmlFor="checkbox5">
-                            <input
-                                type="checkbox"
-                                name="checkbox5"
-                                id="checkbox5"
-                                checked={amenities.checkbox5}
-                                onChange={handleCheckboxChange}
-                            />
-                            Spa
-                        </label>
-                        <label htmlFor="checkbox6">
-                            <input
-                                type="checkbox"
-                                name="checkbox6"
-                                id="checkbox6"
-                                checked={amenities.parking}
-                                onChange={handleCheckboxChange}
-                            />
-                            Parking
-                        </label>
-                        <label htmlFor="checkbox7">
-                            <input
-                                type="checkbox"
-                                name="checkbox7"
-                                id="checkbox7"
-                                checked={amenities.checkbox7}
-                                onChange={handleCheckboxChange}
-                            />
-                            Sea view
-                        </label>
-                        <label htmlFor="checkbox8">
-                            <input
-                                type="checkbox"
-                                name="checkbox8"
-                                id="checkbox8"
-                                checked={amenities.checkbox8}
-                                onChange={handleCheckboxChange}
-                            />
-                            Gym
-                        </label>
-                        <button onClick={handleFilterHotels}>Filter Hotels</button>
+                        {Object.keys(amenityKeys).map(identity =>
+                            <AmenityCheckbox identity={identity}
+                                onChangeHandler={amenityClicked}
+                                description={amenityKeys[identity]} />
+                        )}
+                        <button onClick={() => updateUIBasedOnFilter()}>Filter Hotels</button>
                     </div>
                 </div>
                 <div className="list-hotel-wrapper">

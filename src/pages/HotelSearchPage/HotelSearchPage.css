@@ -3,6 +3,10 @@
     padding: 40px 300px 40px 60px;
 }
 
+h3 {
+    margin: 10px 0 8px 0;
+}
+
 @media only screen and (max-width: 992px) {
     .hotel-search-content {
         padding: 40px 120px 40px 60px;
@@ -10,10 +14,10 @@
 }
 
 .sidebar-filter-wrapper {
-    width: 400px;
     display: flex;
     flex-direction: column;
     margin-right: 30px;
+    width: 400px;
 }
 
 .rank-filter {
@@ -22,11 +26,13 @@
     flex-wrap: wrap;
 }
 
+.rank-filter > * {
+    margin-bottom: 6px;
+}
+
 .star-filter input[type="checkbox"] {
     display: none;
 }
-
-
 
 /* #one-star:checked ~ .option-one-star */
 .service-filter {
@@ -34,9 +40,13 @@
     flex-direction: column;
 }
 
+.service-filter h3 {
+    margin-bottom: 6px;
+}
+
 .service-filter label {
-    margin-top: 10px;
     font-size: 16px;
+    margin-bottom: 10px;
 }
 
 .service-filter input {
@@ -45,36 +55,36 @@
 
 .list-hotel-wrapper {
     display: flex;
-    width: 100%;
     flex-direction: column;
+    width: 100%;
 }
 
 .sort-hotel {
-    position: relative;
     margin-left: auto;
+    position: relative;
 }
 
 .sort-hotel span {
-    position: absolute;
-    top: 5px;
-    left: 12px;
     font-size: 12px;
     font-weight: 700;
+    left: 12px;
+    position: absolute;
+    top: 5px;
 }
 
 .sort-hotel select {
-    width: 300px;
     border-radius: 5px;
-    padding: 30px 30px 10px 10px;
     font-size: 16px;
+    padding: 30px 30px 10px 10px;
+    width: 300px;
 }
 
 .item-hotel {
-    margin-top: 30px;
     background-color: #fff;
     border-radius: 5px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     display: flex;
+    margin-top: 30px;
 }
 
 .item-hotel .img-hotel {
@@ -82,53 +92,53 @@
 }
 
 .item-hotel img {
-    width: 300px;
-    height: auto;
-    border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    height: auto;
+    width: 300px;
 }
 
 .hotel-info {
-    width: 100%;
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     padding: 15px;
-    cursor: pointer;
+    width: 100%;
 }
 
 .hotel-info .hotel-name {
+    color: #d32f2f;
     font-size: 24px;
     font-weight: 700;
-    color: #d32f2f;
 }
 
 .hotel-price {
+    align-items: end;
     display: flex;
     flex-direction: column;
-    align-items: end;
 }
 
 .hotel-price .sale-percent {
     background-color: #c42525;
-    color: #fff;
     border-radius: 4px;
-    padding: 4px 6px;
+    color: #fff;
     font-size: 14px;
     font-weight: 600;
+    padding: 4px 6px;
 }
 
 .hotel-price .price-hotel {
-    display: flex;
     align-items: center;
+    display: flex;
 }
 
 .hotel-price .price-bricks {
-    text-decoration: line-through;
     margin-right: 10px;
+    text-decoration: line-through;
 }
 
 .hotel-price .price {
-    margin: 0;
     font-size: 24px;
     font-weight: 700;
+    margin: 0;
 }
