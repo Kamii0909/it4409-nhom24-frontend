@@ -1,12 +1,12 @@
 import { Slider } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { IoStar } from "react-icons/io5";
 import { useLocation, useNavigate } from "react-router-dom";
 import ImgHotel1 from "../../assets/images/image_hotel/hotel1.png";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import { BackendQueryFilter, FilterableAmenity, HotelSummary, filterHotels } from "../../http/BackendHotelApi";
 import "./HotelSearchPage.css";
+import { StarRating } from "./StarRating";
 
 
 type HotelAmenityCheckboxes = {
@@ -21,30 +21,37 @@ type HotelAmenityCheckboxes = {
 }
 
 type PriceRange = [number, number];
-const HotelSearchPage: React.FC = () => {
+type StarRatings = number[];
+
+type HotelSearchPageProps = {
+    city?: string;
+    checkInDate?: Date,
+    checkOutDate?: Date
+}
+
+
+const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
+    const allPossibleStarRatings = [1, 2, 3, 4, 5];
     const [price, setPriceRange] = useState<PriceRange>([0, 20_000_000]);
     const [rating, setRatingValue] = useState(1);
+    const [clickedStars, setClickedStars] = useState<StarRatings>([]);
     const [amenities, setAmenitiesCheckboxes] = useState<HotelAmenityCheckboxes>({
         pool: false,
-        breakfast: true,
-        internet: true,
-        checkbox4: true,
-        checkbox5: true,
+        breakfast: false,
+        internet: false,
+        checkbox4: false,
+        checkbox5: false,
         parking: false,
-        checkbox7: true,
-        checkbox8: true,
+        checkbox7: false,
+        checkbox8: false,
     });
     const [filteredHotels, setFilteredHotels] = useState<HotelSummary[]>([]);
     const onPriceChange = (_event: any, newValue: any) => {
         setPriceRange(newValue);
     };
-    const urlParams = new URLSearchParams(window.location.search);
-    const location = urlParams.get('location');
-    console.log(location); // Kết quả: Giá trị của location trong URL hiện tại
 
     const navigate = useNavigate();
     const locations = useLocation();
-
 
     const handleCheckboxChange = (event: any) => {
         const { name, checked } = event.target;
@@ -116,6 +123,12 @@ const HotelSearchPage: React.FC = () => {
 
         // TODO support discount price
 
+        if (clickedStars.length != 0) {
+            filter.stars = clickedStars;
+        }
+
+        console.log(filter);
+
         // Return the filtered hotels
         return filterHotels(filter);
     };
@@ -128,6 +141,16 @@ const HotelSearchPage: React.FC = () => {
 
         return filteredHotels;
     };
+
+    const starClicked = (star: number) => {
+        const pos = clickedStars.indexOf(star);
+        if (pos == -1) {
+            setClickedStars([...clickedStars, star]);
+        } else {
+            clickedStars.splice(pos, 1);
+            setClickedStars(clickedStars);
+        }
+    }
 
     useEffect(() => {
         const fetchFilteredHotels = async () => {
@@ -207,42 +230,18 @@ const HotelSearchPage: React.FC = () => {
                     </div>
                     <div className="star-filter">
                         <h3>Xếp hạng sao</h3>
-                        <input type="checkbox" id="one-star" />
-                        <input type="checkbox" id="two-stars" />
-                        <input type="checkbox" id="three-stars" />
-                        <input type="checkbox" id="four-stars" />
-                        <input type="checkbox" id="five-stars" />
-                        <div style={{ display: "flex", flexWrap: "wrap" }}>
-                            <label
-                                htmlFor="one-star"
-                                className="option-one-star"
-                            >
-                                1<IoStar />
-                            </label>
-                            <label
-                                htmlFor="two-stars"
-                                className="option-two-stars"
-                            >
-                                2<IoStar />
-                            </label>
-                            <label
-                                htmlFor="three-stars"
-                                className="option-three-stars"
-                            >
-                                3<IoStar />
-                            </label>
-                            <label
-                                htmlFor="four-stars"
-                                className="option-four-stars"
-                            >
-                                4<IoStar />
-                            </label>
-                            <label
-                                htmlFor="five-stars"
-                                className="option-five-stars"
-                            >
-                                5<IoStar />
-                            </label>
+                        <div style={
+                            {
+                                display: "flex",
+                                flexWrap: "wrap",
+                                gap: "6px 6px"
+                            }
+                        }>
+                            {allPossibleStarRatings.map(star =>
+                                <StarRating
+                                    inputId={star + '-star'}
+                                    star={star}
+                                    onClickHandler={(star: number) => starClicked(star)} />)}
                         </div>
                     </div>
                     <div className="service-filter">
@@ -265,7 +264,7 @@ const HotelSearchPage: React.FC = () => {
                                 checked={amenities.breakfast}
                                 onChange={handleCheckboxChange}
                             />
-                            Bao gồm dịch vụ đưa đón sân bay
+                            Cung cấp bữa sáng
                         </label>
                         <label htmlFor="checkbox3">
                             <input
@@ -275,7 +274,7 @@ const HotelSearchPage: React.FC = () => {
                                 checked={amenities.internet}
                                 onChange={handleCheckboxChange}
                             />
-                            Máy điều hòa
+                            Internet miễn phí
                         </label>
                         <label htmlFor="checkbox4">
                             <input
@@ -363,7 +362,7 @@ const HotelSearchPage: React.FC = () => {
                                     <div className="price-total">Tổng {hotel.minimalCost.amount} đ</div>
                                 </div>
                                 <div className="hotel-evaluate">
-                                    <strong>{Math.random() * 5 + 5}</strong>/10 Tốt
+                                    <strong>{(Math.random() * 5 + 5).toFixed(1)}</strong>/10 Tốt
                                 </div>
                             </div>
                         </div>

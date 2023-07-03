@@ -1,0 +1,24 @@
+.option-star-label.is-clicked {
+    background-color: #EDF5FD;
+    border-color: #125CA5;
+    border-width: 2px;
+    color: #125CA5;
+}
+
+.option-star-label {
+    box-sizing: border-box;
+    cursor: pointer;
+    border: 1px solid #000;
+    border-radius: 0.5rem;
+    padding: 6px 8px 6px 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 3px;
+    width: 48px;
+    height: 38px;
+}
+
+.option-star-number {
+    line-height: 18px;
+}

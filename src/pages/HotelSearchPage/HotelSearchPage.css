@@ -25,26 +25,20 @@
 .star-filter input[type="checkbox"] {
     display: none;
 }
-.option-one-star,
-.option-two-stars,
-.option-three-stars,
-.option-four-stars,
-.option-five-stars {
-    cursor: pointer;
-    border: 1px solid #000;
-    border-radius: 8px;
-    padding: 6px 12px;
-    margin-right: 10px;
-}
+
+
+
 /* #one-star:checked ~ .option-one-star */
 .service-filter {
     display: flex;
     flex-direction: column;
 }
+
 .service-filter label {
     margin-top: 10px;
     font-size: 16px;
 }
+
 .service-filter input {
     margin-right: 8px;
 }
@@ -54,10 +48,12 @@
     width: 100%;
     flex-direction: column;
 }
+
 .sort-hotel {
     position: relative;
     margin-left: auto;
 }
+
 .sort-hotel span {
     position: absolute;
     top: 5px;
@@ -65,6 +61,7 @@
     font-size: 12px;
     font-weight: 700;
 }
+
 .sort-hotel select {
     width: 300px;
     border-radius: 5px;
@@ -72,40 +69,46 @@
     font-size: 16px;
 }
 
-.item-hotel{
+.item-hotel {
     margin-top: 30px;
     background-color: #fff;
     border-radius: 5px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     display: flex;
 }
-.item-hotel .img-hotel{
+
+.item-hotel .img-hotel {
     display: inline-flex;
 }
-.item-hotel img{
+
+.item-hotel img {
     width: 300px;
     height: auto;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
-.hotel-info{
+
+.hotel-info {
     width: 100%;
     display: flex;
     flex-direction: column;
     padding: 15px;
     cursor: pointer;
 }
-.hotel-info .hotel-name{
+
+.hotel-info .hotel-name {
     font-size: 24px;
     font-weight: 700;
     color: #d32f2f;
 }
-.hotel-price{
+
+.hotel-price {
     display: flex;
     flex-direction: column;
     align-items: end;
 }
-.hotel-price .sale-percent{
+
+.hotel-price .sale-percent {
     background-color: #c42525;
     color: #fff;
     border-radius: 4px;
@@ -114,15 +117,17 @@
     font-weight: 600;
 }
 
-.hotel-price .price-hotel{
+.hotel-price .price-hotel {
     display: flex;
     align-items: center;
 }
-.hotel-price .price-bricks{
+
+.hotel-price .price-bricks {
     text-decoration: line-through;
     margin-right: 10px;
 }
-.hotel-price .price{
+
+.hotel-price .price {
     margin: 0;
     font-size: 24px;
     font-weight: 700;
