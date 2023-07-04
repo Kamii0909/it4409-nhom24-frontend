@@ -1,0 +1,96 @@
+.sort-hotel select {
+    background-color: white;
+    color: black;
+}
+
+.sort-hotel {
+    background-color: white;
+    border-radius: 10px;
+    column-gap: 20px;
+    display: flex;
+    height: 70px;
+    justify-content: stretch;
+    position: relative;
+}
+
+.sort-hotel>.sort-hotel-children-wrapper {
+    border-image-outset: 0;
+    border-image-repeat: stretch;
+    border-image-slice: 100%;
+    border-image-source: none;
+    border-image-width: 1;
+    display: flex;
+    flex-grow: 1;
+    padding: 6px;
+}
+
+.sort-hotel label {
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 15px;
+    margin-top: 5px;
+    position: absolute;
+}
+
+.sort-hotel select {
+    border: 0;
+    border-radius: 5px;
+    box-shadow: inset 0 0 1px 1px white;
+    font-size: 14px;
+    padding: 25px 30px 5px 10px;
+    text-align: left;
+    vertical-align: bottom;
+    width: 200px;
+}
+
+.sort-hotel-select:focus {
+    border: 2px solid #125CA5;
+}
+
+.sort-hotel-children-wrapper>*:focus {
+    border: 2px solid rgba(19, 145, 210);
+}
+
+.sort-hotel-children-wrapper>*:hover {
+    background-color: rgb(235, 235, 235);
+}
+
+.sort-hotel-children-wrapper>* {
+    flex-grow: 1;
+}
+
+.select-guest-count-popup {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 3px black;
+    color: black;
+    height: 90px;
+    left: 70%;
+    margin-top: 80px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    position: absolute;
+    top: 70%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    display: flex;
+    row-gap: 30px;
+    flex-direction: column;
+}
+
+.select-guest-count-popup button {
+    background-color: white;
+    border: 0;
+    border: 1px solid;
+    border-color: #125CA5;
+    border-radius: 50%;
+    height: 25px;
+    margin: 0;
+    padding: 0;
+    width: 25px;
+}
+
+.select-guest-count-popup button span {
+    color: blue;
+}

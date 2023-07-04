@@ -9,6 +9,7 @@ import { AmenityCheckbox } from "./nested/AmenityCheckbox";
 import "./HotelSearchPage.css";
 import { GuestReviewToggle } from "./nested/GuestReviewToggle";
 import { StarRatingCheckbox } from "./nested/StarRatingCheckbox";
+import { SortHotelSelectbox } from "./nested/SortHotelSelectbox";
 
 
 type HotelAmenityCheckboxes = {
@@ -175,6 +176,11 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
             <Header />
             <div className="hotel-search-content">
                 <div className="sidebar-filter-wrapper">
+                    <input type="text"
+                        name="search-anything"
+                        defaultValue=""
+                        placeholder="Where do you want to go?"
+                        className="search-anything-text" />
                     <div className="price-filter">
                         <h3>Price per night</h3>
                         <Slider
@@ -221,21 +227,7 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
                     </div>
                 </div>
                 <div className="list-hotel-wrapper">
-                    <div className="sort-hotel">
-                        <span>Sort by</span>
-                        <select name="sort-hotel" id="sort-hotel">
-                            <option value="none" selected disabled hidden>
-                                Recommended
-                            </option>
-                            <option value="price:low-to-high">
-                                Price: low to high
-                            </option>
-                            <option value="price:high-to-low">
-                                Price: high to low
-                            </option>
-                            <option value="star-rank">Property class</option>
-                        </select>
-                    </div>
+                    {<SortHotelSelectbox onChangeHandler={(event) => console.log(`Selectbox changed to ${event.target.value}`)} />}
                     {filteredHotels.map((hotel: HotelSummary, index: any) => (
                         <div className="item-hotel" key={index}>
                             <div className="img-hotel">
@@ -245,12 +237,14 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
                                 <div className="hotel-name">{hotel.name}</div>
                                 <div className="hotel-address">{hotel.description}</div>
                                 <div className="hotel-price">
-                                    <div className="sale-percent">50% off</div>
-                                    <div className="price-hotel">
-                                        <div className="price-bricks">{hotel.minimalCost.amount} đ</div>
-                                        <div className="price">{hotel.minimalCost.amount} đ</div>
+                                    <div className="sale-percent">
+                                        {(hotel.minimalCost.amount / hotel.minimalCost.amount - 1) * 100 + '% off'}
                                     </div>
-                                    <div className="price-total">Tổng {hotel.minimalCost.amount} đ</div>
+                                    <div className="price-hotel">
+                                        <div className="price-bricks">{hotel.minimalCost.amount.toLocaleString('vi-VN')} đ</div>
+                                        <div className="price">{hotel.minimalCost.amount.toLocaleString('vi-VN')} đ</div>
+                                    </div>
+                                    <div className="price-total">Tổng {hotel.minimalCost.amount.toLocaleString('vi-VN')} đ</div>
                                 </div>
                                 <div className="hotel-evaluate">
                                     <strong>{(Math.random() * 5 + 5).toFixed(1)}</strong>/10

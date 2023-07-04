@@ -9,7 +9,10 @@ type RatingValueToggleProps = {
 
 export const GuestReviewToggle: React.FC<RatingValueToggleProps> = (props) => {
     return (
-        <label htmlFor={`${props.description}-radio`} className="rating-radio-button-label">
+        <label
+            key={props.description}
+            htmlFor={`${props.description}-radio`}
+            className="rating-radio-button-label">
             <input
                 className="rating-radio-button"
                 type="radio"
