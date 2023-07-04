@@ -1,6 +1,7 @@
 import "./LocationDetail.css"
+import { InfoHotelSectionProps } from "../InfoHotelSection/InfoHotelSection";
 
-const LocationInfo: React.FC = () => {
+const LocationInfo: React.FC<InfoHotelSectionProps> = ({ hotel }) => {
     return (
         <div className="location-info">
             <div className="title-info">
@@ -8,8 +9,19 @@ const LocationInfo: React.FC = () => {
             </div>
             <div className="content-info">
                 <div className="description-hotel">
-                    <h3>The Hanoi Club Hotel & Residences</h3>
-                    <p>Putting you within a 10-minute drive of Hoan Kiem Lake, The Hanoi Club Hotel & Residences features a casino, and offers an airport shuttle (available on request) for VND 660000 per vehicle. Guests can relax at the steam room, work out at the fitness centre or grab a bite to eat at the coffee shop/cafe. This upmarket hotel also features an outdoor pool, a children's pool and a terrace. The helpful staff and size get good marks from fellow travellers.</p>
+                    <h3>{hotel?.name}</h3>
+                    <p>
+                        This hotel is an absolute oasis of luxury and tranquility. 
+                        From the moment you step foot into its elegant lobby, 
+                        you are greeted by a harmonious blend of sophistication and warmth. 
+                        The meticulously designed rooms provide a haven of comfort, 
+                        with plush furnishings and breathtaking views that leave you in awe. 
+                        The attentive staff goes above and beyond to cater to your every need, 
+                        ensuring a seamless and unforgettable stay. 
+                        Indulge in the culinary delights at the renowned restaurant 
+                        and immerse yourself in the serenity of the spa. 
+                        This hotel truly offers a sublime experience that will leave you longing to return.
+                    </p>
                 </div>
                 <div className="language">
                     <h3>Languages</h3>

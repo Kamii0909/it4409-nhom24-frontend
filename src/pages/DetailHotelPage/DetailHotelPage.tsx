@@ -13,11 +13,25 @@ import ServiceHotelInfo from "../../components/ServiceDetail/ServiceHotelInfo";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import { useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { ParsedHotel } from "../../http/types/Hotel";
+import { getHotelById } from "../../http/BackendHotelApi";
 
 const DetailHotelPage: React.FC = () => {
 
+    const [thisHotel, setThisHotel] = useState<ParsedHotel>();
+
     const { id } = useParams();
     console.log(id)
+
+    const getHotel = async () => {
+        const hotel = await getHotelById(Number(id));
+        setThisHotel(hotel);
+    };
+
+    useEffect(() => {
+        getHotel();
+    }, [])
 
     return (
       <>
@@ -26,25 +40,27 @@ const DetailHotelPage: React.FC = () => {
             <div className="detail-hotel-page">
                 <section id="overview" className="overview">
                     <div className="back-list-page">
-                        <NavLink className="link-back-list-page" to="/hotel-search">
+                        <NavLink className="link-back-list-page" to="hotel-search">
                             <FiArrowLeft /><span>See all properties</span>
                         </NavLink>
                     </div>
                     <HotelImages />
                 </section>
                 <TabContainer />
-                <InfoHotelSection />
+                <InfoHotelSection hotel={thisHotel} />
                 <section id="select-room" className="select-room">
                     <h1>Chọn phòng</h1>
                     <RoomCheckForm />
                     <div className="list-room">
-                        <RoomItem />
-                        <RoomItem />
-                        <RoomItem />
+                        {thisHotel?.rooms.map((room, index) => (
+                            <div key={index}>
+                                <RoomItem room={room} />
+                            </div>
+                        ))}
                     </div>
                 </section>
                 <section id="location" className="location">
-                    <LocationInfo />
+                    <LocationInfo hotel={thisHotel} />
                     <LocationOverview />
                 </section>
                 <section id="service" className="service">

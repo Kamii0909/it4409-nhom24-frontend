@@ -11,7 +11,7 @@ export type GuestService = {
 };
 
 export function parseGuestServiceAmenityJson(json: GuestService): string[] {
-    let result: string[] = [];
+    const result: string[] = [];
     if (json.hasComputerStation) {
         result.push('Computer station');
     }
