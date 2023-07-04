@@ -74,9 +74,9 @@
 }
 .number-left-rooms {
     width: 30%;
-    text-align: right;
     margin-top: 50px;
     line-height: 0.5;
+    text-align: center;
 }
 .number-left-rooms p {
     color: #972020;
@@ -88,7 +88,9 @@
     border-radius: 2500rem;
     font-size: 16px;
     width: 78px;
-    align-items: center;
+}
+.number-left-rooms .book-btn span {
+    margin-left: -9px;
 }
 .number-left-rooms .book-btn:hover {
     background-color: #2a78c7;

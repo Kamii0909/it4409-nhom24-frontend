@@ -35,6 +35,7 @@ export class ParsedHotel {
     id: number;
     name: string;
     description: string;
+    starRating: number;
     images: string[];
     location: string;
     amenities: Map<AmenityKey, string[]>;
@@ -43,6 +44,7 @@ export class ParsedHotel {
     constructor(hotelJson: Hotel) {
         this.id = hotelJson.id;
         this.name = hotelJson.name;
+        this.starRating = hotelJson.starRating;
         this.description = hotelJson.description;
         this.images = hotelJson.images;
         this.location = hotelJson.location;
@@ -50,9 +52,8 @@ export class ParsedHotel {
         this.rooms = hotelJson.rooms;
     }
 
-
     private parseAmenities(json: HotelAmenity): Map<AmenityKey, string[]> {
-        let result: Map<AmenityKey, string[]> = new Map();
+        const result: Map<AmenityKey, string[]> = new Map();
         result.set(AmenityKey.BREAKFAST, parseBreakfastAmenity(json.breakfastAmenity));
         result.set(AmenityKey.POOL, parsePoolAmenity(json.poolAmenity));
         result.set(AmenityKey.INTERNET, parseInternetAmenity(json.internetAmenity))

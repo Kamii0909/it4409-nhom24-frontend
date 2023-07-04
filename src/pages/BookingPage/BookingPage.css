@@ -262,6 +262,10 @@
 .name-address {
     line-height: 0.6;
 }
+.name-address p {
+    line-height: 1.1;
+    margin-right: 10px;
+}
 .rating-score {
     display: flex;
     margin: 25px 0;

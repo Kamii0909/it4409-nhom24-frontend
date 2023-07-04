@@ -49,7 +49,6 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
         checkbox5: 'Gym',
         parking: 'Parking available',
         checkbox7: 'Concierge service',
-        checkbox8: 'PLACEHOLDER TODO',
     }
     const [amenities, setAmenitiesCheckboxes] = useState<HotelAmenityCheckboxes>({
         pool: false, breakfast: false, internet: false, checkbox4: false,
@@ -63,14 +62,14 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
     const navigate = useNavigate();
     const locations = useLocation();
 
-    const handleLinktoHotelDetailPage = (hotelName: string) => {
+    const handleLinktoHotelDetailPage = (hotelid: number) => {
         const searchParams = new URLSearchParams(locations.search);
         const checkInDate = searchParams.get('checkInDate') || '';
         const checkOutDate = searchParams.get('checkOutDate') || '';
         const numGuest = parseInt(searchParams.get('guestCount') || '2');
         const numRoom = parseInt(searchParams.get('roomCount') || '1');
 
-        const url = `/hotel-detail/${hotelName}?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&guestCount=${numGuest}&roomCount=${numRoom}`;
+        const url = `/hotel-detail/${hotelid}?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&guestCount=${numGuest}&roomCount=${numRoom}`;
         navigate(url);
     }
 
@@ -241,7 +240,7 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
                             <div className="img-hotel">
                                 <img src={ImgHotel1} alt="hotel image" />
                             </div>
-                            <div onClick={() => handleLinktoHotelDetailPage(hotel.name)} className="hotel-info">
+                            <div onClick={() => handleLinktoHotelDetailPage(hotel.hotelId)} className="hotel-info">
                                 <div className="hotel-name">{hotel.name}</div>
                                 <div className="hotel-address">{hotel.description}</div>
                                 <div className="hotel-price">
@@ -253,7 +252,7 @@ const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
                                     <div className="price-total">Tổng {hotel.minimalCost.amount} đ</div>
                                 </div>
                                 <div className="hotel-evaluate">
-                                    <strong>{(Math.random() * 5 + 5).toFixed(1)}</strong>/10
+                                    <strong>{(Math.random() * 3 + 7).toFixed(1)}</strong>/10
                                 </div>
                             </div>
                         </div>

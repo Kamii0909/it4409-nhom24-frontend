@@ -1,6 +1,7 @@
 .hotel-search-content {
     display: flex;
     padding: 40px 300px 40px 60px;
+    margin-left: 150px;
 }
 
 h3 {
