@@ -1,47 +1,68 @@
 import { Slider } from "@mui/material";
-import React, { useState, useEffect } from "react";
-import { IoStar } from "react-icons/io5";
-import Footer from "../../components/Footer/Footer.tsx";
-import Header from "../../components/Header/Header.tsx";
-import "./HotelSearchPage.css";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import ImgHotel1 from "../../assets/images/image_hotel/hotel1.png";
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../../firebase/firebase-config.tsx"
-import { useNavigate, useLocation } from "react-router-dom";
+import Footer from "../../components/Footer/Footer";
+import Header from "../../components/Header/Header";
+import { BackendQueryFilter, FilterableAmenity, HotelSummary, filterHotels } from "../../http/BackendHotelApi";
+import { AmenityCheckbox } from "./nested/AmenityCheckbox";
+import "./HotelSearchPage.css";
+import { GuestReviewToggle } from "./nested/GuestReviewToggle";
+import { StarRatingCheckbox } from "./nested/StarRatingCheckbox";
+import { SortHotelSelectbox } from "./nested/SortHotelSelectbox";
 
 
-const HotelSearchPage: React.FC = () => {
-    const [value, setValue] = React.useState([0, 20000000]);
-    const [rankValue, setRankValue] = React.useState(1);
-    const [checkboxValues, setCheckboxValues] = React.useState({
-      checkbox1: true,
-      checkbox2: true,
-      checkbox3: true,
-      checkbox4: true,
-      checkbox5: true,
-      checkbox6: true,
-      checkbox7: true,
-      checkbox8: true,
+type HotelAmenityCheckboxes = {
+    pool: boolean,
+    breakfast: boolean,
+    internet: boolean,
+    checkbox4: boolean,
+    checkbox5: boolean,
+    parking: boolean,
+    checkbox7: boolean,
+    checkbox8: boolean,
+}
+
+type PriceRange = [number, number];
+type StarRatings = number[];
+
+type HotelSearchPageProps = {
+    city?: string;
+    checkInDate?: Date,
+    checkOutDate?: Date
+}
+
+const HotelSearchPage: React.FC<HotelSearchPageProps> = () => {
+    const [price, setPriceRange] = useState<PriceRange>([0, 20_000_000]);
+    const ratingKeys: { [id: string]: number } = {
+        'Any': 0.0,
+        'Wonderful (9.0)': 9.0,
+        'Very good (8.0)': 8.0,
+        'Good (7.0)': 7.0
+    }
+    const [selectedMinRating, setMinRating] = useState<number>(0);
+    const [clickedStars, setClickedStars] = useState<StarRatings>([]);
+    const amenityKeys: { [id: string]: string } = {
+        pool: 'Pool',
+        breakfast: 'Breakfast provided',
+        internet: 'Free internet',
+        checkbox4: 'Spa',
+        checkbox5: 'Gym',
+        parking: 'Parking available',
+        checkbox7: 'Concierge service',
+        checkbox8: 'PLACEHOLDER TODO',
+    }
+    const [amenities, setAmenitiesCheckboxes] = useState<HotelAmenityCheckboxes>({
+        pool: false, breakfast: false, internet: false, checkbox4: false,
+        checkbox5: false, parking: false, checkbox7: false, checkbox8: false
     });
-    const [filteredHotels, setFilteredHotels] = useState<any[]>([]);
-    const handleChange = (_event: any, newValue: any) => {
-        setValue(newValue);
+    const [filteredHotels, setFilteredHotels] = useState<HotelSummary[]>([]);
+    const onPriceChange = (_event: any, newValue: any) => {
+        setPriceRange(newValue);
     };
-    const urlParams = new URLSearchParams(window.location.search);
-    const location = urlParams.get('location');
-    console.log(location); // Kết quả: Giá trị của location trong URL hiện tại
 
     const navigate = useNavigate();
     const locations = useLocation();
-
-
-    const handleCheckboxChange = (event: any) => {
-      const { name, checked } = event.target;
-      setCheckboxValues((prevValues) => ({
-        ...prevValues,
-        [name]: checked,
-      }));
-    };
 
     const handleLinktoHotelDetailPage = (hotelName: string) => {
         const searchParams = new URLSearchParams(locations.search);
@@ -52,330 +73,183 @@ const HotelSearchPage: React.FC = () => {
 
         const url = `/hotel-detail/${hotelName}?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&guestCount=${numGuest}&roomCount=${numRoom}`;
         navigate(url);
-
     }
 
-const filterHotels = async (checkboxValues: any, value: any) => {
-  const hotelsRef = collection(db, "hotel")
-  let hotelsQuery = query(hotelsRef);
-  const [min, max] = value;
-  hotelsQuery = query(hotelsQuery, where("location", "==", location));
+    const fetchFromDatasource = async (checkboxValues: HotelAmenityCheckboxes, price: PriceRange, clickedStars: StarRatings) => {
+        const filter: BackendQueryFilter = { amenities: [], minPrice: price[0], maxPrice: price[1] };
 
+        // Check the checkbox values and add the appropriate filter
+        /**
+         * TODO:
+         * 1. Dich vu dua don san bay
+         * 2. Dieu hoa
+         * 3. Bon tam nuoc nong
+         * 4. Gym
+         * 5. Spa
+         */
+        if (checkboxValues.pool) {
+            filter.amenities?.push(FilterableAmenity.POOL);
+        }
+        if (checkboxValues.breakfast) {
+            filter.amenities?.push(FilterableAmenity.BREAKFAST);
+        }
+        if (checkboxValues.internet) {
+            filter.amenities?.push(FilterableAmenity.INTERNET);
+        }
+        if (checkboxValues.checkbox4) {
+            // TODO Bon tam nuoc nong
+        }
+        if (checkboxValues.checkbox8) {
+            // TODO Gym
+        }
+        if (checkboxValues.checkbox5) {
+            // TODO Spa
+        }
+        if (checkboxValues.parking) {
+            filter.amenities?.push(FilterableAmenity.PARKING);
+        }
+        if (checkboxValues.checkbox7) {
+            // TODO Ocean view
+        }
 
-  // Check the checkbox values and add the appropriate filter
-  if (checkboxValues.checkbox1) {
-    hotelsQuery = query(hotelsQuery, where("ho_boi", "==", true));
-  } else {
-    hotelsQuery = query(hotelsQuery, where("ho_boi", "==", false));
-  }
-  if (checkboxValues.checkbox2) {
-    hotelsQuery = query(hotelsQuery, where("dich_vu_dua_don_san_bay", "==", true));
-  } else {
-    hotelsQuery = query(hotelsQuery, where("dich_vu_dua_don_san_bay", "==", false));
-  }
-  if (checkboxValues.checkbox3) {
-    hotelsQuery = query(hotelsQuery, where("may_dieu_hoa", "==", true));
-  } else {
-    hotelsQuery = query(hotelsQuery, where("may_dieu_hoa", "==", false));
-  }
-  if (checkboxValues.checkbox4) {
-    hotelsQuery = query(hotelsQuery, where("bon_tam_nuoc_nong", "==", true));
-  } else {
-    hotelsQuery = query(hotelsQuery, where("bon_tam_nuoc_nong", "==", false));
-  }
-  if (checkboxValues.checkbox8) {
-    hotelsQuery = query(hotelsQuery, where("gym", "==", true));
-  } else {
-    hotelsQuery = query(hotelsQuery, where("gym", "==", false));
-  }
-  if (checkboxValues.checkbox5) {
-    hotelsQuery = query(hotelsQuery, where("spa", "==", true));
-  } else {
-    hotelsQuery = query(hotelsQuery, where("spa", "==", false));
-  }
-  if (checkboxValues.checkbox6) {
-    hotelsQuery = query(hotelsQuery, where("dau_xe", "==", true));
-  } else {
-    hotelsQuery = query(hotelsQuery, where("dau_xe", "==", false));
-  }
-  if (checkboxValues.checkbox7) {
-    hotelsQuery = query(hotelsQuery, where("quang_canh_bien", "==", true));
-  } else {
-    hotelsQuery = query(hotelsQuery, where("quang_canh_bien", "==", false));
-  }
+        // Add the price range filter
+        // TODO Backend does not support rating yet, random if you like
+        if (selectedMinRating === 1) {
+            // No rating requirement
+        } else if (selectedMinRating === 2) {
+            // Rating >= 9
+        } else if (selectedMinRating === 3) {
+            // Rating >= 8.5
+        } else if (selectedMinRating === 4) {
+            // Rating >= 7
+        }
 
-  // Add the price range filter
-  if (rankValue === 1) {
-  hotelsQuery = query(hotelsQuery, where("rating", ">=", 0));
-} else if (rankValue === 2) {
-  hotelsQuery = query(hotelsQuery, where("rating", ">=", 9));
-} else if (rankValue === 3) {
-  hotelsQuery = query(hotelsQuery, where("rating", ">=", 8));
-} else if (rankValue === 4) {
-  hotelsQuery = query(hotelsQuery, where("rating", ">=", 7));
-}   
+        // TODO support discount price
 
- 
+        if (clickedStars.length != 0) {
+            filter.stars = clickedStars;
+        }
 
-// Execute the query and retrieve the hotels
-  const querySnapshot = await getDocs(hotelsQuery);
-  const hotels = querySnapshot.docs.map((doc) => doc.data());
+        console.log(filter);
 
-  // Filter the hotels based on discountPrice range
-  const filteredHotels = hotels.filter((hotel) => {
-    return hotel.discountPrice >= min && hotel.discountPrice <= max;
-  });
+        // Return the filtered hotels
+        return filterHotels(filter);
+    };
 
-  // Return the filtered hotels
-  return filteredHotels;
-};
-    const handleFilterHotels = async () => {
-    // Call the filterHotels function with the current checkbox and value states
-    const filteredHotels = await filterHotels(checkboxValues, value);
+    const starClicked = (star: number) => {
+        const pos = clickedStars.indexOf(star);
+        if (pos == -1) {
+            setClickedStars([...clickedStars, star]);
+        } else {
+            clickedStars.splice(pos, 1);
+            setClickedStars(clickedStars);
+        }
+    }
 
-    // Log the filtered hotels to the console
-    console.log(filteredHotels);
+    const amenityClicked = (event: ChangeEvent<HTMLInputElement>, amenityName: string) => {
+        setAmenitiesCheckboxes(prev => ({
+            ...prev,
+            [amenityName]: event.target.checked
+        }))
+    };
 
-    return filteredHotels;
-  };
+    const updateUIBasedOnFilter = async () => {
+        const filteredHotels = await fetchFromDatasource(amenities, price, clickedStars);
+        setFilteredHotels(filteredHotels);
+    };
 
     useEffect(() => {
-        const fetchFilteredHotels = async () => {
-        const filteredHotels = await filterHotels(checkboxValues, value);
-        setFilteredHotels(filteredHotels);
-        };
-
-        fetchFilteredHotels();
-    }, [checkboxValues, value]);
-        
+        updateUIBasedOnFilter();
+    }, [amenities, price, clickedStars]);
 
 
-    function valuetext(value: any) {
-        return `${value}đ`;
+    const priceSliderLabel = (value: number) => {
+        if (value === 20_000_000) {
+            return '20.000.000+';
+        }
+        return value.toLocaleString('vi-VN');
     }
+
 
     return (
         <>
             <Header />
             <div className="hotel-search-content">
                 <div className="sidebar-filter-wrapper">
+                    <input type="text"
+                        name="search-anything"
+                        defaultValue=""
+                        placeholder="Where do you want to go?"
+                        className="search-anything-text" />
                     <div className="price-filter">
-                        <h3>Giá mỗi đêm</h3>
+                        <h3>Price per night</h3>
                         <Slider
-                            getAriaLabel={() => "price range"}
-                            value={value}
+                            value={price}
                             min={0}
-                            max={30000000}
+                            max={20_000_000}
                             step={1000}
-                            onChange={handleChange}
+                            onChange={onPriceChange}
                             valueLabelDisplay="auto"
-                            getAriaValueText={valuetext}
+                            valueLabelFormat={priceSliderLabel}
+
                         />
                     </div>
                     <div className="rank-filter">
-                        <h3>Xếp hạng của khách</h3>
-                        <label htmlFor="radio1">
-                            <input
-                                type="radio"
-                                name="radio1"
-                                id="radio1"
-                                checked={rankValue === 1}
-                                onChange={() => setRankValue(1)}
-                            />
-                            Bất kỳ
-                        </label>
-                        <label htmlFor="radio2">
-                            <input
-                                type="radio"
-                                name="radio2"
-                                id="radio2"
-                                checked={rankValue === 2}
-                                onChange={() => setRankValue(2)}
-                            />
-                            Tuyệt vời 9+
-                        </label>
-                        <label htmlFor="radio3">
-                            <input
-                                type="radio"
-                                name="radio3"
-                                id="radio3"
-                                checked={rankValue === 3}
-                                onChange={() => setRankValue(3)}
-                            />
-                            Rất tốt 8+
-                        </label>
-                        <label htmlFor="radio4">
-                            <input
-                                type="radio"
-                                name="radio4"
-                                id="radio4"
-                                checked={rankValue === 4}
-                                onChange={() => setRankValue(4)}
-                            />
-                            Tốt 7+
-                        </label>
+                        <h3>Users' rating</h3>
+                        {Object.keys(ratingKeys)
+                            .map((description) =>
+                                <GuestReviewToggle
+                                    isChecked={() => selectedMinRating === ratingKeys[description]}
+                                    setCurrentRatingCallback={setMinRating}
+                                    componentRating={ratingKeys[description]}
+                                    description={description} />
+
+                            )}
                     </div>
                     <div className="star-filter">
-                        <h3>Xếp hạng sao</h3>
-                        <input type="checkbox" id="one-star" />
-                        <input type="checkbox" id="two-stars" />
-                        <input type="checkbox" id="three-stars" />
-                        <input type="checkbox" id="four-stars" />
-                        <input type="checkbox" id="five-stars" />
-                        <div style={{ display: "flex", flexWrap: "wrap" }}>
-                            <label
-                                htmlFor="one-star"
-                                className="option-one-star"
-                            >
-                                1<IoStar />
-                            </label>
-                            <label
-                                htmlFor="two-stars"
-                                className="option-two-stars"
-                            >
-                                2<IoStar />
-                            </label>
-                            <label
-                                htmlFor="three-stars"
-                                className="option-three-stars"
-                            >
-                                3<IoStar />
-                            </label>
-                            <label
-                                htmlFor="four-stars"
-                                className="option-four-stars"
-                            >
-                                4<IoStar />
-                            </label>
-                            <label
-                                htmlFor="five-stars"
-                                className="option-five-stars"
-                            >
-                                5<IoStar />
-                            </label>
+                        <h3>Star rating</h3>
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 6px" }}>
+                            {[1, 2, 3, 4, 5].map(star =>
+                                <StarRatingCheckbox
+                                    inputId={star + '-star'}
+                                    star={star}
+                                    onClickHandler={(star: number) => starClicked(star)} />)}
                         </div>
                     </div>
                     <div className="service-filter">
-                        <h3>Tiện nghi dịch vụ</h3>
-                        <label htmlFor="checkbox1">
-                            <input
-                                type="checkbox"
-                                name="checkbox1"
-                                id="checkbox1"
-                                checked={checkboxValues.checkbox1}
-                                onChange={handleCheckboxChange}
-                            />
-                            Hồ bơi
-                        </label>
-                        <label htmlFor="checkbox2">
-                            <input
-                                type="checkbox"
-                                name="checkbox2"
-                                id="checkbox2"
-                                checked={checkboxValues.checkbox2}
-                                onChange={handleCheckboxChange}
-                            />
-                            Bao gồm dịch vụ đưa đón sân bay
-                        </label>
-                        <label htmlFor="checkbox3">
-                            <input
-                                type="checkbox"
-                                name="checkbox3"
-                                id="checkbox3"
-                                checked={checkboxValues.checkbox3}
-                                onChange={handleCheckboxChange}
-                            />
-                            Máy điều hòa
-                        </label>
-                        <label htmlFor="checkbox4">
-                            <input
-                                type="checkbox"
-                                name="checkbox4"
-                                id="checkbox4"
-                                checked={checkboxValues.checkbox4}
-                                onChange={handleCheckboxChange}
-                            />
-                            Bồn tắm nước nóng
-                        </label>
-                        <label htmlFor="checkbox5">
-                            <input
-                                type="checkbox"
-                                name="checkbox5"
-                                id="checkbox5"
-                                checked={checkboxValues.checkbox5}
-                                onChange={handleCheckboxChange}
-                            />
-                            Spa
-                        </label>
-                        <label htmlFor="checkbox6">
-                            <input
-                                type="checkbox"
-                                name="checkbox6"
-                                id="checkbox6"
-                                checked={checkboxValues.checkbox6}
-                                onChange={handleCheckboxChange}
-                            />
-                            Đậu xe
-                        </label>
-                        <label htmlFor="checkbox7">
-                            <input
-                                type="checkbox"
-                                name="checkbox7"
-                                id="checkbox7"
-                                checked={checkboxValues.checkbox7}
-                                onChange={handleCheckboxChange}
-                            />
-                            Quang cảnh biển
-                        </label>
-                        <label htmlFor="checkbox8">
-                            <input
-                                type="checkbox"
-                                name="checkbox8"
-                                id="checkbox8"
-                                checked={checkboxValues.checkbox8}
-                                onChange={handleCheckboxChange}
-                            />
-                            Gym
-                        </label>
-                        <button onClick={handleFilterHotels}>Filter Hotels</button>
+                        <h3>Amenities</h3>
+                        {Object.keys(amenityKeys).map(identity =>
+                            <AmenityCheckbox identity={identity}
+                                onChangeHandler={amenityClicked}
+                                description={amenityKeys[identity]} />
+                        )}
+                        <button onClick={() => updateUIBasedOnFilter()}>Filter Hotels</button>
                     </div>
                 </div>
                 <div className="list-hotel-wrapper">
-                    <div className="sort-hotel">
-                        <span>Sắp xếp theo</span>
-                        <select name="sort-hotel" id="sort-hotel">
-                            <option value="none" selected disabled hidden>
-                                Đề xuất
-                            </option>
-                            <option value="price:low-to-high">
-                                Giá: Thấp đến cao
-                            </option>
-                            <option value="price:high-to-low">
-                                Giá: Cao đến thấp
-                            </option>
-                            <option value="star-rank">Xếp hạng sao</option>
-                        </select>
-                    </div>
-                    {filteredHotels.map((hotel: any, index: any) => (
+                    {<SortHotelSelectbox onChangeHandler={(event) => console.log(`Selectbox changed to ${event.target.value}`)} />}
+                    {filteredHotels.map((hotel: HotelSummary, index: any) => (
                         <div className="item-hotel" key={index}>
-                        <div className="img-hotel">
-                            <img src={ImgHotel1} alt="Ảnh khách sạn" />
-                        </div>
-                        <div onClick={() => handleLinktoHotelDetailPage(hotel.name)} className="hotel-info">
-                            <div className="hotel-name">{hotel.name}</div>
-                            <div className="hotel-address">{hotel.address}</div>
-                            <div className="hotel-price">
-                            <div className="sale-percent">Giảm 50%</div>
-                            <div className="price-hotel">
-                                <div className="price-bricks">{hotel.originalPrice}đ</div>
-                                <div className="price">{hotel.discountPrice}đ</div>
+                            <div className="img-hotel">
+                                <img src={ImgHotel1} alt="hotel image" />
                             </div>
-                            <div className="price-total">Tổng {hotel.totalPrice}đ</div>
+                            <div onClick={() => handleLinktoHotelDetailPage(hotel.name)} className="hotel-info">
+                                <div className="hotel-name">{hotel.name}</div>
+                                <div className="hotel-address">{hotel.description}</div>
+                                <div className="hotel-price">
+                                    <div className="sale-percent">
+                                        {(hotel.minimalCost.amount / hotel.minimalCost.amount - 1) * 100 + '% off'}
+                                    </div>
+                                    <div className="price-hotel">
+                                        <div className="price-bricks">{hotel.minimalCost.amount.toLocaleString('vi-VN')} đ</div>
+                                        <div className="price">{hotel.minimalCost.amount.toLocaleString('vi-VN')} đ</div>
+                                    </div>
+                                    <div className="price-total">Tổng {hotel.minimalCost.amount.toLocaleString('vi-VN')} đ</div>
+                                </div>
+                                <div className="hotel-evaluate">
+                                    <strong>{(Math.random() * 5 + 5).toFixed(1)}</strong>/10
+                                </div>
                             </div>
-                            <div className="hotel-evaluate">
-                            <strong>{hotel.rating}</strong>/10 Tốt
-                            </div>
-                        </div>
                         </div>
                     ))}
                 </div>

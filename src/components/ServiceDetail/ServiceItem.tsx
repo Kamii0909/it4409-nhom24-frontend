@@ -7,13 +7,13 @@ const ServiceItem: React.FC = () => {
         <div className="service-info-item">
             <div><FontAwesomeIcon className="service-info-icon" icon={faUtensils} /></div>
             <div>
-                <h3>Ăn uống</h3>
+                <h3>Food and drink</h3>
                 <ul>
-                    <li>Bữa sáng buffet (áp dụng phụ phí) vào mỗi buổi sáng từ 6:00 - 10:00</li>
-                    <li>Nhà hàng</li>
-                    <li>Quán cà phê</li>
-                    <li>Phục vụ cà phê/trà tại khu vực chung</li>
-                    <li>Dịch vụ phòng (có giới hạn thời gian)</li>
+                    <li>Buffet breakfast (surcharge) each morning 6:30 AM-10:00 AM</li>
+                    <li>Restaurant</li>
+                    <li>Coffee shop</li>
+                    <li>Coffee/tea in a common area</li>
+                    <li>Room service (limited hours)</li>
                 </ul>
             </div>
         </div>

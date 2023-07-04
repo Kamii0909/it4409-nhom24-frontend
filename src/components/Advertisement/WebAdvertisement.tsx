@@ -8,27 +8,27 @@ const WebAdvertisement: React.FC = () => {
     return (
     <>
         <div className="web-advertisement">
-            <h2>Hotels.com cung cấp trải nghiệm dễ dàng và nhiều lợi ích, mọi lúc, mọi nơi</h2>
+            <h2>Hotels.com makes it easy and rewarding. Always</h2>
             <div className="web-adv-container">
                 <div className="adv-item">
                     <div className="adv-icon"><img src={loyalty} style={{width: '48px'}} alt="Loyalty Icon" /></div>
                     <div className="adv-info">
-                        <h4>Nhận thưởng theo cách của bạn</h4>
-                        <p>Lưu trú bất cứ nơi đâu, bất cứ khi nào bạn muốn và nhận thưởng</p>
+                        <h4>Reward yourself your way</h4>
+                        <p>Stay where you want, when you want, and get rewarded</p>
                     </div>
                 </div>
                 <div className="adv-item">
                     <div className="adv-icon"><img src={mod} style={{width: '48px'}} alt="Tag Icon" /></div>
                     <div className="adv-info">
-                        <h4>Nhận ưu đãi ngay</h4>
-                        <p>Tiết kiệm trung bình % tại hàng ngàn khách sạn với Giá thành viên</p>
+                        <h4>Unlock instant savings</h4>
+                        <p>Save an average of % on thousands of hotels with Member Prices</p>
                     </div>
                 </div>
                 <div className="adv-item">
                     <div className="adv-icon"><FontAwesomeIcon className="adv-fontawesome-icon" icon={faCalendarDay} /></div>
                     <div className="adv-info">
-                        <h4>Hủy miễn phí</h4>
-                        <p>Đặt phòng linh động ở hầu hết khách sạn*</p>
+                        <h4>Free cancellation</h4>
+                        <p>Flexible bookings on most hotels*</p>
                     </div>
                 </div>
             </div>

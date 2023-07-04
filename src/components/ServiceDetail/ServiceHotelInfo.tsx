@@ -5,7 +5,7 @@ const ServiceHotelInfo: React.FC = () => {
     return (
         <div className="service-info">
             <div className="title-info">
-                <h2>Tiện nghi, dịch vụ nơi lưu trú</h2>
+                <h2>Property amenities</h2>
             </div>
             <div className="content-info grid-location-service">
                 <ServiceItem />

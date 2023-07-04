@@ -34,8 +34,8 @@ const HotelItem = (props: HotelItemProps) => {
                 <div className="description">{props.desc}</div>
                 {props.comment && (
                     <div className="comment">
-                        <strong>{props.point}/10</strong> Tuyệt vời! (
-                        {props.numberOfComments} nhận xét)
+                        <strong>{props.point}/10</strong> (
+                        {props.numberOfComments} reviews)
                     </div>
                 )}
             </div>

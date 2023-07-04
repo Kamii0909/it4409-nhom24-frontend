@@ -110,7 +110,7 @@ const RoomCheckForm: React.FC = () => {
         <div className="check-room">
             <div className="select-date select-date-check-room">
                 <div className="select-date-box">
-                    Ngày Check-in:
+                    Check-in Date:
                     <input 
                         type="date" 
                         placeholder="Ngày Check-in"
@@ -120,7 +120,7 @@ const RoomCheckForm: React.FC = () => {
                     />
                 </div>
                 <div className="select-date-box">
-                    Ngày Check-out:
+                    Check-out Date:
                     <input 
                         type="date" 
                         placeholder="Ngày Check-out"
@@ -132,7 +132,7 @@ const RoomCheckForm: React.FC = () => {
             </div>
             <div className="select-num-room-cus-check-room">
                 <div className="input-number">
-                    Số khách: 
+                    Num of Travellers: 
                     <div className="btn-quantity btn-quantity-check-room">
                         <button type="button" onClick={handleGuestDecrement}>-</button>
                         <span>{numberOfGuests}</span>
@@ -140,7 +140,7 @@ const RoomCheckForm: React.FC = () => {
                     </div>
                 </div>
                 <div className="input-number">
-                    Số phòng: 
+                    Num of Rooms: 
                     <div className="btn-quantity btn-quantity-check-room">
                         <button type="button" onClick={handleRoomDecrement}>-</button>
                         <span>{numberOfRooms}</span>
@@ -148,7 +148,7 @@ const RoomCheckForm: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div><button className="btn-submit-check-room" type="submit">Kiểm tra phòng trống</button></div>
+            <div><button className="btn-submit-check-room" type="submit">Check availability</button></div>
         </div>
     </form>
     </>

@@ -126,7 +126,7 @@ const HotelSearchForm: React.FC<SearchFormProps> = ({ onSubmit }) => {
                 <div className="select-location">
                     <div className="header">
                         <FontAwesomeIcon className="location-icon" icon={faLocationDot} />
-                        <h3 style={{display: 'inline'}}>Điểm đến</h3>
+                        <h3 style={{display: 'inline'}}>Going to</h3>
                     </div>
                     <div className="input-location">
                         <input 
@@ -139,7 +139,7 @@ const HotelSearchForm: React.FC<SearchFormProps> = ({ onSubmit }) => {
                 </div>
                 <div className="select-date">
                     <div className="select-date-box">
-                        Ngày Check-in:
+                        Check-in date:
                         <input 
                             type="date" 
                             placeholder="Ngày Check-in"
@@ -149,7 +149,7 @@ const HotelSearchForm: React.FC<SearchFormProps> = ({ onSubmit }) => {
                         />
                     </div>
                     <div className="select-date-box">
-                        Ngày Check-out:
+                        Check-out date:
                         <input 
                             type="date" 
                             placeholder="Ngày Check-out"
@@ -161,7 +161,7 @@ const HotelSearchForm: React.FC<SearchFormProps> = ({ onSubmit }) => {
                 </div>
                 <div className="select-num-room-cus">
                     <div className="input-number">
-                        Số khách: 
+                        Number of travellers: 
                         <div className="btn-quantity">
                             <button type="button" onClick={handleGuestDecrement}>-</button>
                             <span>{numberOfGuests}</span>
@@ -169,7 +169,7 @@ const HotelSearchForm: React.FC<SearchFormProps> = ({ onSubmit }) => {
                         </div>
                     </div>
                     <div className="input-number">
-                        Số phòng: 
+                        Number of rooms: 
                         <div className="btn-quantity">
                             <button type="button" onClick={handleRoomDecrement}>-</button>
                             <span>{numberOfRooms}</span>
@@ -179,8 +179,8 @@ const HotelSearchForm: React.FC<SearchFormProps> = ({ onSubmit }) => {
                 </div>
                 <button className="btn-submit" type="submit">Tìm</button>
             </div>
-            {showLocationError && <div className="error-message"><p>Vui lòng chọn một điểm đến</p></div>}
-            {showDateError && <div className="error-message"><p>Vui lòng chọn ngày check-in và ngày check-out</p></div>}
+            {showLocationError && <div className="error-message"><p>Please select a destination</p></div>}
+            {showDateError && <div className="error-message"><p>Please select check-in date & check-out date</p></div>}
         </form>
         </>
     );

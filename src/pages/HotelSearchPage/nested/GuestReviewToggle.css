@@ -1,0 +1,33 @@
+.rating-radio-button {
+    appearance: none;
+
+    /* For a circular appearance we need a border-radius. */
+    border-radius: 50%;
+
+    /* The background will be the radio dot's color. */
+    background: white;
+
+    /* The border will be the spacing between the dot and the outer circle */
+    border: 2px solid #FFF;
+
+    /* And by creating a box-shadow with no offset and no blur, we have an outer circle */
+    box-shadow: 0 0 0 2px #125CA5;
+
+    width: 14px;
+    height: 14px;
+    background-clip: content-box;
+    padding: 1px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.rating-radio-button:checked {
+    background-color: #125CA5;
+}
+
+.rating-radio-button-label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+}

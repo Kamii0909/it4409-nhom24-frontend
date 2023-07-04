@@ -9,8 +9,8 @@ const Header: React.FC = () => {
                 <Link to="/"><img src={logo} alt="Logo hotels"></img></Link>
             </div>
             <div className="support-account">
-                <Link to="/" className="link">Hỗ trợ</Link>
-                <Link to="/login" className="link">Đăng nhập</Link>
+                <Link to="/" className="link">Support</Link>
+                <Link to="/login" className="link">Sign in</Link>
             </div>
         </div>
     );

@@ -49,7 +49,7 @@ const BookingPage: React.FC = () => {
         const value = e.target.value;
         const regex = /^[a-zA-Z._()' -]*$/;
         if (!regex.test(value)) {
-            setErrorFirstNameStep1("Vui lòng nhập họ chỉ gồm chữ cái không dấu, dấu gạch nối, dấu gạch dưới, dấu chấm, dấu ngoặc, dấu ngoặc đơn và khoảng trắng.");
+            setErrorFirstNameStep1("Please enter a first name that contains only letters, underscores, hyphens, full stops, brackets, apostrophes, and spaces.");
         } else setErrorFirstNameStep1("");
         setFirstNameStep1(value);
     }
@@ -58,7 +58,7 @@ const BookingPage: React.FC = () => {
         const value = e.target.value;
         const regex = /^[a-zA-Z._()' -]*$/;
         if (!regex.test(value)) {
-            setErrorFirstNameStep2("Vui lòng nhập họ chỉ gồm chữ cái không dấu, dấu gạch nối, dấu gạch dưới, dấu chấm, dấu ngoặc, dấu ngoặc đơn và khoảng trắng.");
+            setErrorFirstNameStep2("Please enter a first name that contains only letters, underscores, hyphens, full stops, brackets, apostrophes, and spaces.");
         } else setErrorFirstNameStep2("");
         setFirstNameStep2(value);
     }
@@ -67,7 +67,7 @@ const BookingPage: React.FC = () => {
         const value = e.target.value;
         const regex = /^[a-zA-Z._()' -]*$/;
         if (!regex.test(value)) {
-            setErrorLastNameStep1("Vui lòng nhập tên chỉ gồm chữ cái không dấu, dấu gạch nối, dấu gạch dưới, dấu chấm, dấu ngoặc, dấu ngoặc đơn và khoảng trắng.");
+            setErrorLastNameStep1("Please enter a surname that contains only letters, underscores, hyphens, full stops, brackets, apostrophes, and spaces.");
         } else setErrorLastNameStep1("");
         setLastNameStep1(value);
     }
@@ -76,7 +76,7 @@ const BookingPage: React.FC = () => {
         const value = e.target.value;
         const regex = /^[a-zA-Z._()' -]*$/;
         if (!regex.test(value)) {
-            setErrorLastNameStep2("Vui lòng nhập tên chỉ gồm chữ cái không dấu, dấu gạch nối, dấu gạch dưới, dấu chấm, dấu ngoặc, dấu ngoặc đơn và khoảng trắng.");
+            setErrorLastNameStep2("Please enter a surname that contains only letters, underscores, hyphens, full stops, brackets, apostrophes, and spaces.");
         } else setErrorLastNameStep2("");
         setLastNameStep2(value);
     }
@@ -90,7 +90,7 @@ const BookingPage: React.FC = () => {
         const value = e.target.value;
         const emailRegex = /^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,6}$/;
         if (!emailRegex.test(value)) {
-            setErrorEmail("Vui lòng nhập địa chỉ email hợp lệ, ngoài ra chỉ chứa chữ cái không dấu, số, cần dấu chấm và ký hiệu @")
+            setErrorEmail("Please enter a value email, that contains letters, numbers, include dot and @ symbol")
         } else {
             setErrorEmail("");
         }
@@ -100,7 +100,7 @@ const BookingPage: React.FC = () => {
     const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         if (/[a-zA-Z]/.test(value)) {
-            setErrorPhoneNumber("Xóa mọi chữ cái khỏi số điện thoại của bạn");
+            setErrorPhoneNumber("Please remove any letters from your mobile number.");
         } else setErrorPhoneNumber("");
         setPhoneNumber(value);
     }
@@ -155,7 +155,7 @@ const BookingPage: React.FC = () => {
         const monthInput = parseInt(expireDate.month, 10);
         const yearInput = parseInt(expireDate.year, 10);
         if (yearInput < thisYear || yearInput > thisYear + 20 || (yearInput === thisYear && monthInput < thisDate.getMonth() + 1)) {
-            setErrorExpireDate("Năm hết hạn không hợp lệ hoặc thẻ của bạn đã hết hạn")
+            setErrorExpireDate("Enter a valid number to represent the month and year of the expiry date or Your card seems to be expired.")
         } else setErrorExpireDate("");
     }
 
@@ -169,7 +169,7 @@ const BookingPage: React.FC = () => {
 
     const handleNotEnoughNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
-        if (value && value.length < 3) setErrorSecurityCode("Vui lòng nhập đúng mã bảo mật thẻ gồm 3 chữ số.")
+        if (value && value.length < 3) setErrorSecurityCode("Please re-enter your three-digit card security code.")
         else setErrorSecurityCode("");
     }
 
@@ -178,72 +178,72 @@ const BookingPage: React.FC = () => {
         let count = 0;
 
         if (!firstNameStep1) {
-            setErrorFirstNameStep1("Vui lòng nhập họ của bạn");
+            setErrorFirstNameStep1("Please enter your first name.");
             count++;
         } else if (errorFirstNameStep1) {
             count++; 
         } else setErrorFirstNameStep1("");
 
         if (!lastNameStep1) {
-            setErrorLastNameStep1("Vui lòng nhập tên của bạn");
+            setErrorLastNameStep1("Please enter your surname.");
             count++;
         } else if (errorLastNameStep1) {
             count++; 
         } else setErrorLastNameStep1("");
 
         if (!email) {
-            setErrorEmail("Vui lòng nhập địa chỉ email của bạn");
+            setErrorEmail("Please enter your email.");
             count++;
         } else if (email.length < 5) {
-            setErrorEmail("Vui lòng nhập địa chỉ email chứa ít nhất 5 ký tự")
+            setErrorEmail("Please enter an email address that contains at least five characters.")
             count++; 
         } else if (errorEmail) {
             count++
         } else setErrorEmail("");
 
         if (!phoneNumber) {
-            setErrorPhoneNumber("Vui lòng nhập số điện thoại của bạn");
+            setErrorPhoneNumber("Please enter your mobile number.");
             count++;
-        } else if (phoneNumber.length < 5) {
-            setErrorPhoneNumber("Vui lòng nhập số điện thoại chứa ít nhất 5 chữ số")
+        } else if (phoneNumber.length < 6) {
+            setErrorPhoneNumber("Please enter a mobile number that contains at least six digits.")
             count++; 
         } else if (errorPhoneNumber) {
             count++
         } else setErrorPhoneNumber("");
 
         if (!firstNameStep2) {
-            setErrorFirstNameStep2("Vui lòng nhập họ của bạn");
+            setErrorFirstNameStep2("Please enter your first name.");
             count++;
         } else if (errorFirstNameStep2) {
             count++; 
         } else setErrorFirstNameStep2("");
 
         if (!lastNameStep2) {
-            setErrorLastNameStep2("Vui lòng nhập tên của bạn");
+            setErrorLastNameStep2("Please enter your surname.");
             count++;
         } else if (errorLastNameStep2) {
             count++; 
         } else setErrorLastNameStep2("");
 
         if (!typeCard) {
-            setErrorTypeCard("Vui lòng chọn loại thẻ");
+            setErrorTypeCard("Please select your card type.");
             count++;
         } else setErrorTypeCard("");
 
         if (!numberCard) {
-            setErrorNumberCard("Vui lòng nhập số thẻ của bạn");
+            setErrorNumberCard("Please enter your card number.");
             count++;
         } else setErrorNumberCard("");
 
         if (!expireDate.month || !expireDate.year) {
-            setErrorExpireDate("Vui lòng nhập tháng và năm hết hạn thẻ của bạn");
+            setErrorExpireDate("Please enter the expired month and the expired year.");
             count++;
         } else if (errorExprireDate) {
             count++;
         } else setErrorExpireDate("");
 
         if (!securityCode) {
-            setErrorSecurityCode("Vui lòng nhập mã số bảo mật thẻ của bạn");
+            setErrorSecurityCode("Please enter the security code.");
             count++;
         } else if (errorSecurityCode) {
             count++;
@@ -267,25 +267,23 @@ const BookingPage: React.FC = () => {
                         <div className="contact-details">
                             <div className="contact-details-header">
                                 <FontAwesomeIcon className="icon" icon={faUser} />
-                                <span>Bước 1: Thông tin về bạn</span>
+                                <span>Step 1: Your details</span>
                             </div>
                             <div className="contact-details-body">
                                 <p className="identification-warning">
-                                    Vui lòng cho chúng tôi biết tên khách sẽ lưu trú tại phòng này chính xác 
-                                    như trên giấy tờ tùy thân sẽ sử dụng khi nhận phòng. 
-                                    Vui lòng nhập đầy đủ nếu khách mang họ kép (như Nguyễn Phước, Tôn Nữ, v.v.).
+                                    Please tell us the name of the guest staying at the hotel as it appears on the ID that they'll present at check-in. If the guest has more than one last name, please enter them all.
                                 </p>
                                 <div className="required-field-label">
                                     <span className="span-require">*</span>
-                                    <span className="span-note">Trường bắt buộc</span>
+                                    <span className="span-note">required fields</span>
                                 </div>
                                 <form onSubmit={handleSubmit} id="booking-form">
                                     <div className="field-container">
                                         <label>
-                                            <span className="field-name">Họ</span>
+                                            <span className="field-name">First name</span>
                                             <span className="span-require">*</span>
                                             <br/>
-                                            <span className="note">Vui lòng cho biết tên của một trong những khách sẽ ở phòng này</span>
+                                            <span className="note">Please give us the name of one of the people staying in this room.</span>
                                         </label>
                                         <br/>
                                         <input
@@ -300,7 +298,7 @@ const BookingPage: React.FC = () => {
                                     </div>
                                     <div className="field-container">
                                         <label>
-                                            <span className="field-name">Tên</span>
+                                            <span className="field-name">Last name</span>
                                             <span className="span-require">*</span>
                                             <br/>
                                         </label>
@@ -316,10 +314,10 @@ const BookingPage: React.FC = () => {
                                     </div>
                                     <div className="field-container">
                                         <label>
-                                            <span className="field-name">Địa chỉ email</span>
+                                            <span className="field-name">Email address</span>
                                             <span className="span-require">*</span>
                                             <br/>
-                                            <span className="note">Địa chỉ sẽ nhận email xác nhận đặt phòng</span>
+                                            <span className="note">Your confirmation email goes here</span>
                                         </label>
                                         <br/>
                                         <input
@@ -333,10 +331,10 @@ const BookingPage: React.FC = () => {
                                     </div>
                                     <div className="field-container">
                                         <label>
-                                            <span className="field-name">Số điện thoại di động</span>
+                                            <span className="field-name">Mobile number</span>
                                             <span className="span-require">*</span>
                                             <br/>
-                                            <span className="note">Chúng tôi sẽ chỉ liên hệ trong trường hợp khẩn cấp</span>
+                                            <span className="note">We'll only contact you in an emergency</span>
                                         </label>
                                         <br/>
                                         <input
@@ -354,23 +352,23 @@ const BookingPage: React.FC = () => {
                         <div className="payment-details">
                             <div className="payment-details-header">
                                 <FontAwesomeIcon className="icon" icon={faLock} />
-                                <span>Bước 2: Chi tiết thanh toán</span>
-                                <span className="secure-payment-message">Đặt phòng an toàn</span>
+                                <span>Step 2: Payment details</span>
+                                <span className="secure-payment-message">Your booking is safe and secure</span>
                             </div>
                             <div className="payment-details-body">
                                 <div className="using-card-message">
                                     <FontAwesomeIcon className="tick-icon" icon={faCheck} />
-                                    <span>Chúng tôi <b>không bao giờ</b> thu phí sử dụng thẻ</span>
+                                    <span>We <b>never</b> charge any card fees</span>
                                 </div>
                                 <div className="required-field-label">
                                     <span className="span-require">*</span>
-                                    <span className="span-note">Trường bắt buộc</span>
+                                    <span className="span-note">require fields</span>
                                 </div>
                                 <div className="payment-details-panel">
                                     <div className="payment-details-info">
                                         <div className="field-container">
                                             <label>
-                                                <span className="field-name">Họ</span>
+                                                <span className="field-name">First name</span>
                                                 <span className="span-require">*</span>
                                                 <br/>
                                             </label>
@@ -387,7 +385,7 @@ const BookingPage: React.FC = () => {
                                         </div>
                                         <div className="field-container">
                                             <label>
-                                                <span className="field-name">Tên</span>
+                                                <span className="field-name">Last name</span>
                                                 <span className="span-require">*</span>
                                                 <br/>
                                             </label>
@@ -404,7 +402,7 @@ const BookingPage: React.FC = () => {
                                         </div>
                                         <div className="field-container">
                                             <label>
-                                                <span className="field-name">Loại thẻ</span>
+                                                <span className="field-name">Card type</span>
                                                 <span className="span-require">*</span>
                                                 <br/>
                                             </label>
@@ -413,7 +411,7 @@ const BookingPage: React.FC = () => {
                                                 value={typeCard}
                                                 onChange={handleTypeCardChange}
                                             >
-                                                <option value="">Loại thẻ</option>
+                                                <option value="">Card type</option>
                                                 <option value="jcb">JCB</option>
                                                 <option value="mastercard">Mastercard</option>
                                                 <option value="visa">Visa</option>
@@ -422,10 +420,10 @@ const BookingPage: React.FC = () => {
                                         </div>
                                         <div className="field-container">
                                             <label>
-                                                <span className="field-name">Số thẻ</span>
+                                                <span className="field-name">Card number</span>
                                                 <span className="span-require">*</span>
                                                 <br/>
-                                                <span className="note">Số thẻ thường gồm 16 chữ số</span>
+                                                <span className="note">It should be 16 digits.</span>
                                             </label>
                                             <div className="card-number">
                                                 <span className="icon-padlock">
@@ -446,7 +444,7 @@ const BookingPage: React.FC = () => {
                                         </div>
                                         <div className="field-container expire-day">
                                             <label>
-                                                <span className="field-name">Ngày hết hạn</span>
+                                                <span className="field-name">Expiry date</span>
                                                 <span className="span-require">*</span>
                                                 <br/>
                                             </label>
@@ -473,10 +471,10 @@ const BookingPage: React.FC = () => {
                                         </div>
                                         <div className="field-container">
                                             <label>
-                                                <span className="field-name">Mã số bảo mật</span>
+                                                <span className="field-name">Security code</span>
                                                 <span className="span-require">*</span>
                                                 <br/>
-                                                <span className="note">3 chữ số cuối cùng trên phần chữ ký ở mặt sau thẻ</span>
+                                                <span className="note">This is the last three digits on the signature strip on the back of your card.</span>
                                             </label>
                                             <br/>
                                             <input
@@ -493,22 +491,22 @@ const BookingPage: React.FC = () => {
                                         </div>
                                     </div>
                                     <div className="payment-details-method">
-                                        <h3>Chúng tôi nhận thanh toán bằng các hình thức sau</h3>
+                                        <h3>We accept the following payment methods</h3>
                                         <ul className="payment-method-list">
                                             <li><img src="/src/assets/images/jcb-card-icon.png" width={35} /></li>
                                             <li><img src="/src/assets/images/master-card.png" width={35} /></li>
                                             <li><img className="visa" src="/src/assets/images/visa.png" width={40} /></li>
                                         </ul>
                                         <div className="payment-details-security-assurance">
-                                            <h3>Hãy tin tưởng chúng tôi</h3>
+                                            <h3>You can count on us</h3>
                                             <ul>
                                                 <li>
                                                     <FontAwesomeIcon className="icon" icon={faCheck} />
-                                                    <span>Chúng tôi sử dụng phương thức truyền tải an toàn</span>
+                                                    <span>We use secure transmission</span>
                                                 </li>
                                                 <li>
                                                     <FontAwesomeIcon className="icon" icon={faCheck} />
-                                                    <span>Chúng tôi bảo vệ thông tin cá nhân của bạn</span>
+                                                    <span>We protect your personal information</span>
                                                 </li>
                                             </ul>
                                         </div>
@@ -518,24 +516,22 @@ const BookingPage: React.FC = () => {
                         </div>
                         <div className="final-review-section">
                             <table className="booking-details-travel">
-                                <tr><td style={{width: "100px", textAlign: "left"}}>Nhận phòng</td><td style={{textAlign: "right"}}><b>Thứ ba, ngày 27 tháng 06 năm 2023</b> (14:00)</td></tr>
-                                <tr><td style={{width: "100px", textAlign: "left"}}>Trả phòng</td><td style={{textAlign: "right"}}><b>Thứ tư, ngày 28 tháng 06 năm 2023</b> (12:00)</td></tr>
-                                <tr style={{height: "40px", textAlign: "right"}}><td colSpan={2}><span className="num">1 đêm, 1 phòng</span></td></tr>
+                                <tr><td style={{width: "100px", textAlign: "left"}}>Check-in</td><td style={{textAlign: "right"}}><b>Thursday, July 6, 2023</b> (2 PM)</td></tr>
+                                <tr><td style={{width: "100px", textAlign: "left"}}>Check-out</td><td style={{textAlign: "right"}}><b>Thursday, July 6, 2023 (2 PM)</b> (noon)</td></tr>
+                                <tr style={{height: "40px", textAlign: "right"}}><td colSpan={2}><span className="num">1 night, 1 room</span></td></tr>
                             </table>
                             <hr style={{clear: "right"}}/>
                             <div className="terms-of-booking">
-                                <h2>Điều khoản đặt phòng</h2>
+                                <h2>Terms of Booking</h2>
                                 <p>
-                                    Bằng việc bấm "Đặt phòng", bạn xác nhận đã đồng ý Điều khoản & Điều kiện, 
-                                    Chính sách bảo mật và Hướng dẫn du lịch của chính phủ của chúng tôi.
+                                    By clicking "Book", you agree you have read and accept our Terms and Conditions, Privacy Policy and Government Travel Advice
                                 </p>
                                 <p>
-                                    Chúng tôi sẽ không bao giờ bán thông tin cá nhân của bạn 
-                                    và chúng tôi sử dụng phương thức truyền tải an toàn để bảo vệ thông tin cá nhân của bạn.
+                                    We will never sell your personal information and we use secure transmission to protect your personal information.
                                 </p>
                             </div>
                             <div className="book-button-area">
-                                <button type="submit" form="booking-form">Đặt phòng</button>
+                                <button type="submit" form="booking-form">Book</button>
                             </div>
                         </div>
                     </div>
@@ -547,57 +543,57 @@ const BookingPage: React.FC = () => {
                             <div className="hotel-info">
                                 <div className="name-address">
                                     <h3>The Hanoi Club Hotel & Residences</h3>
-                                    <h4>Khách sạn 4 sao</h4>
-                                    <p>76 Yên Phụ, Tây Hồ, Hà Nội, Việt Nam</p>
+                                    <h4>4 star hotel</h4>
+                                    <p>76 Yen Phu Street,Tay Ho District, Hanoi, 10000, Vietnam</p>
                                 </div>
                                 <div className="rating-score">
                                     <div className="rating-score-icon">8,4</div>
-                                    <div className="rating-score-word">Rất tốt</div>
+                                    <div className="rating-score-word">Very good</div>
                                 </div>
                             </div>
                             <table className="travel-details">
-                                <tr><td style={{textAlign: "left", height: "60px"}}>Nhận phòng</td><td style={{textAlign: "right"}}><b>Thứ ba, ngày 27 tháng 06 năm 2023</b> (14:00)</td></tr>
-                                <tr><td style={{textAlign: "left", height: "60px"}}>Trả phòng</td><td style={{textAlign: "right"}}><b>Thứ tư, ngày 28 tháng 06 năm 2023</b> (12:00)</td></tr>
-                                <tr style={{textAlign: "right", height: "30px"}}><td colSpan={2}><span className="num">1 đêm, 1 phòng</span></td></tr>
+                                <tr><td style={{textAlign: "left", height: "60px"}}>Check-in</td><td style={{textAlign: "right"}}><b>Thursday, July 6, 2023</b> (2PM)</td></tr>
+                                <tr><td style={{textAlign: "left", height: "60px"}}>Trả phòng</td><td style={{textAlign: "right"}}><b>Friday, July 7, 2023</b> (noon)</td></tr>
+                                <tr style={{textAlign: "right", height: "30px"}}><td colSpan={2}><span className="num">1 night, 1 room</span></td></tr>
                             </table>
                         </div>
                         <div className="finance-details">
-                            <div className="room-type-name">Phòng đôi Superior, 1 giường cỡ king (City View)</div>
+                            <div className="room-type-name">Studio, 1 King Bed (City View)</div>
                             <hr />
                             <table className="price-breakdown">
                                 <tr>
-                                    <td style={{textAlign: "left", width: "70%"}}>Thứ ba, ngày 27 tháng 06 năm 2023</td>
+                                    <td style={{textAlign: "left", width: "70%"}}>Thursday, July 6, 2023</td>
                                     <td style={{textAlign: "right"}}>1.547.164 ₫</td>
                                 </tr>
                                 <tr>
-                                    <td style={{textAlign: "left", width: "70%"}}>Thuế & phí</td>
+                                    <td style={{textAlign: "left", width: "70%"}}>Taxes and fees</td>
                                     <td style={{textAlign: "right"}}>239.810 ₫</td>
                                 </tr>
                             </table>
                             <div className="total-price">
                                 <div className="promotion">
                                     <div><FontAwesomeIcon className="tag-icon" icon={faTag} /></div>
-                                    <div><b>Tiết kiệm:</b> Bạn đang tiết kiệm 31%</div>
+                                    <div><b>Saving:</b> You're saving 31%</div>
                                 </div>
                                 <hr/>
                                 <table className="details-total-price">
                                     <tr>
-                                        <td><strong>Tổng giá</strong></td>
+                                        <td><strong>Total price</strong></td>
                                         <td className="price"><strong>1.786.974 ₫</strong></td>
                                     </tr>
                                 </table>
                             </div>
                             <div className="price-increase-container">
                                 <div><FiArrowUpRight className="tag-icon" /></div>
-                                <div><strong>Giá có thể tăng nếu bạn đặt về sau.</strong></div>
+                                <div><strong>This price may increase if you book later.</strong></div>
                             </div>
                             <div className="pre-pay-notice">
-                                <p>Sẽ xác nhận đặt phòng và thu khoản thanh toán trong hôm nay.</p>
+                                <p>We'll confirm your booking and take payment today.</p>
                             </div>
                         </div>
                     </div>  
                 </div>
-                {errorForm && <div className="error-message-form">Vui lòng điền đầy đủ và hợp lệ tất cả thông tin</div>}
+                {errorForm && <div className="error-message-form">Please fill in all the fields</div>}
             </div>
             <Footer />
         </>

@@ -7,9 +7,9 @@ const Footer: React.FC = () => {
     <div className="footer">
         <TopDestinationList />
         <ul className="page-footer">
-            <li>*Một số khách sạn yêu cầu hủy hơn 24 giờ trước ngày nhận phòng. Xem thêm chi tiết trên trang.</li>
-            <li>© 2023 Hotels.com là công ty thuộc Expedia Group. Mọi quyền được bảo lưu.</li>
-            <li>Hotels.com và logo Hotels.com là thương hiệu hoặc thương hiệu đã đăng ký bảo hộ của Hotels.com, LP tại Mỹ và/hoặc các quốc gia khác. Mọi thương hiệu khác thuộc quyền sở hữu của các chủ sở hữu tương ứng.</li>
+            <li>*Some hotels require you to cancel more than 24 hours before check-in. Details on site.</li>
+            <li>© 2023 Hotels.com is an Expedia Group company. All rights reserved.</li>
+            <li>Hotels.com and the Hotels.com logo are trademarks or registered trademarks of Hotels.com, LP in the United States and/or other countries. All other trademarks are the property of their respective owners.</li>
         </ul>
     </div>
     </>

@@ -7,13 +7,13 @@ const AppAdvertisement: React.FC = () => {
             <div className="app-adv-image"><img src="/src/assets/images/advImage.jpg" alt="Advertisement Image" /></div>
             <div className="app-adv-container">
                 <div className="app-adv-content">
-                    <h3>Với app Hotels.com, bạn có thể:</h3>
+                    <h3>With the Hotels.com app, you can:</h3>
                     <ul>
-                        <li>Tiết kiệm nhiều hơn nữa, đến 20% tại một số khách sạn</li>
-                        <li>Nhận một đêm thưởng* với mỗi 10 đêm lưu trú</li>
-                        <li> Tìm, đặt phòng và tiết kiệm, mọi lúc, mọi nơi</li>
+                        <li>Save even more—up to 20% on select hotels</li>
+                        <li>Earn one reward night* for every 10 nights you stay</li>
+                        <li>Search, book, and save on the go</li>
                     </ul>
-                    <h4>Quét mã QR bằng camera trên thiết bị của bạn để tải app của chúng tôi</h4>
+                    <h4>Scan the QR code with your device camera and download our app</h4>
                 </div>
                 <div className="qr-code"><img style={{width: "160px"}} src="/src/assets/images/QRapp.webp" alt="QR Code" /></div>
             </div>
